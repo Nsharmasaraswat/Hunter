@@ -1,5 +1,0 @@
-package com.gtp.hunter.common.enums;
-
-public enum AlertType {
-	SOURCE, DEVICE, ORIGIN, PROCESS, WORKFLOW, TASK, DOCUMENT, AUTH, EXCEPTION, CONFIGURATION, INTEGRATION, WMS
-}

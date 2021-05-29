@@ -1,5 +1,0 @@
-package com.gtp.hunter.process.wf.process.activity;
-
-public enum ProcessActivityPhase {
-	POSTCONSTRUCT, PRETRANSFORM, PREPROCESS, PROCESS, INTEGRATION, SUCCESS, FAILURE, STARTUP, FINISH, UNKNOWN, TIMEOUT, NEWRUN, LOCKDOWN, REBOOT, RUNSUCCESS, LOG
-}
