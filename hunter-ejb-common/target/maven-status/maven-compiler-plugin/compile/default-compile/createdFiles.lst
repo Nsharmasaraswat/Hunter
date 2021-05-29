@@ -1,0 +1,5 @@
+com\gtp\hunter\ejbcommon\json\IntegrationReturn.class
+com\gtp\hunter\ejbcommon\util\ConfigWatcher.class
+com\gtp\hunter\ejbcommon\util\Resources.class
+com\gtp\hunter\ejbcommon\util\ConfigUtil.class
+com\gtp\hunter\ejbcommon\util\OrderedProperties.class
