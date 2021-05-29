@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="hunter-core">
+		<jta-data-source>java:/hunter2</jta-data-source>
+		<properties>
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.archive.autodetection" value="class, hbm" />
+			<property name="hibernate.cache.use_second_level_cache"	value="false" />
+			<property name="hibernate.hbm2ddl.auto" value="none" />
+			<property name="hibernate.dialect" value="org.hibernate.spatial.dialect.mysql.MySQL56SpatialDialect" />
+			<property name="hibernate.dialect.storage_engine" value="innodb" />
+			<property name="hibernate.jpa.compliance.proxy"	value="false" />
+		</properties>
+	</persistence-unit>
+</persistence>
