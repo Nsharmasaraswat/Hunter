@@ -1,0 +1,45 @@
+<h3>{{permission?.name}}</h3>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <p-dropdown [options]="products | sort: 'label'" [(ngModel)]="selProduct" filter="true" [autoDisplayFirst]="false"></p-dropdown>
+        <label for="ammount">Pallets</label>
+        <p-spinner #ammount [min]="1" [max]="100" name="ammount"></p-spinner>
+        <p-checkbox name="autoservico" [binary]="true" [(ngModel)]="expValue" label="AS: Grandes Redes" styleClass="teste-scss"></p-checkbox>
+        <button pButton type="button" icon="fa-plus" class="ui-button-success" (click)="addResupply(ammount.value)" [disabled]="selProduct === null || selProduct === undefined"></button>
+    </div>
+    <div class="ui-toolbar-group-right">
+        <button pButton type="button" label="Salvar" icon="fa-save" class="ui-button-warning" (click)="resupply()" [disabled]="resupplyList.length === 0"></button>
+    </div>
+</p-toolbar>
+<div class="ui-fluid" *ngIf="resupplyList != null && resupplyList.length > 0">
+    <h4>Lista Atual</h4>
+    <p-table #tbl [value]="resupplyList" [columns]="colsResupply" [resizableColumns]="true" columnResizeMode="expand" autoLayout="true" [responsive]="true"
+        [paginator]="resupplyList.length > 10" [rows]="10" [rowsPerPageOptions]="[5, 10, 20, 50]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of colsResupply" pResizableColumn>
+                    {{col.header}}
+                </th>
+                <th style="width: 2.25em" pResizableColumn>AÇÕES</th>
+            </tr>
+            <tr>
+                <th *ngFor="let col of colsResupply">
+                    <input pInputText type="text" (input)="tbl.filter($event.target.value, col.field, 'contains')" [size]="col.header.length + 3">
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-resupply let-i="rowIndex">
+            <tr>
+                <td class="ui-resizable-column" *ngFor="let col of colsResupply">
+                    <span *ngIf="col.type === 'DATE'">{{resupply[col.field] | date:'dd/MM/yyyy'}}</span>
+                    <span *ngIf="col.type === 'NUMBER'">{{resupply[col.field] | number: '0.0-3'}}</span>
+                    <span *ngIf="col.type !== 'DATE' && col.type !== 'NUMBER'">{{resupply[col.field]}}</span>
+                </td>
+                <td>
+                    <button pButton icon="fa-close" class="ui-button-danger" (click)="remResupply(i)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

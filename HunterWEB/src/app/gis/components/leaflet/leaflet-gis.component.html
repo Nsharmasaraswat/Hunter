@@ -1,0 +1,21 @@
+<div style="height: 95%; width: 95%;" #map
+  leaflet
+  [leafletOptions]="options"
+  leafletDraw
+  [leafletDrawOptions]="drawOptions"
+  (leafletDrawReady)="onDrawReady($event)"
+  (leafletMapReady)="onMapReady($event)">
+  <p-dialog header="Editar Referência de Área" [(visible)]="display" [responsive]="true" showEffect="fade" [modal]="true">
+    <!-- <form>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon">Ref:</span>
+            <input type="text" pInputText value={{currentLayer.ref}} #newRef/>
+            <button pButton (click)="saveNewRef(newRef.value, currentLayer._leaflet_id)"
+              type="submit" icon="fa fa-check" iconPos="left">
+            </button>
+        </div>
+    </form> -->
+  </p-dialog>
+</div>
+
+

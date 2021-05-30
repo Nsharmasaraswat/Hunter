@@ -1,0 +1,45 @@
+<div class="row map-height">
+  <div class="col-10" #map leaflet [leafletOptions]="options" (leafletMapReady)="onMapReady($event)" *ngIf="options.center != null && options.center != undefined">
+  </div>
+  <div class="col-2" style="height: 100%;">
+    <p-panel>
+      <div class="row">
+        <div class="col">
+          <span [ngClass]="('center_row ') + (heightOk ? 'dot_ok' : 'dot_nok')"></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h3>H:{{measured_height}}</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h3>F:{{measured_dist}}</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p>Ícone {{iconSize}}%</p>
+          <p-slider [(ngModel)]="iconSize" [min]="1" [max]="100" (onChange)="resize()"></p-slider>
+        </div>
+      </div>
+      <p-footer>
+        <p-button label="Finalizar" (click)="close();" [ngClass]="'center_row'"></p-button>
+      </p-footer>
+    </p-panel>
+  </div>
+</div>
+
+<p-dialog [(visible)]="displayInfo" [positionLeft]="10" [positionTop]="200" [resizable]="false">
+  <p-header>
+    {{thing?.name}}
+  </p-header>
+
+  <ng-template *ngFor="let property of thing?.properties">
+    {{property?.field?.name}} - {{property?.value}}
+  </ng-template>
+  <p-footer>
+    {{thing?.status}}
+  </p-footer>
+</p-dialog>

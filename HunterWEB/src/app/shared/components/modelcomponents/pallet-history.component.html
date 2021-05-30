@@ -1,0 +1,31 @@
+<p-table [value]="pallets" sortField="sku" sortMode="single" (onSort)="onSort()" *ngIf="pallets !== undefined" [resizableColumns]="true" [autoLayout]="true">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pResizableColumn>#</th>
+            <th pResizableColumn *ngFor="let column of columns">
+                {{column.header}}
+            </th>
+            <th pResizableColumn *ngIf="mode === 'resumed'" class="ui-resizable-column">PALETES</th>
+            <th pResizableColumn *ngIf="mode !== 'resumed'" class="ui-resizable-column">CRIAÇÃO</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pallet let-rowIndex="rowIndex">
+        <tr>
+            <td *ngIf="rowGroupMetadata[pallet.id].index === rowIndex" [attr.rowspan]="rowGroupMetadata[pallet.id].size" class="ui-resizable-column">
+                {{rowGroupMetadata[pallet.id].index + 1}}
+            </td>
+            <td class="ui-resizable-column" *ngFor="let column of columns">
+                <span *ngIf="column.type === 'DATE'">{{pallet[column.field] | date:'dd/MM/yyyy'}}</span>
+                <span *ngIf="column.type === 'TIMESTAMP'">{{pallet[column.field] | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+                <span *ngIf="column.type === 'NUMBER'">{{pallet[column.field] | number: '0.0-0'}}</span>
+                <span *ngIf="column.type !== 'TIMESTAMP' && column.type !== 'DATE' && column.type !== 'NUMBER'">{{pallet[column.field]}}</span>
+            </td>
+            <td *ngIf="mode === 'resumed'" class="ui-resizable-column">
+                {{pallet.vol}}
+            </td>
+            <td *ngIf="mode !== 'resumed'" class="ui-resizable-column">
+                {{pallet.cre | date:'dd/MM/yyyy HH:mm:ss'}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

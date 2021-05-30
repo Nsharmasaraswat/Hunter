@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_MOBILETASKS">%s                      Tarefas</string>
+    <string name="menu_MOBILERPK">%s                   Reembalagem</string>
+    <string name="menu_MOBILEDMG">%s         Apontamento de Avaria</string>
+    <string name="menu_MOBILERNC">%s Relatório de Não-Conformidade</string>
+    <string name="menu_MOBILECRE">%s              Ordem de Criação</string>
+    <string name="menu_MOBILERST">%s      Reabastecimento de Linha</string>
+    <string name="menu_MOBILEAPO">%s       Apontamento de Produção</string>
+    <string name="menu_MOBILEMTR">%s           Movimentação Manual</string>
+    <string name="menu_MOBILEREORG">%s                 Reorganização</string>
+    <string name="menu_MOBILERET">%s                    Bate-Caixa</string>
+    <string name="menu_MOBILEMOVI">%s          Movimentação Itapevi</string>
+    <string name="menu_MOBILEMOVV">%s         Movimentação Varginha</string>
+    <string name="menu_MOBILEDSTORE">%s          Armazenamento Docas</string>
+
+    <string name="mapbox_access_token" translatable="false">pk.eyJ1IjoibWF0ZXVzdG9ybWluIiwiYSI6ImNqdGE3cDdjOTAya280NG81cGF2dWk0eTIifQ.-pRx4DU2G5eZRycT6SPHKQ</string>
+
+    <string name="platform_name">hunter IoT Platform 4.0</string>
+    <string name="strUsername">Usuário</string>
+    <string name="strPassword">Senha</string>
+    <string name="strLogin">Entrar</string>
+    <string name="welcome">Technology for Business Transformation</string>
+    <string name="bt_not_enabled_leaving">Bluetooth desabilitado.</string>
+    <string name="apply">Aplicar</string>
+    <string name="add">Adicionar</string>
+    <string name="copy">Copiar</string>
+    <string name="print">Imprimir</string>
+    <string name="remove">Remover</string>
+    <string name="save">Salvar</string>
+    <string name="send">Enviar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="back">Voltar</string>
+
+    <string name="server_unavailable">Servidor Inalcançável</string>
+
+    <string name="actions">Ações</string>
+    <string name="userTasks">Lista de Tarefas do Usuário</string>
+    <string name="settings_ip">IP</string>
+    <string name="settings_port">Porta</string>
+    <string name="success">Sucesso</string>
+    <string name="fail">Falha</string>
+    <string name="app_info">Versão %1$s Servidor: %2$s</string>
+    <string name="tag_list_title">Transponders</string>
+    <string name="action_settings">Configurações</string>
+    <string name="scan_button_text">Escanear</string>
+    <string name="clear_button_text">Limpar</string>
+    <string name="power_level_label_text">dBm</string>
+    <string name="use_fast_id_title">Fast Id</string>
+    <string name="barcode_list_title">Códigos de Barras</string>
+    <string name="msg_reconnect_reader">Reconectando no último leitor usado&#8230;</string>
+    <string name="msg_unable_reconnect">Impossível obter dispositivo Bluetooth</string>
+    <string name="msg_reader_connecting">Conectando&#8230;</string>
+    <string name="msg_reader_reconnecting">Reconectando&#8230;</string>
+    <string name="msg_reader_disconnecting">Desconectando&#8230;</string>
+
+    <string name="msg_websocket_timeout">Sessão Expirou. Reconectando&#8230;</string>
+    <string name="msg_checking_failed">%d - Falha na Conferência.</string>
+    <string name="msg_failed_count">Contagem do produto %1$s - %2$s diferente da Separação!</string>
+    <string name="msg_showing_checking_products">Mostrando apenas produtos da conferência</string>
+    <string name="msg_showing_all_products">Mostrando todos os produtos</string>
+    <string name="msg_alert_supervisor">Informe o supervisor sobre a conferência em falha. Código: %s</string>
+    <string name="msg_document_sent">Documento enviado com sucesso!</string>
+    <string name="msg_invalid_ip">IP INVÁLIDO</string>
+    <string name="msg_underpicked_boxes">Faltando Caixas</string>
+    <string name="msg_overpicked_boxes">Sobrando Caixas</string>
+    <string name="msg_invalid_operation">Operação Não Permitida</string>
+    <string name="msg_change_destination">Altere o destino!</string>
+
+    <string name="error_pending_transport">Movimentação Pendente</string>
+    <string name="error_pending_income">Movimentação de entrada pendente</string>
+    <string name="error_load_thing">Erro ao carregar pallet</string>
+    <string name="error_load_product">Erro ao carregar produto</string>
+    <string name="error_load_user">Erro ao carregar usuário</string>
+    <string name="error_load_address">Erro ao carregar endereço</string>
+    <string name="error_load_alert">Erro ao carregar alertas</string>
+    <string name="error_delete_thing">Não foi possível excluir pallet</string>
+    <string name="error_task_no_action">"Recebida Tarefa Sem Ações. Contate o Administrador."</string>
+    <string name="error_executing_task">Erro ao executar tarefa (%s), tente novamente…</string>
+
+    <string name="wifi_disconnected">DESCONECTADO</string>
+
+    <string name="connection_failed">Falha na conexão</string>
+    <string name="msg_no_tag_found">Tag não encontrado!</string>
+    <string name="not_registered">Não Cadastrado</string>
+    <string name="invalid_user_pass">Usuário e/ou Senha inválidos</string>
+    <string name="available_tasks_suffix">%d Tarefas Disponíveis</string>
+
+    <string name="label_label_count">Quantidade de Volumes: %d</string>
+    <string name="label_conference">Confêrencia</string>
+    <string name="label_quantity">Quantidade</string>
+    <string name="label_quantityUM">Quantidade (%s)</string>
+    <string name="label_volume">Volumes</string>
+    <string name="label_manufacture">Fabricação</string>
+    <string name="label_expiry">Vencimento</string>
+    <string name="label_lot">Lote</string>
+    <string name="label_product">Produto</string>
+    <string name="label_type">Tipo</string>
+    <string name="label_start">Início</string>
+    <string name="label_end">Fim</string>
+    <string name="label_seq">Sequëncia</string>
+    <string name="label_produced_quantity">Quantidade Produzida: %d</string>
+    <string name="label_units">Unidades</string>
+    <string name="label_boxes">Caixas</string>
+    <string name="label_layers">Camadas</string>
+    <string name="label_pallets">Paletes</string>
+    <string name="label_address">Endereço</string>
+    <string name="label_rreturn">Retorno de Rota</string>
+    <string name="label_repack">Reembalagem</string>
+    <string name="label_search">Procurar</string>
+
+    <string name="message_leaving_tasklist">Saindo da lista de tarefas</string>
+
+    <string name="copy_mode_disabled">Modo de cópia desabilitado</string>
+    <string name="copy_mode_enabled">Modo de cópia habilitado</string>
+    <string name="select_box">Selecione uma caixa</string>
+    <string name="select_product">Selecione o Produto</string>
+    <string name="select_address">Selecione o Endereço</string>
+    <string name="select_type">Selecione um tipo</string>
+    <string name="normal_date" translatable="false">%1$02d/%2$02d/%3$04d</string>
+    <string name="normal_time" translatable="false">%1$02d:%2$02d:%3$02d</string>
+    <string name="try_again">Tente Novamente</string>
+    <string name="lote_interno">LOTE INTERNO</string>
+
+    <string name="pick_lots">Lotes</string>
+    <string name="expected">Esperado</string>
+    <string name="picked">Separado</string>
+    <string name="missing">Faltando</string>
+    <string name="error_print">Erro ao Imprimir</string>
+    <string name="txtCTE">Conhecimento de Transporte</string>
+
+    <string name="location">Localização</string>
+    <string name="transports">Movimentações %1$02d/%2$02d</string>
+    <string name="picks">Separações %1$02d/%2$02d</string>
+
+    <string name="drive_to">Dirija-se a</string>
+    <string name="zero_double">0.000</string>
+    <string name="stop">Parar</string>
+
+    <string name="warehouse_stock">Estoque</string>
+    <string name="warehouse_picking_stage">Stage Picking</string>
+    <string name="warehouse_dock">Docas</string>
+    <string name="warehouse_segregation">Segregação</string>
+    <string name="warehouse_picking">Picking</string>
+
+    <string name="permission">Permissão</string>
+    <string name="wifiRSSI">WiFi Strength %1$d - Level %1$d</string>
+    <string name="wifiBSSID">AP-MAC: %s</string>
+    <string name="reconnecting_ws">Reconectando ao Serviço de %s</string>
+    <string name="current_position_label">LOC: %s</string>
+    <string name="map">Map</string>
+    <string name="forklift">Empilhadeira</string>
+    <string name="load_item">CARREGUE O ITEM</string>
+    <string name="pick_items">SEPARE %.0f CAIXAS</string>
+    <string name="goto_destination">VÁ PARA O DESTINO</string>
+    <string name="unload_item">DESCARREGUE O ITEM</string>
+    <string name="transport_completed">MOVIMENTAÇÃO CONCLUÍDA</string>
+    <string name="picking_completed">SEPARAÇÃO CONCLUÍDA</string>
+    <string name="next_transport">INICIANDO NOVA MOVIMENTAÇÃO</string>
+    <string name="next_pick_item">INICIANDO NOVA SEPARAÇÃO</string>
+    <string name="forklift_id">Empilhadeira %s</string>
+    <string name="tag_id">Tag %s</string>
+    <string name="no_tag">Nenhuma Tag RTLS Associada</string>
+    <string name="synchronizing">Sincronizando…</string>
+    <string name="wait_sync">Aguarde enquanto os dados são sincronizados</string>
+    <string name="access_denied">Acesso Negado</string>
+    <string name="rtls_tag_missing">Falta TAG RTLS</string>
+    <string name="user_with_no_rtls_tag">Usuário não tem TAG RTLS associada mas requer uma. Utilize um dispositivo com câmera para associação.</string>
+    <string name="user_with_no_permissions">Usuário sem permissão para acessar o aplicativo</string>
+    <string name="internal_server_error">Erro interno no servidor, contate o administrador</string>
+    <string name="warn_increase_volume">AUMENTE O VOLUME DO ALARME PARA OUVIR NOTIFICAÇÕES</string>
+    <string name="taskInUse">Tarefa em execução em outro dispositivo.</string>
+    <string name="server_unreachable">Servidor Inalcançável. Refaça Login</string>
+
+    <string name="biometric_failed">Digital não reconhecida</string>
+    <string name="biometric_title">Login</string>
+    <string name="biometric_subtitle">Login do hunter</string>
+    <string name="biometric_description">Posicione sua digital no leitor</string>
+    <string name="biometric_negative_button_text">CANCELAR</string>
+    <string name="biometric_error_sdk_not_supported">Versão do Android não suprtada</string>
+    <string name="biometric_error_hardware_not_supported">Dispositivo não suporta autenticação por digital</string>
+    <string name="biometric_error_fingerprint_not_available">Digital não cadastrada no sistema</string>
+    <string name="biometric_error_permission_not_granted">Usuário não permitiu uso do leitor biométrico</string>
+    <string name="biometric_failure">Falha na autenticação!</string>
+    <string name="biometric_cancelled">Autenticação cancelada pelo usuário</string>
+    <string name="biometric_success">Autenticado com sucesso!</string>
+    <string name="status_temporary">TEMPORARIO</string>
+    <string name="task_expired">Tarefa expirou. Tente novamente</string>
+    <string name="save_password">Salvar informações</string>
+    <string name="production_line_stopped">%s não iniciada</string>
+    <string name="incomplete">Incompleto</string>
+    <string name="number_mask">%d</string>
+    <string name="nonexistent_pallet">Palete Inexistente</string>
+    <string name="deleting">Excluindo…</string>
+    <string name="waitamoment">Aguarde um instante</string>
+
+    <string name="action_notundoable">Essa ação não pode ser desfeita!</string>
+
+    <string name="dyn_string_pair" translatable="false">%1$s - %2$s</string>
+    <string name="dyn_string_number" translatable="false">%1$s : %2$d</string>
+    <string name="dyn_manufacture">Fabricação: %s</string>
+    <string name="dyn_expiry">Vencimento: %s</string>
+    <string name="dyn_address">Localização: %s</string>
+    <string name="dyn_lot">Lote: %s</string>
+    <string name="dyn_qty">Quantidade: %.4f</string>
+    <string name="dyn_qty_int">Quantidade: %d</string>
+    <string name="dyn_qty_str">Quantidade: %s</string>
+    <string name="invalid_destination">Destino Inválido</string>
+
+    <string name="transport_stopped">Movimentação Parada</string>
+    <string name="pick_stopped">Separação Parada</string>
+
+    <string name="complete">COMPLETAR</string>
+    <string name="msg_complete_step">ETAPA CONCLUÍDA</string>
+    <string name="info_sending">Enviando…</string>
+    <string name="transport_origin">ENDEREÇO ORIGEM</string>
+    <string name="dyn_origin">ORIGEM: %1$s</string>
+    <string name="transport_lift">CARREGUE O ITEM</string>
+    <string name="dyn_dest">DESTINO: %1$s</string>
+    <string name="transport_destination">ENDEREÇO DESTINO</string>
+    <string name="trasnport_drop">DESCARREGUE O ITEM</string>
+    <string name="pick_address">ENDEREÇO</string>
+    <string name="pick">SEPARAR</string>
+    <string name="conference_complete">Conferência Concluída</string>
+    <string name="filling_required">Preenchimento Obrigatório %1$s</string>
+
+    <string name="dyn_product">Produto: %s</string>
+    <string name="pendingExit">Movimentação de Saída Pendente</string>
+
+    <string name="question_send_to_hunter">Enviar para o hunter?</string>
+    <string name="question_send_transport">Mover %1$d paletes de %2$s para %3$s?</string>
+    <string name="question_cancel_transport">Deseja cancelar a movimentação?</string>
+    <string name="question_cancel_pick">Deseja cancelar a separação?</string>
+    <string name="question_remove_step">Excluir Movimentação?</string>
+    <string name="question_confirm_remove">Deseja excluir o registro?</string>
+    <string name="question_confirm_cancel">Deseja cancelar a tarefa?</string>
+    <string name="task_completed">Tarefa Concluída!</string>
+    <string name="prd_box_pallet">Caixas/Palete</string>
+    <string name="prd_box_layer">Caixas/Camada</string>
+    <string name="prd_unit_box">Unidades/Caixa</string>
+    <string name="abr_prd_box_pallet">Cx/Pal</string>
+    <string name="abr_prd_box_layer">Cx/Cam</string>
+    <string name="delete">Excluir</string>
+    <string name="auto_addr_forward">Próximo Endereço</string>
+    <string name="auto_addr_backward">Endereço Anterior</string>
+    <string name="auto_addr_none">Não Alterar</string>
+    <string name="resume">Resumo</string>
+    <string name="user_connected_another_device">Usuário conectado em outro dispositivo</string>
+    <string name="invalid_document_notransp">Documento sem movimentações!</string>
+    <string name="invalid_document_noitem">Documento sem Itens!</string>
+    <string name="refreshing">Recarregando…</string>
+    <string name="bypass_weight">Desconsiderar Peso</string>
+    <string name="question_bypass_weight">Deseja desconsiderar o peso?</string>
+    <string name="prd_pick_count">%1$.0f %2$s de %3$s</string>
+    <string name="separator">Folha Separadora</string>
+    <string name="dyn_layer">Camada: %d</string>
+
+    <string name="menu_item_settings">Configurações</string>
+    <string name="title_activity_barcode">Leitor de QRCode</string>
+    <string name="pick_finish">STAGE OK</string>
+    <string name="stage">IR PARA STAGE</string>
+
+
+    <string name="pref_key_saved_user" translatable="false">hntrsr</string>
+    <string name="pref_key_saved_pass" translatable="false">hntrpss</string>
+    <string name="pref_key_server_ip" translatable="false">hntrsrv</string>
+    <string name="pref_key_server_port" translatable="false">hntrprt</string>
+    <string name="pref_key_use_ssl" translatable="false">hntrsssl</string>
+    <string name="pallet_tara">TARA DO PALETE</string>
+    <string name="pallet_weight">Tara do Palete: %1$.2f</string>
+
+    <string name="last_pick">%1$.0f %2$s de %3$s no endereço %4$s para a camada %5$d</string>
+    <string name="warning_invalid_task">Tarefa Inválida</string>
+    <string name="info_max_retry_reached">Atingida quantidade máxima de tentativas</string>
+    <string name="label_ssl">SSL</string>
+    <string name="label_switch">Switch</string>
+    <string name="diff">Diferença</string>
+    <string name="title_wrong_destination">ENDEREÇO DESTINO: %s DIVERGENTE</string>
+    <string name="question_confirm_transport">Deseja confirmar a posição %s?</string>
+    <string name="message_type_to_filter">Digite para filtrar</string>
+</resources>

@@ -1,0 +1,4 @@
+<!--component html goes here -->
+<h1 *ngIf="locationLoaded">{{location.name}}</h1>
+<location-map *ngIf="locationLoaded" [center]="location.center" [locationId]="location.id" [autoConnectOrigin]="true"
+    [autoLoadZones]="true"></location-map>

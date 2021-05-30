@@ -1,0 +1,59 @@
+<!--component html goes here -->
+<h1>Relatorio de Não Conformidade</h1>
+
+<p-panel>
+    <p-header>
+        <strong>Produto</strong>
+        <p-dropdown [options]="ddPrd" [(ngModel)]="selectedProduct" filter="true" filterBy="label" placeholder="SELECIONE O PRODUTO" autoDisplayFirst="false"
+            (onChange)="findThings($event)"></p-dropdown>
+
+            <span class="ui-inputgroup-addon"><i class="fa fa-hashtag"></i></span>
+            <input type="text" pInputText placeholder="RNC" size="10" [(ngModel)]="rnc">
+        <button pButton type="button" [label]="btnText" (click)="sendRNC()" [disabled]="selectedPRDs.length == 0"></button>
+    </p-header>
+    <h4 *ngIf="prds.length === 0">NENHUM PRODUTO SELECIONADO</h4> 
+    <p-table #tbl *ngIf="prds.length > 0" [columns]="cols" [value]="prds" [(selection)]="selectedPRDs" dataKey="id" selectionMode="multiple"
+        [rowsPerPageOptions]="[5,10,15,20,50]" [rows]="15" [paginator]="true" [resizableColumns]="true" frozenheader
+        columnResizeMode="expand" autoLayout="true" [responsive]="true" (onRowSelect)="selectionChanged($event)" (onRowUnselect)="selectionChanged($event)">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th style="width: 2.25em">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+            <tr>
+                <th style="width: 2.25em"></th>
+                <th *ngFor="let col of columns">
+                    <input pInputText type="text" (input)="tbl.filter($event.target.value, col.field, 'contains')"
+                        size="10">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+                <td>
+                    <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                </td>
+                <td *ngFor="let col of columns">
+                    <span *ngIf="col.type === 'DATE'">{{rowData[col.field] | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+                <span *ngIf="col.type === 'NUMBER'">{{rowData[col.field] | number: '0.0-3'}}</span>
+                <span *ngIf="col.type !== 'DATE' && col.type !== 'NUMBER'">{{rowData[col.field]}}</span>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="ui-helper-clearfix">        
+                <span style="float: left">
+                        Quantidade Total: {{totalQty.toFixed(3)}}
+                </span>
+                <span style="float: right">
+                        Registros: {{tbl.totalRecords}}
+                </span>
+            </div>
+        </ng-template>
+    </p-table>
+</p-panel>

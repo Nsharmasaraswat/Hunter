@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_margin="16dp"
+    android:background="@drawable/background_white_border">
+
+    <RadioGroup
+        android:id="@+id/rbgLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/rbRepack"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight=".5"
+            android:checked="true"
+            android:text="@string/label_repack" />
+
+        <RadioButton
+            android:id="@+id/rbRReturn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight=".5"
+            android:text="@string/label_rreturn" />
+    </RadioGroup>
+
+    <com.gtp.hunter.structure.spinner.SearchableSpinner
+        android:id="@+id/cbxProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:dropDownWidth="match_parent"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rbgLocation" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtManufacture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:autofillHints="true"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cbxProduct">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtManufacture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:autofillHints="true"
+            android:elevation="2sp"
+            android:ems="7"
+            android:focusable="false"
+            android:hint="@string/label_manufacture"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtExpiry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:autofillHints="true"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtManufacture">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtExpiry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:autofillHints="true"
+            android:elevation="2sp"
+            android:ems="7"
+            android:focusable="false"
+            android:hint="@string/label_expiry"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtQuantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:autofillHints="true"
+        android:inputType="number|numberDecimal"
+        app:layout_constraintEnd_toStartOf="@id/btnAdd"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtExpiry">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtQty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:hint="@string/label_quantity"
+            android:textSize="20sp">
+
+            <requestFocus />
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="@string/add"
+        app:layout_constraintBottom_toBottomOf="@id/txtQuantity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txtQuantity" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/palletList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="com.gtp.hunter.structure.WrapContentLinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtQuantity"
+        tools:context=".wms.activity.DocumentActivity"
+        tools:listitem="@layout/item_rfid_read" />
+</androidx.constraintlayout.widget.ConstraintLayout>

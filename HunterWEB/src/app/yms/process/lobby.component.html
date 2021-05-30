@@ -1,0 +1,152 @@
+<nfchooser [cnpj]="model.cnpj" [custcode]="model.custcode" (chosen)="selectNFs($event)" (closed)="cancelSelect()"></nfchooser>
+<h1>Cadastrar Transporte</h1>
+<div class="ui-fluid">
+    <div class="ui-g">
+        <div class="ui-g-11">
+            <p-panel>
+                <p-header>
+                    Motorista
+                </p-header>
+                <div class="ui-g">
+                    <div class="ui-g-2">
+                        <label>
+                            CNH
+                            <input type="text" pInputText [(ngModel)]="model.cnh" OnlyNumber placeholder="CNH" autofocus (blur)="fetchPerson($event.target.value, txtName)">
+                        </label>
+                    </div>
+                    <div class="ui-g-6">
+                        <label>
+                            Nome
+                            <input #txtName type="text" pInputText [(ngModel)]="model.nome" placeholder="Nome" size="60" [(disabled)]="!enableEditPerson">
+                        </label>
+                    </div>
+                    <div class="ui-g-3">
+                        <label>
+                            RG
+                            <input type="text" pInputText [(ngModel)]="model.rg" placeholder="RG" [(disabled)]="!enableEditPerson">
+                        </label>
+                    </div>
+                    <input type="text" pInputText [(ngModel)]="model.rastreador" placeholder="Rastreador" *ngIf=false>
+                    <div class="ui-g-1">
+                        <p-checkbox [(ngModel)]="enableEditPerson" label="Editar" binary="true" tabindex="-1"></p-checkbox>
+                    </div>
+                </div>
+            </p-panel>
+            <p-panel>
+                <p-header>
+                    Veículo
+                </p-header>
+                <div class="ui-g">
+                    <div class="ui-g-2">
+                        <label>
+                            Placa
+                            <p-inputMask mask="aaa-9*99" [(ngModel)]="model.placa" placeholder="Placa" size="10" (onComplete)="fetchThing(txtBrand)"></p-inputMask>
+                        </label>
+                    </div>
+                    <div class="ui-g-5">
+                        <label>
+                            Marca
+                            <input #txtBrand type="text" pInputText [(ngModel)]="model.marca" placeholder="Marca" size="50" [(disabled)]="!enableEditThing">
+                        </label>
+                    </div>
+                    <div class="ui-g-4">
+                        <label>
+                            Modelo
+                            <input type="text" pInputText [(ngModel)]="model.modelo" placeholder="Modelo" size="40" [(disabled)]="!enableEditThing">
+                        </label>
+                    </div>
+                    <div class="ui-g-1">
+                        <p-checkbox [(ngModel)]="enableEditThing" label="Editar" binary="true" tabindex="-1"></p-checkbox>
+                    </div>
+                </div>
+                <div class="ui-g">
+                    <div class="ui-g-4">
+                        <label>
+                            Transportador
+                            <input #txtTName class="form-control" type="text" pInputText [(ngModel)]="model.tNome" placeholder="Transportador" size="50">
+                        </label>
+                    </div>
+                    <div class="ui-g-2">
+                        <label>
+                            Lado Esquerdo
+                            <input type="text" pInputText [(ngModel)]="model.posesq" OnlyNumber [maxlength]="2" placeholder="Lado Esquerdo" (keyup)="model.posdir = $event.target.value">
+                        </label>
+                    </div>
+                    <div class="ui-g-2">
+                        <label>
+                            Lado Direito
+                            <input type="text" pInputText [(ngModel)]="model.posdir" OnlyNumber [maxlength]="2" placeholder="Lado Direito">
+                        </label>
+                    </div>
+                </div>
+            </p-panel>
+            <p-panel>
+                <p-header>
+                    Observações
+                </p-header>
+                <p-checkbox [(ngModel)]="romaneioPendente" label="Romaneio Pendente" binary="true"></p-checkbox>
+                <p-checkbox [(ngModel)]="transportePendente" label="Transporte Pendente" binary="true"></p-checkbox>
+                <textarea class="form-control" pInputTextArea [(ngModel)]="model.obs" autoResize="autoResize" [rows]="2" [cols]="51" [maxlength]="255"></textarea>
+            </p-panel>
+            <p-panel>
+                <p-header>
+                    Nota(s) Fiscal(is)
+                    <p-checkbox [(ngModel)]="emptyNFs" label="Sem Notas Fiscais" binary="true"></p-checkbox>
+                </p-header>
+                <div class="ui-g">
+                    <div class="ui-g-12" *ngIf="!emptyNFs">
+                        <div class="ui-g-2">
+                            <label>
+                                CNPJ Fornecedor
+                                <p-inputMask #txtCnpj mask="99.999.999/9999-99" [(ngModel)]="model.cnpj" placeholder="CNPJ Empresa" size="18" (onComplete)="checkCNPJ(true)" (onChange)="checkCNPJ(false)"></p-inputMask>
+                            </label>
+                        </div>
+                        <div class="ui-g-3">
+                            <label>
+                                <button pButton type="button" icon="fa-search" label="Procurar" class="ui-button-primary" [disabled]="!btnNFEEnabled" (click)="model.cnpj = txtCnpj.value"></button>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="ui-g-12" *ngIf="!emptyNFs">
+                        <div class="ui-g-2">
+                            <label>
+                                Código do Cliente
+                                <input type="text" #txtCustCode pInputText [ngModel]="model.custcode" OnlyNumber placeholder="Código do Cliente" (change)="custCodeChanged()" (focus)="trimCustCode(txtCustCode.value)"
+                                (blur)="checkCustCode(txtCustCode.value)" [maxlength]="14">
+                            </label>
+                        </div>
+                        <div class="ui-g-3">
+                            <label>
+                                <button pButton type="button" icon="fa-search" label="Procurar NF Saída" class="ui-button-primary" [disabled]="!btnNFSEnabled" (click)="model.custcode = txtCustCode.value"></button>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="ui-g-12" *ngIf="!emptyNFs && (btnNFEEnabled || btnNFSEnabled)">
+                        <ul *ngIf="model.nfs != null && model.nfs.length > 0 && !emptyNFs">
+                            <li *ngFor="let doc of model?.nfs">{{doc.numero}}</li>
+                            <li><b>Total de NFs: {{model?.nfs?.length}}</b></li>
+                        </ul>
+                    </div>
+                    <div class="ui-g-12" *ngIf="emptyNFs">
+                        <h4>ENTRADA SEM NOTAS FISCAIS</h4>
+                    </div>
+                </div>
+                <div class="ui-g">
+                    <div class="ui-g-1"></div>
+                    <div class="ui-g-3">
+                        <button type="button" pButton (click)="enviar()" label="Cadastrar Transporte" icon="fa-truck" [disabled]="(model.nfs === null && !emptyNFs) || (model.nfs.length === 0  && !emptyNFs)
+                                                || model === null || model.placa === null || model.placa.length < 2
+                                                || model.marca === null || model.marca.length < 2
+                                                || model.modelo === null || model.modelo.length < 2
+                                                || model.posesq === null || model.posesq === 0
+                                                || model.posdir === null || model.posdir === 0
+                                                || model.nome === null || model.nome.length < 2
+                                                || model.cnh === null || model.cnh.length < 2
+                                                || model.rg === null || model.rg.length < 2">
+                        </button>
+                    </div>
+                </div>
+            </p-panel>
+        </div>
+    </div>
+</div>

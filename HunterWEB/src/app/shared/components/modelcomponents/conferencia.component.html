@@ -1,0 +1,98 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <p-table #tbl [value]="ordconf.items" [paginator]="ordconf.items.length > 5" [rows]="ordconf.items.length" [resizableColumns]="true" columnResizeMode="expand"
+                *ngIf="ordconf.items != null && ordconf.items.length > 0" autoLayout="true" [responsive]="true" [rowsPerPageOptions]="[3,5,10,20,50]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th colspan="4">{{ordconf.name}} - {{ordconf.status}} - <small>{{ordconf.updatedAt | date:'dd/MM/yyyy HH:mm:ss'}}</small></th>
+                    </tr>
+                    <tr>
+                        <th>CODIGO</th>
+                        <th>PRODUTO</th>
+                        <th>QUANTIDADE</th>
+                        <th>UNIDADE MEDIDA</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr [ngClass]="ordconf.status === 'CANCELADO' ? 'canceled-document' : null">
+                        <td>{{rowData.product.sku}}</td>
+                        <td>{{rowData.product.name}}</td>
+                        <td>{{rowData.qty}}</td>
+                        <td>{{rowData.measureUnit}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+    </div>
+    <div class="row" *ngIf="ordconf.status === 'CANCELADO' || (retordconfs === null || retordconfs === undefined || retordconfs.length <= 0)">
+        <div class="col">
+            <!--TODO: status other than cancelado-->
+            <h3 *ngIf="ordconf.status === 'CANCELADO'" class="box flex">{{ordconf.status}}</h3>
+            <h3 *ngIf="ordconf.status !== 'CANCELADO' && (retordconfs === null || retordconfs === undefined || retordconfs.length <= 0)" class="box flex">NÃO REALIZADA</h3>
+
+        </div>
+    </div>
+    <div class="row" *ngIf="retordconfs !== null && retordconfs !== undefined && retordconfs.length > 0">
+        <div class="col">
+            <p-table #tbl [value]="(retordconfs | sort:'code') | sort: 'status'" [paginator]="retordconfs.length > 3" [rows]="retordconfs.length" [resizableColumns]="true" columnResizeMode="expand"
+                *ngIf="retordconfs != null && retordconfs.length > 0" autoLayout="true" [responsive]="true" [rowsPerPageOptions]="[3,5,10,20,50]" selectionMode="single" [(selection)]="selRetordconf"
+                (onRowSelect)="selectRetordconf($event)">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pResizableColumn>Data/Hora</th>
+                        <th pResizableColumn>Usuário</th>
+                        <th pResizableColumn>Documento</th>
+                        <th pResizableColumn>Status</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-data let-i="rowIndex">
+                    <tr [pSelectableRow]="data">
+                        <td class="ui-resizable-column">{{data.createdAt | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                        <td class="ui-resizable-column">{{data.user?.name}}</td>
+                        <td class="ui-resizable-column">{{data.code}}</td>
+                        <td class="ui-resizable-column">{{data.status}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <div class="row" *ngIf="selRetordconf !== null && selRetordconf !== undefined">
+        <div class="col">
+            <p-scrollPanel [style]="{width: '100%', padding: '0.25em'}">
+                <p class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"><strong>Itens {{selRetordconf.code}}</strong></p>
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-3" *ngFor="let item of prdConf; let i = index">
+                        <div [ngStyle]="{'width': '100%', 'height':'49px','text-overflow':'elipsis'}"><strong>{{i+1}} - {{item.product.sku}} - {{item.product.name}}</strong></div>
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon min-40">Quantidade</span>
+                            <input pInputText type="text" size="30" lang="en_EN" [(ngModel)]="item.quantity">
+                        </div>
+                        <div class="ui-inputgroup" *ngIf="confType !== undefined && confType.value !== 'RPAPD'">
+                            <span class="ui-inputgroup-addon min-40">Fabricação</span>
+                            <p-calendar dateFormat="dd/mm/yy" appendTo="body" [(ngModel)]="item.manufacturing_batch"></p-calendar>
+                        </div>
+                        <div class="ui-inputgroup" *ngIf="confType !== undefined && confType.value !== 'RPAPD'">
+                            <span class="ui-inputgroup-addon min-40">Validade</span>
+                            <p-calendar *ngIf="item.lot_expire !== 'Indeterminado'" dateFormat="dd/mm/yy" appendTo="body" [(ngModel)]="item.lot_expire"></p-calendar>
+                            <input pInputText type="text" *ngIf="item.lot_expire === 'Indeterminado'" size="30" lang="en_EN" [(ngModel)]="item.lot_expire">
+                        </div>
+                        <div class="ui-inputgroup" *ngIf="confType !== undefined && confType.value !== 'RPAPD'">
+                            <span class="ui-inputgroup-addon min-40">Lote</span>
+                            <input pInputText type="text" size="30" [(ngModel)]="item.lot_id">
+                        </div>
+                        <div class="ui-inputgroup" *ngIf="confType !== undefined && confType.value === 'EMP'">
+                            <span class="ui-inputgroup-addon min-40">Volumes</span>
+                            <input pInputText type="text" size="30" [(ngModel)]="item.volumes">
+                        </div>
+                        <div class="ui-inputgroup" *ngIf="confType !== undefined && confType.value !== 'EMP' && confType.value !== 'SPAPD' && confType.value !== 'RPAPD'">
+                            <span class="ui-inputgroup-addon min-40">Local</span>
+                            <input pInputText type="text" size="30" [(ngModel)]="item.address === undefined ? 'EXPEDIDO' : item.address.name" readonly>
+                        </div>
+                    </div>
+                </div>
+            </p-scrollPanel>
+        </div>
+    </div>
+</div>

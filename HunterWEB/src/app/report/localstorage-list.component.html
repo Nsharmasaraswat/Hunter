@@ -1,0 +1,47 @@
+<!--component html goes here -->
+<p-accordion>
+    <p-accordionTab header="Report" [selected]="true">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-12">
+                <p-dropdown [options]="reportList" [(ngModel)]="selectedReport" placeholder="Select a Report" editable="true"
+                    optionLabel="name" [showClear]="true" *ngIf="reportList.length > 0"></p-dropdown>
+                    <h3 class="ui-g ui-messages-warn" *ngIf="reportList.length === 0">NO REPORT FOUND ON LOCAL STORAGE</h3>
+            </div>
+        </div>
+    </p-accordionTab>
+    <p-accordionTab header="Variables" *ngIf="selectedReport != null">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6 ui-md-3" *ngFor="let col of selectedReport.variables ; let i=index">
+                <span class="ui-float-label" *ngIf="col.type === 'string'">
+                    <input #txtVar id="{{col.var}}" type="text" pInputText>
+                    <label for="float-input">{{col.field}}</label>
+                </span>
+                <span class="ui-float-label" *ngIf="col.type === 'date'">
+                    <p-calendar #txtVar id="{{col.var}}" dateFormat="dd/mm/yy"></p-calendar>
+                    <label for="float-input">{{col.field}}</label>
+                </span>
+            </div>
+            <div class="ui-g-6 ui-md-3">
+                <p-button label="Load" (onClick)="loadReport($event)"></p-button>
+            </div>
+        </div>
+    </p-accordionTab>
+    <p-accordionTab header="Configuration" *ngIf="dataLoaded">
+            <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-1">
+                        <span class="ui-float-label">
+                            <p-spinner size="30" [(ngModel)]="lineCount" [step]="5"></p-spinner>
+                            <label for="float-input">Row Count</label>
+                        </span>
+                    </div>
+                    <div class="ui-g-12 ui-md-5">
+                    </div>
+                    <div class="ui-g-12 ui-md-3">
+                    </div>
+                    <div class="ui-g-12 ui-md-3">
+                    </div>
+                </div>
+    </p-accordionTab>
+</p-accordion>
+
+<dynamic-table *ngIf="dataLoaded" [tableData]="data" [tableColumns]="columns" [rowCount]="lineCount"></dynamic-table>

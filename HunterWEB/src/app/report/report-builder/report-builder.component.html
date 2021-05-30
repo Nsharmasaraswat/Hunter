@@ -1,0 +1,64 @@
+<!--component html goes here -->
+<div class="ui-g ui-fluid" *ngIf="data != null">
+    <h3 class="first">Report</h3>
+    <div class="ui-g-12 ui-md-12">
+        <p-dropdown [options]="data" [(ngModel)]="selectedReport" placeholder="Select a Report" editable="true"
+            optionLabel="name" [showClear]="true"></p-dropdown>
+    </div>
+</div>
+
+<div *ngIf="selectedReport != null">
+    <h3 class="first">Query</h3>
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-md-12">
+            <textarea [(ngModel)]="selectedReport.query" [rows]="10" style="width: 100%" pInputTextarea autoResize="autoResize"></textarea>
+        </div>
+    </div>
+
+    <h3 class="first">Columns</h3>
+    <div class="ui-g ui-fluid" *ngFor="let col of selectedReport.columns ; let i=index">
+        <div class="ui-g-6 ui-md-3">
+            <span class="ui-float-label">
+                <input id="'txtColField-' + i" type="text" size="30" pInputText [(ngModel)]="col.field">
+                <label for="float-input">Field</label>
+            </span>
+        </div>
+        <div class="ui-g-6 ui-md-3">
+            <span class="ui-float-label">
+                <input id="'txtColHeader-' + i" type="text" pInputText [(ngModel)]="col.header">
+                <label for="float-input">Header</label>
+            </span>
+        </div>
+        <div class="ui-g-6 ui-md-3">
+            <span class="ui-float-label">
+                <input id="'txtColType-' + i" type="text" pInputText [(ngModel)]="col.type">
+                <label for="float-input">Type</label>
+            </span>
+        </div>
+        <div class="ui-g-6 ui-md-3">
+            <span class="ui-float-label">
+                <input id="'txtColNull-' + i" type="text" pInputText [(ngModel)]="col['null-string']">
+                <label for="float-input">Null String</label>
+            </span>
+        </div>
+    </div>
+
+    <h3 class="first">Variables</h3>
+    <div class="ui-g ui-fluid" *ngFor="let col of selectedReport.variables">
+        <div class="ui-g-6 ui-md-6">
+            <span class="ui-float-label">
+                <input id="'txtVarName-' + i" type="text" pInputText [(ngModel)]="col.var">
+                <label for="float-input">Name</label>
+            </span>
+        </div>
+        <div class="ui-g-6 ui-md-6">
+            <span class="ui-float-label">
+                <input id="'txtVarType-' + i" type="text" pInputText [(ngModel)]="col.type">
+                <label for="float-input">Type</label>
+            </span>
+        </div>
+    </div>
+    <p-button label="Save" (onClick)="handleSave($event)"></p-button>
+    <p-button label="Remove" (onClick)="handleRemove($event)"></p-button>
+    <p-button label="Clear" (onClick)="handleClear($event)"></p-button>
+</div>

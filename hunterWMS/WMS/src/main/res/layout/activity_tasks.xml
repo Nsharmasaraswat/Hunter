@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tasksLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/GTPNavy"
+    android:keepScreenOn="true">
+
+    <ProgressBar
+        android:id="@+id/taskProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorAccentAlt"
+        android:indeterminateTintMode="src_in"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/greyoutOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B0000000"
+        android:elevation="3dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:contentDescription="@android:string/ok"
+        android:foregroundGravity="right"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toBottomOf="@+id/lblTasks"
+        app:layout_constraintEnd_toStartOf="@id/imgSearch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/lblTasks"
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        tools:srcCompat="@android:drawable/ic_menu_camera" />
+
+    <ImageView
+        android:id="@+id/imgSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:contentDescription="@android:string/ok"
+        android:foregroundGravity="right"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toBottomOf="@+id/lblTasks"
+        app:layout_constraintEnd_toStartOf="@id/lblTasks"
+        app:layout_constraintStart_toEndOf="@+id/imgCamera"
+        app:layout_constraintTop_toTopOf="@+id/lblTasks"
+        app:srcCompat="@android:drawable/ic_menu_search"
+        tools:srcCompat="@android:drawable/ic_menu_search" />
+
+    <TextView
+        android:id="@+id/lblTasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="@string/userTasks"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgRefresh"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@android:string/ok"
+        android:foregroundGravity="right"
+        android:textAlignment="viewEnd"
+        app:layout_constraintBottom_toBottomOf="@+id/lblTasks"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/lblTasks"
+        app:layout_constraintTop_toTopOf="@+id/lblTasks"
+        app:srcCompat="@drawable/ic_refresh"
+        tools:srcCompat="@drawable/ic_refresh" />
+
+    <TextView
+        android:id="@+id/lblTaskCountTasks"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblTasks" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tfSearchTask"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:elevation="2dp"
+        android:hint="@string/label_search"
+        app:hintTextAppearance="@style/SmallHint"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/lblTaskCountTasks"
+        app:layout_constraintEnd_toStartOf="@id/imgRefresh"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgSearch"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSearchTask"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <fragment
+        android:id="@+id/taskFragment"
+        class="com.gtp.hunter.wms.fragment.TaskListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:layout_weight="2"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblTaskCountTasks"
+        tools:layout="@layout/fragment_tasklist"
+        tools:visibility="gone" />
+
+    <fragment
+        android:id="@+id/rfidFragment"
+        class="com.gtp.hunter.wms.fragment.rfid.RFIDTransferFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:layout_weight="2"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_rfid_transfer"
+        tools:visibility="gone" />
+
+    <fragment
+        android:id="@+id/rfidConsFragment"
+        class="com.gtp.hunter.wms.fragment.rfid.RFIDConsumptionFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:layout_weight="2"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_rfid_consumption"
+        tools:visibility="gone" />
+
+    <fragment
+        android:id="@+id/rfidInvFragment"
+        class="com.gtp.hunter.wms.fragment.rfid.RFIDRMInventoryFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:layout_weight="2"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_rfid_rm_inventory"
+        tools:visibility="gone" />
+
+    <fragment
+        android:id="@+id/confFragment"
+        class="com.gtp.hunter.wms.fragment.CheckingFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:layout_weight="2"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_conference"
+        tools:visibility="gone" />
+
+    <fragment
+        android:id="@+id/transpFragment"
+        class="com.gtp.hunter.wms.fragment.TransportFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:layout_weight="2"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_transport"
+        tools:visibility="gone" />
+
+    <fragment
+        android:id="@+id/pickingFragment"
+        class="com.gtp.hunter.wms.fragment.PickingFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:layout_weight="2"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_picking"
+        tools:visibility="gone" />
+
+    <fragment
+        android:id="@+id/fpInventoryFragment"
+        class="com.gtp.hunter.wms.fragment.FPInventoryFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:layout_weight="3"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_fp_inventory"
+        tools:visibility="gone" />
+
+    <fragment
+        android:id="@+id/fpPalletCheckingFragment"
+        class="com.gtp.hunter.wms.fragment.FPPalletCheckingFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:layout_weight="3"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_fp_pallet_checking"
+        tools:visibility="gone" />
+</androidx.constraintlayout.widget.ConstraintLayout>

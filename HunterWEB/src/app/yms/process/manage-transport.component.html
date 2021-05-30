@@ -1,0 +1,546 @@
+<nfchooser [cnpj]="model.cnpj" [custcode]="model.custcode" (chosen)="selectNFs($event)" (closed)="cancelSelect()"></nfchooser>
+<vehiclechooser [display]="changeVehicle" (chosen)="selectVehicle($event)" (closed)="cancelSelect()"></vehiclechooser>
+<p-confirmDialog header="Confirmação" icon="fa fa-question-circle" responsive="true" acceptLabel="Sim" rejectLabel="Não" closeable="false" closeOnEscape="false"></p-confirmDialog>
+<div class="row">
+    <div class="col">
+        <h3>Gerenciar Transporte</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <p-accordion [multiple]="true">
+            <p-accordionTab [selected]="true">
+                <p-header>
+                    TRANSPORTE
+                    <span *ngIf="transport !== undefined"> - {{transport.code}} - {{transport.status}}</span>
+                </p-header>
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon">#</span>
+                    <input #tId type="text" pInputText placeholder="Transporte" maxlength="10" autofocus (keydown.enter)="loadByCode(tId.value.trim())">
+                    <button pButton type="button" icon="fa-search" (click)="loadByCode(tId.value.trim())"></button>
+                </div>
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 20px 0px" *ngIf="transport !== undefined">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <span><i class="fa fa-info-circle"></i></span>
+                            <strong>Motorista:</strong> {{model.driver}}
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <span><i class="fa fa-exchange" style="cursor:pointer;" (click)="changeVehicle = true"></i></span>
+                            <strong>Veículo:</strong> {{model.truck}}
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-3">
+                            <span *ngIf="apolacre === undefined"><i class="fa fa-info"></i></span>
+                            <span *ngIf="apolacre !== undefined && apolacre.status === 'NOVO'"><i class="fa fa-info-circle"></i></span>
+                            <span *ngIf="apolacre !== undefined && apolacre.status !== 'NOVO'"><i class="fa fa-edit" style="cursor:pointer;" (click)="editSeal = !editSeal"></i></span>
+                            <strong>Lacres Exp.:</strong>
+                            <span *ngIf="!editSeal">{{model.sealexp}}</span>
+                            <input pInputType type="text" *ngIf="editSeal" [(ngModel)]="model.sealexp" (keydown.enter)="changeSeal()">
+                        </div>
+                        <div class="ui-grid-col-3">
+                            <span><i class="fa fa-info-circle"></i></span>
+                            <strong>Lacres Port.:</strong> {{model.sealgate}}
+                        </div>
+                        <div class="ui-grid-col-3">
+                            <span><i class="fa fa-info-circle"></i></span>
+                            <strong>Transportador:</strong> {{model.carrier}}
+                        </div>
+                        <div class="ui-grid-col-3">
+                            <span><i class="fa fa-info-circle"></i></span>
+                            <strong>Posições Lado Esquerdo:</strong> {{model.leftQty}}
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-3">
+                            <span><i class="fa fa-info-circle"></i></span>
+                            <strong>Rastreador:</strong> {{model.tracker}}
+                        </div>
+                        <div class="ui-grid-col-3">
+                            <span><i class="fa fa-info-circle"></i></span>
+                            <strong>Doca:</strong> {{model.dock}}
+                        </div>
+                        <div class="ui-grid-col-3">
+                            <span><i class="fa fa-edit" style="cursor:pointer;" (click)="editObs = !editObs"></i></span>
+                            <strong>Obs:</strong>
+                            <span *ngIf="!editObs">{{model.obs}}</span>
+                            <input pInputType type="text" *ngIf="editObs" [(ngModel)]="model.obs" (keydown.enter)="changeObs()">
+                        </div>
+                        <div class="ui-grid-col-3">
+                            <span><i class="fa fa-info-circle"></i></span>
+                            <strong>Posições Lado Direito:</strong> {{model.rightQty}}
+                        </div>
+                    </div>
+                    <div class="ui-grid-row" *ngIf="checkoutportaria !== undefined">
+                        <div class="ui-grid-col-2">
+                            <span><i class="fa fa-info-circle"></i></span>
+                            <strong>Carrinhos:</strong> {{model.carrout}}
+                        </div>
+                        <div class="ui-grid-col-2">
+                            <span><i class="fa fa-info-circle"></i></span>
+                            <strong>Cones:</strong> {{model.conesout}}
+                        </div>
+                        <div class="ui-grid-col-2">
+                            <span><i class="fa fa-info-circle"></i></span>
+                            <strong>KM:</strong> {{model.kmout}}
+                        </div>
+                        <div class="ui-grid-col-2">
+                            <span><i class="fa fa-info-circle"></i></span>
+                            <strong>Extintor:</strong> {{model.extinguisherout}}
+                        </div>
+                        <div class="ui-grid-col-2">
+                            <span><i class="fa fa-info-circle"></i></span>
+                            <strong>Eq.Seg:</strong> {{model.safetyout}}
+                        </div>
+                    </div>
+                    <div class="ui-grid-row" *ngIf="checkinportaria !== undefined">
+                        <div class="ui-grid-col-2">
+                            <span><i class="fa fa-info-circle"></i></span>
+                            <strong>Carrinhos:</strong> {{model.carrin}}
+                        </div>
+                        <div class="ui-grid-col-2">
+                            <span><i class="fa fa-info-circle"></i></span>
+                            <strong>Cones:</strong> {{model.conesin}}
+                        </div>
+                        <div class="ui-grid-col-2">
+                            <span><i class="fa fa-info-circle"></i></span>
+                            <strong>KM:</strong> {{model.kmin}}
+                        </div>
+                        <div class="ui-grid-col-2">
+                            <span><i class="fa fa-info-circle"></i></span>
+                            <strong>Extintor:</strong> {{model.extinguisherin}}
+                        </div>
+                        <div class="ui-grid-col-2">
+                            <span><i class="fa fa-info-circle"></i></span>
+                            <strong>Eq.Seg:</strong> {{model.safetyin}}
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+            <p-accordionTab header="ATENDIMENTO" [disabled]="leadTimes === null || leadTimes === undefined">
+                <p-table [value]="leadTimes">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Evento</th>
+                            <th>Data/Hora</th>
+                            <th>Duração</th>
+                            <th>Usuário</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-ld>
+                        <tr [ngClass]="ld['total'] ? 'font-weight-bold' : ''">
+                            <td>{{ld['event']}}</td>
+                            <td>{{ld['date'] | date:'dd/MM/yyyy HH:mm:ss' || '-'}}</td>
+                            <td>{{ld['duration']}}</td>
+                            <td>{{ld.user ? ld['user'].name : 'Automático'}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-accordionTab>
+            <p-accordionTab header="MIGO" [disabled]="transport === null || transport === undefined" *ngIf="restrictedView">
+                <ng-container *ngFor="let nf of nfe">
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid border m-4">
+                        <div class="ui-grid-row" [style.margin]="'0px 0px 15px 0px'">
+                            <div class="ui-grid-col-1">
+                                Nota Fiscal:
+                            </div>
+                            <div class="ui-grid-col-8">
+                                {{nf.code}}
+                            </div>
+                            <div class="ui-grid-col-1">
+                                MIGO:
+                            </div>
+                            <div class="ui-grid-col-2">
+                                {{getMigo(nf)}}
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </p-accordionTab>
+            <p-accordionTab header="NOTAS FISCAIS" [disabled]="transport === null || transport === undefined" *ngIf="!restrictedView">
+                <ng-container *ngFor="let nf of nfe">
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid border m-4">
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-11"></div>
+                            <div class="ui-grid-col-1">
+                                <button pButton type="button" icon="fa-times" class="ui-button-danger" (click)="removeNF(nf)"></button>
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-12">
+                                <nota-fiscal [model]="nf"></nota-fiscal>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngFor="let nf of nfs">
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid border m-4" *ngIf="nf.person !== null && nf.person !== undefined && nf.person.code !== null && nf.person.name !== null">
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-11"></div>
+                            <div class="ui-grid-col-1">
+                                <button pButton type="button" icon="fa-times" class="ui-button-danger" (click)="removeNF(nf)"></button>
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-12">
+                                <nota-fiscal [model]="nf"></nota-fiscal>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <p-panel header="Inserir">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2"></div>
+                        <div class="ui-grid-col-2">
+                            CNPJ do Fornecedor:
+                        </div>
+                        <div class="ui-grid-col-3">
+                            <p-inputMask #txtCnpj mask="99.999.999/9999-99" placeholder="CNPJ Empresa" size="18" (onComplete)="checkCNPJ(txtCnpj.value)" (onChange)="checkCNPJ(txtCnpj.value)"></p-inputMask>
+                        </div>
+                        <div class="ui-grid-col-2">
+                            <button pButton type="button" icon="fa-search" label="Procurar" class="ui-button-primary" [disabled]="!btnNFEnabled" (click)="model.cnpj = txtCnpj.value"></button>
+                        </div>
+                        <div class="ui-grid-col-3"></div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2"></div>
+                        <div class="ui-grid-col-2">
+                            Código do Cliente:
+                        </div>
+                        <div class="ui-grid-col-3">
+                            <input type="text" #txtCustCode pInputText [ngModel]="model.custcode" OnlyNumber placeholder="Código do Cliente" (change)="custCodeChanged()" (focus)="trimCustCode(txtCustCode.value)"
+                                (blur)="checkCustCode(txtCustCode.value)" [maxlength]="14">
+                        </div>
+                        <div class="ui-grid-col-2">
+                            <button pButton type="button" icon="fa-search" label="Procurar" class="ui-button-primary" [disabled]="!btnNFSnabled" (click)="model.custcode = txtCustCode.value"></button>
+                            <p-checkbox name="addtitive" [binary]="true" [(ngModel)]="additive" label="Aditivo" *ngIf="false"></p-checkbox>
+                        </div>
+                        <div class="ui-grid-col-3"></div>
+                    </div>
+                </p-panel>
+            </p-accordionTab>
+            <p-accordionTab header="SUMÁRIO PA"
+                [disabled]="summary === undefined || ((summary.inboundPASummary === undefined || summary.inboundPASummary.length === 0) && (summary.outboundPASummary === undefined || summary.outboundPASummary.length === 0))">
+                <p-table [value]="summary.outboundPASummary | sort:'sku'" *ngIf="summary !== undefined && summary.outboundPASummary!= null && summary.outboundPASummary !== undefined && summary.outboundPASummary.length > 0">
+                    <ng-template pTemplate="colgroup">
+                        <colgroup>
+                            <col [style.width]="'9ch'">
+                            <col [style.width]="'99%'">
+                            <col [style.width]="'11ch'">
+                            <col [style.width]="'10ch'">
+                            <col [style.width]="'10ch'">
+                            <col [style.width]="'6em'">
+                        </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th colspan="6">CARREGAMENTO</th>
+                        </tr>
+                        <tr>
+                            <th pResizableColumn>CODIGO</th>
+                            <th pResizableColumn>PRODUTO</th>
+                            <th pResizableColumn>UNIDADES</th>
+                            <th pResizableColumn>CAIXAS</th>
+                            <th pResizableColumn>PALETES</th>
+                            <th pResizableColumn></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr [ngClass]="rowData.prdshrt ? (rowData.caixas - rowData.prdshrtqty > 0 ? 'product-shortage-partial' : 'product-shortage') : (rowData.paletes < 1 ? 'product-partial' : null)"
+                            [pTooltip]="rowData.prdshrt ? 'Faltam ' + rowData.prdshrtqty + ' CX' : null">
+                            <td>{{rowData.sku}}</td>
+                            <td>{{rowData.produto}}</td>
+                            <td class="text-right">{{rowData.unidades | number:'1.0'}}</td>
+                            <td class="text-right" [pTooltip]="('Unidades/Caixa: ') + (rowData.ub | number:'1.0')">{{rowData.caixas | number:'1.0'}}</td>
+                            <td class="text-right" [pTooltip]="('Caixas/Palete: ') + (rowData.cp | number:'1.0')">{{rowData.paletes | number:'0.2-2'}}</td>
+                            <td>
+                                <button pButton type="button" class="ui-button-primary" icon="fa-search" (click)="detailStockProduct(rowData)"></button>
+                                <button *ngIf="checkLoadProduct(rowData)" pButton type="button" class="ui-button-warning" icon="fa-wrench" (click)="addProductToTnp(rowData.id, rowData.paletes)"
+                                    [disabled]="movs === undefined"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                <p-toolbar *ngIf="prdShortage !== undefined && prdShortage.status === 'NOVO'">
+                    <div class="ui-toolbar-group-left">
+                        <button pButton type="button" label="Ajustar Regra" class="ui-button-primary" (click)="fixRule()"></button>
+                    </div>
+
+                    <div class="ui-toolbar-group-right">
+                        <button pButton type="button" label="Reavaliar" class="ui-button-primary" [disabled]="prdShortage === undefined || prdShortage.status !== 'NOVO'" (click)="resendDocument()"></button>
+                    </div>
+                </p-toolbar>
+                <p-table [value]="summary.inboundPASummary | sort:'sku'"
+                    *ngIf="!restrictedView && summary !== undefined && summary.inboundPASummary!= null && summary.inboundPASummary !== undefined && summary.inboundPASummary.length > 0" [resizableColumns]="true"
+                    columnResizeMode="expand">
+                    <ng-template pTemplate="colgroup">
+                        <colgroup>
+                            <col [style.width]="'9ch'">
+                            <col [style.width]="'99%'">
+                            <col [style.width]="'11ch'">
+                            <col [style.width]="'10ch'">
+                            <col [style.width]="'10ch'">
+                        </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th colspan="6">DESCARREGAMENTO</th>
+                        </tr>
+                        <tr>
+                            <th>CODIGO</th>
+                            <th>PRODUTO</th>
+                            <th>UNIDADES</th>
+                            <th>CAIXAS</th>
+                            <th>PALETES</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{rowData.sku}}</td>
+                            <td>{{rowData.produto}}</td>
+                            <td class="text-right">{{rowData.unidades | number:'1.0'}}</td>
+                            <td class="text-right" [pTooltip]="('Unidades/Caixa: ') + (rowData.ub | number:'1.0')">{{rowData.caixas | number:'1.0'}}</td>
+                            <td class="text-right" [pTooltip]="('Caixas/Palete: ') + (rowData.cp | number:'1.0')">{{rowData.paletes | number:'0.2-2'}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-accordionTab>
+            <p-accordionTab header="SUMÁRIO MP"
+                [disabled]="summary === undefined || ((summary.inboundMPSummary === undefined || summary.inboundMPSummary.length === 0) && (summary.outboundMPSummary === undefined || summary.outboundMPSummary.length === 0))">
+                <p-table [value]="summary.outboundMPSummary | sort:'sku'" *ngIf="summary !== undefined && summary.outboundMPSummary!= null && summary.outboundMPSummary !== undefined && summary.outboundMPSummary.length > 0"
+                    [resizableColumns]="true" columnResizeMode="expand">
+                    <ng-template pTemplate="colgroup">
+                        <colgroup>
+                            <col [style.width]="'9ch'">
+                            <col [style.width]="'99%'">
+                            <col [style.width]="'11ch'">
+                            <col [style.width]="'10ch'">
+                        </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th colspan="4">DESCARGA</th>
+                        </tr>
+                        <tr>
+                            <th>CODIGO</th>
+                            <th>PRODUTO</th>
+                            <th>QUANTIDADE</th>
+                            <th>UNID.MEDIDA</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{rowData.sku}}</td>
+                            <td>{{rowData.produto}}</td>
+                            <td class="text-right">{{rowData.unidades | number:'0.4-4'}}</td>
+                            <td class="text-right">{{rowData.measureUnit}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                <p-table [value]="summary.inboundMPSummary | sort:'sku'" *ngIf="summary !== undefined && summary.inboundMPSummary!= null && summary.inboundMPSummary !== undefined && summary.inboundMPSummary.length > 0"
+                    [resizableColumns]="true" columnResizeMode="expand">
+                    <ng-template pTemplate="colgroup">
+                        <colgroup>
+                            <col [style.width]="'9ch'">
+                            <col [style.width]="'99%'">
+                            <col [style.width]="'11ch'">
+                            <col [style.width]="'10ch'">
+                        </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th colspan="4">CARREGAMENTO</th>
+                        </tr>
+                        <tr>
+                            <th>CODIGO</th>
+                            <th>PRODUTO</th>
+                            <th>QUANTIDADE</th>
+                            <th>UNID.MEDIDA</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{rowData.sku}}</td>
+                            <td>{{rowData.produto}}</td>
+                            <td class="text-right">{{rowData.unidades | number:'0.4-4'}}</td>
+                            <td class="text-right">{{rowData.measureUnit}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-accordionTab>
+            <p-accordionTab header="SUMÁRIO ATIVOS"
+                [disabled]="summary === undefined || ((summary.inboundPDSummary === undefined || summary.inboundPDSummary.length === 0) && (summary.outboundPDSummary === undefined || summary.outboundPDSummary.length === 0))">
+                <p-table [value]="summary.inboundPDSummary | sort:'sku'"
+                    *ngIf="!restrictedView && summary !== undefined && summary.inboundPDSummary!= null && summary.inboundPDSummary !== undefined && summary.inboundPDSummary.length > 0" [resizableColumns]="true"
+                    columnResizeMode="expand">
+                    <ng-template pTemplate="colgroup">
+                        <colgroup>
+                            <col [style.width]="'9ch'">
+                            <col [style.width]="'99%'">
+                            <col [style.width]="'15ch'">
+                        </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th colspan="3">RECEBIMENTO</th>
+                        </tr>
+                        <tr>
+                            <th>CÓDIGO</th>
+                            <th>PRODUTO</th>
+                            <th>QUANTIDADE</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{rowData.sku}}</td>
+                            <td>{{rowData.produto}}</td>
+                            <td class="text-right">{{rowData.unidades | number:'0.4-4'}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                <p-table [value]="summary.outboundPDSummary | sort:'sku'" *ngIf="summary !== undefined && summary.outboundPDSummary!= null && summary.outboundPDSummary !== undefined && summary.outboundPDSummary.length > 0"
+                    [resizableColumns]="true" columnResizeMode="expand">
+                    <ng-template pTemplate="colgroup">
+                        <colgroup>
+                            <col [style.width]="'9ch'">
+                            <col [style.width]="'99%'">
+                            <col [style.width]="'15ch'">
+                        </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th colspan="3">EXPEDIÇÃO</th>
+                        </tr>
+                        <tr>
+                            <th>CÓDIGO</th>
+                            <th>PRODUTO</th>
+                            <th>QUANTIDADE</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{rowData.sku}}</td>
+                            <td>{{rowData.produto}}</td>
+                            <td>{{rowData.unidades | number:'0.4-4'}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-accordionTab>
+            <p-accordionTab header="MOVIMENTAÇÕES" [disabled]="movs === undefined || movs.length === 0">
+                <ng-container *ngFor="let mov of movs">
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid border m-4">
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-12">
+                                <ordem-movimentacao [model]="mov"></ordem-movimentacao>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </p-accordionTab>
+            <p-accordionTab header="SEPARAÇÕES" [disabled]="picks === undefined || picks.length === 0">
+                <ng-container *ngFor="let pick of picks">
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid border m-4">
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-12">
+                                <ordem-separacao [model]="pick"></ordem-separacao>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </p-accordionTab>
+            <p-accordionTab header="CONFERÊNCIAS" [disabled]="checks === undefined || checks.length === 0" *ngIf="!restrictedView">
+                <ng-container *ngFor="let conf of checks">
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid border m-4">
+                        <div class="ui-grid-row" *ngIf="conf.user !== null && conf.user !== undefined">
+                            <div class="ui-grid-col-2">
+                                Usuário:
+                            </div>
+                            <div class="ui-grid-col-6">
+                                <input pInputText type="text" [value]="conf.user?.name" size="40" readonly />
+                            </div>
+                            <div class="ui-grid-col-4"></div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-12">
+                                <ordem-conferencia [model]="conf"></ordem-conferencia>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </p-accordionTab>
+            <p-accordionTab header="PRODUTOS" [disabled]="(palletsRec === undefined || palletsRec.length === 0) && (palletsExp === undefined || palletsExp.length === 0)">
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid border m-4" *ngIf="palletsRec !== undefined && palletsRec.length > 0">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">
+                            Recebimento
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">
+                            <pallet [model]="palletsRec" [mode]="'resumed'"></pallet>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid border m-4" *ngIf="palletsExp !== undefined && palletsExp.length > 0">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">
+                            Expedição
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">
+                            <pallet [model]="palletsExp" [mode]="'resumed'"></pallet>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+</div>
+
+<p-dialog [(visible)]="detailProduct" [responsive]="true" showEffect="fade" [modal]="true" [draggable]="false" appendTo="body" *ngIf="selRow !== undefined">
+    <p-header>
+        {{selRow.sku}} - {{selRow.produto}}
+    </p-header>
+    <div class="ui-dialog-content" *ngIf="prdStock === undefined || prdStock.length === 0">
+        <h5>PRODUTO FALTANTE NO ESTOQUE</h5>
+    </div>
+    <p-table #tblThings *ngIf="prdStock !== undefined && prdStock.length > 0" [value]="prdStock" [columns]="columnsStock" [resizableColumns]="true" autoLayout="true" [style]="{'overflow':'auto!important'}" [responsive]="true"
+        [paginator]="prdStock.length > 5" [rows]="5" [rowsPerPageOptions]="[1, 3, 5, 10]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of columnsStock" pResizableColumn>
+                    {{col.header}}
+                </th>
+            </tr>
+            <tr>
+                <th *ngFor="let col of columnsStock">
+                    <input pInputText type="text" (input)="tblThings.filter($event.target.value, col.field, 'contains')" [size]="col.header.length + 3">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-stk>
+            <tr [ngClass]="stk?.status?.includes('BLOQUEADO') ? 'product-partial' : null" [pTooltip]="stk?.status?.includes('BLOQUEADO') ? 'PRODUTO BLOQUEADO' : null">
+                <td class="ui-resizable-column" *ngFor="let col of columnsStock">
+                    <span *ngIf="col.type === 'DATE'">{{stk[col.field] | date:'dd/MM/yyyy'}}</span>
+                    <span *ngIf="col.type === 'NUMBER'">{{stk[col.field] | number: '0.0-3'}}</span>
+                    <span *ngIf="col.type !== 'DATE' && col.type !== 'NUMBER'">{{stk[col.field]}}</span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-footer>
+
+    </p-footer>
+</p-dialog>
+
+<p-dialog [(visible)]="detailVehicle" [responsive]="true" showEffect="fade" [modal]="true" [draggable]="false" appendTo="body">
+    <p-header>
+        {{model.truck}}
+    </p-header>
+    {{model.truck}}
+    <p-footer>
+        {{model.truck}}
+    </p-footer>
+</p-dialog>

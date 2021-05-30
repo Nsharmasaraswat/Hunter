@@ -1,0 +1,8 @@
+<p-pickList [source]="available" [target]="selected" [responsive]="true" sourceHeader="Disponíveis" targetHeader="Selecionados" 
+            showSourceControls="false" showTargetControls="false">
+    <ng-template let-perm pTemplate="item">
+        <div class="ui-helper-clearfix">
+            <div class="fa fa-{{perm.icon}}">{{perm.name}}</div>
+        </div>
+    </ng-template>
+</p-pickList>

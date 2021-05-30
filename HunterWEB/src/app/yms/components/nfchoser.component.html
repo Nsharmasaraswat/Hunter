@@ -1,0 +1,42 @@
+<p-dialog [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [draggable]="false"
+    [contentStyle]="{'min-height':'418px'}" appendTo="body">
+    <p-header>
+        Nota Fiscal
+    </p-header>
+    <p-table #tblDoc [value]="documents | sort:'props.data_nf':-1" [columns]="columns" selectionMode="multiple"
+        [paginator]="true" [rows]="10" [(selection)]="selectedDocuments" dataKey="code">
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+            <tr>
+                <th *ngFor="let col of columns">
+                    <input pInputText type="text" (input)="tblDoc.filter($event.target.value, col.field, 'contains')" size="15">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data>
+            <tr [pSelectableRow]="data">
+                <td>{{data.code}}</td>
+                <td>{{data.props.serie_nf}}</td>
+                <td>{{data.props.data_nf}}</td>
+                <td>{{data.props.transp_sap}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary" *ngIf="selectedDocuments != null && selectedDocuments.length > 0">
+            <ul>
+                <li style="text-align: left">
+                    Selecionadas: {{selectedDocuments.length}}
+                </li>
+            </ul>
+        </ng-template>
+    </p-table>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fa fa-close" (click)="close()" label="Fechar"></button>
+            <button type="button" pButton icon="fa fa-check" (click)="nfChosen()" [disabled]="selectedDocuments == null || selectedDocuments.length == 0" label="Selecionar"></button>
+        </div>
+    </p-footer>
+</p-dialog>

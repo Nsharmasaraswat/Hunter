@@ -1,0 +1,3 @@
+  <div   *ngFor="let wgt of wgtService.userDashboard.widgets"  >
+    <chart class="mydiv"  [_widget]="wgt.widget"></chart>
+  </div>

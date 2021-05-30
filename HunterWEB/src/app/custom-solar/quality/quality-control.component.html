@@ -1,0 +1,53 @@
+<!--component html goes here -->
+<h1 *ngIf="ordconf != null">Controle de Qualidade {{ordconf.code}}</h1>
+
+<p-panel *ngIf="ordconf != null">
+    <p-header><strong>Conferência {{ordconf.code}}</strong></p-header>
+    <p-scrollPanel *ngIf="qualityDoc != null" [style]="{width: '100%', height: '60vh'}">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-3" *ngFor="let item of prdConf; let i = index">
+                <span><strong>{{item.product.sku}} - {{item.product.name}} - {{i}}</strong></span>
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-40">Quantidade</span>
+                    <input pInputText type="text" size="30" lang="en_EN" [(ngModel)]="item.quantity" readonly>
+                </div>
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-40">Fabricação</span>
+                    <input pInputText type="text" size="30" lang="en_EN"
+                        [ngModel]="item.manufacturing_batch | date:'dd/MM/yyyy'" readonly>
+                </div>
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-40">Validade</span>
+                    <input pInputText type="text" *ngIf="item.lot_expire === 'Indeterminado'" size="30" lang="en_EN"
+                        [(ngModel)]="item.lot_expire" readonly>
+                    <input pInputText type="text" *ngIf="item.lot_expire !== 'Indeterminado'" size="30" lang="en_EN"
+                        [ngModel]="item.lot_expire | date:'dd/MM/yyyy'" readonly>
+                </div>
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-40">Lote</span>
+                    <input pInputText type="text" size="30" [(ngModel)]="item.lot_id" readonly>
+                </div>
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-40">Volumes</span>
+                    <input pInputText type="text" size="30" [(ngModel)]="item.volumes" readonly>
+                </div>
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-40">Laudo</span>
+                    <input pInputText type="text" size="30" [(ngModel)]="item.qcl">
+                </div>
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-40">Lote Interno</span>
+                    <input pInputText type="text" size="30" [(ngModel)]="item.internal_lot">
+                </div>
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-40">Status</span>
+                    <p-dropdown [style]="{width: '100%'}" [options]="qualityStatus" [(ngModel)]="item.rodape" placeholder="SELECIONE"
+                        appendTo="body" (onChange)="itemChanged()"></p-dropdown>
+                </div>
+            </div>
+        </div>
+    </p-scrollPanel>
+    <p-footer *ngIf="qualityDoc != null">
+        <button pButton type="button" icon="fa fa-check" class="ui-button-success" (click)="sendQuality()" label="Enviar" [disabled]="!allSelected"></button>
+    </p-footer>
+</p-panel>

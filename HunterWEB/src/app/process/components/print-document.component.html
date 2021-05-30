@@ -1,0 +1,36 @@
+<h1>Impressão</h1>
+<p-table [value]="document?.items" [columns]="columns" *ngIf="document !== undefined" [resizableColumns]="true"
+    columnResizeMode="expand" autoLayout="true" [responsive]="true" selectionMode="single"
+    (onRowSelect)="getProductDetails($event)">
+    <ng-template pTemplate="header">
+        <tr>
+            <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+        </tr>
+        <!-- <tr>
+            <th *ngFor="let col of columns">
+                <input pInputText type="text" (input)="tbl.filter($event.target.value, col.field, 'contains')"
+                    size="15">
+            </th>
+        </tr> -->
+    </ng-template>
+    <ng-template pTemplate="body" let-data let-i="rowIndex">
+        <tr [pSelectableRowDblClick]="data">
+            <td class="ui-resizable-column" *ngFor="let col of columns">
+                {{col.field.indexOf(".") > -1 ? data[col.field.split(".")[0]][col.field.split(".")[1]] : data[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+<p-panel *ngIf="product !== undefined">
+    <p-header>{{product.name}}</p-header>
+    <div class="flex-container" fxLayout="row">
+        <span *ngFor="let pmf of product?.model?.fields" class="flex-item" fxFlex="25%">
+            <input pInputText type="text" *ngIf="pmf.type === fieldTypes.TEXT" readonly [placeholder]="pmf.name" label="product?.model?.properties[pmf.id]">
+            <input pInputText type="number" *ngIf="pmf.type === fieldTypes.NUMBER" readonly [placeholder]="pmf.name">
+        </span>
+    </div>
+    <button type="button" pButton label='Imprimir' icon="fa-print" disabled="printOrders.length == 0"></button>
+</p-panel>

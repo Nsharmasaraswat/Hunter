@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".TasksActivity">
+
+    <group
+        android:id="@+id/grpTranspNegative"
+        android:menuCategory="container"
+        android:orderInCategory="40">
+        <item
+            android:id="@+id/transpStop"
+            android:icon="@drawable/icon_transp_stop"
+            android:orderInCategory="50"
+            android:title="@string/stop"
+            android:visible="false"
+            app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/transpCancel"
+            android:icon="@android:drawable/ic_menu_close_clear_cancel"
+            android:orderInCategory="50"
+            android:title="@string/cancel"
+            app:showAsAction="ifRoom" />
+    </group>
+</menu>

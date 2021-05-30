@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_conference_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    android:background="@drawable/background_white_border"
+    android:clickable="true"
+    android:focusable="true"
+    android:padding="10sp"
+    android:layout_gravity="fill_vertical"
+    android:scrollbarDefaultDelayBeforeFade="0"
+    android:scrollbarFadeDuration="0"
+    android:scrollbarSize="0dp"
+    android:scrollbarTrackVertical="@null">
+
+    <CheckBox
+        android:id="@+id/cbxConfIndeterminate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:elevation="2sp"
+        android:text="Ind"
+        app:layout_constraintBottom_toBottomOf="@+id/edtConfExp"
+        app:layout_constraintEnd_toStartOf="@+id/rightConfItemGuideline"
+        app:layout_constraintStart_toEndOf="@+id/txtConfExp" />
+
+    <EditText
+        android:id="@+id/edtConfMfg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="6dp"
+        android:autofillHints="true"
+        android:elevation="2sp"
+        android:ems="7"
+        android:focusable="false"
+        android:hint="@string/label_manufacture"
+        android:inputType="none"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/rightConfItemGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/cbxConfProduct" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightConfItemGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="2sp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".5" />
+
+    <EditText
+        android:id="@+id/edtConfExp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:autofillHints="true"
+        android:elevation="2sp"
+        android:ems="7"
+        android:focusable="false"
+        android:hint="@string/label_expiry"
+        android:inputType="none"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/rightConfItemGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/edtConfMfg" />
+
+    <EditText
+        android:id="@+id/edtConfLot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:autofillHints="true"
+        android:elevation="2sp"
+        android:ems="7"
+        android:hint="@string/label_lot"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rightConfItemGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/edtConfExp" />
+
+    <EditText
+        android:id="@+id/edtConfQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:autofillHints="true"
+        android:elevation="2sp"
+        android:ems="7"
+        android:hint="@string/label_quantityUM"
+        android:inputType="number|numberDecimal"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rightConfItemGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/edtConfLot" />
+
+    <EditText
+        android:id="@+id/edtConfVolume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:autofillHints="true"
+        android:elevation="2sp"
+        android:ems="7"
+        android:hint="@string/label_volume"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rightConfItemGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/edtConfQuantity" />
+
+    <TextView
+        android:id="@+id/txtConfExp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:layout_marginBottom="6dp"
+        android:elevation="2sp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="@string/label_expiry"
+        android:textAlignment="textStart"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edtConfExp"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txtConfMfg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:layout_marginBottom="6dp"
+        android:elevation="2sp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="@string/label_manufacture"
+        android:textAlignment="textStart"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edtConfMfg"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txtConfLot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:layout_marginBottom="6dp"
+        android:elevation="2sp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="@string/label_lot"
+        android:textAlignment="textStart"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edtConfLot"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txtConfQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="6dp"
+        android:elevation="2sp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="@string/label_quantityUM"
+        android:textAlignment="textStart"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edtConfQuantity"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txtConfVolume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="6dp"
+        android:elevation="2sp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="@string/label_volume"
+        android:textAlignment="textStart"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edtConfVolume"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.gtp.hunter.structure.spinner.SearchableSpinner
+        android:id="@+id/cbxConfProduct"
+        android:layout_width="260dip"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:dropDownWidth="match_parent"
+        android:elevation="2sp"
+        android:maxWidth="50dip"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.gtp.hunter.structure.spinner.SearchableSpinner
+        android:id="@+id/cbxConfAddress"
+        android:layout_width="260dip"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:dropDownWidth="match_parent"
+        android:elevation="2sp"
+        android:maxWidth="50dip"
+        android:padding="5dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtConfVolume" />
+
+    <TextView
+        android:id="@+id/txtVwId"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="1sp"
+        android:gravity="center"
+        android:text="@string/number_mask"
+        android:textAlignment="gravity"
+        android:textColor="@color/listItemLight"
+        app:autoSizeMaxTextSize="200sp"
+        app:autoSizeMinTextSize="24sp"
+        app:autoSizeStepGranularity="5sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

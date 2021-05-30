@@ -1,0 +1,94 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "hunter-web"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico",
+        "assets/config.json",
+        "web.config",
+        ".htaccess",
+        {
+          "glob": "**/*",
+          "input": "./node_modules/leaflet/dist/images",
+          "output": "assets/"
+        }
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "./app/main.scss",
+        "../node_modules/font-awesome/css/font-awesome.min.css",
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/primeflex/primeflex.css",
+        "../node_modules/chart.js/dist/chart.min.css",
+        "../node_modules/primeng/resources/themes/omega/theme.css",
+        "../node_modules/primeng/resources/primeng.min.css",
+        "../node_modules/leaflet/dist/leaflet.css",
+		    "../node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css",
+        "../node_modules/leaflet-draw/dist/leaflet.draw.css",
+        "../node_modules/leaflet.fullscreen/Control.FullScreen.css",
+        "../node_modules/leaflet-easybutton/src/easy-button.css"
+      ],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.js",
+        "../node_modules/chart.js/dist/chart.min.js",
+        "../node_modules/pdfmake/build/pdfmake.min.js",
+        "../node_modules/pdfmake/build/vfs_fonts.js",
+        "../node_modules/core-js/client/shim.min.js",
+        "../node_modules/zone.js/dist/zone.js",
+        "../node_modules/reflect-metadata/Reflect.js",
+        "../node_modules/systemjs/dist/system.js",
+        "../node_modules/classlist.js/classList.min.js"
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.ts"
+      }
+    }
+  ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [
+    {
+      "project": "src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "src/tsconfig.spec.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "scss",
+    "component": {},
+    "serve": {
+      "port": 4444,
+      "host": "0.0.0.0"
+    }
+  }
+}
+

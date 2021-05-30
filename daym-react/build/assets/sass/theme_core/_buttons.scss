@@ -1,0 +1,329 @@
+body {
+    .p-button {
+        margin: 0;
+        color: $buttonTextColor;
+        background-color: $buttonBgColor;
+        border: $buttonBorder;
+        font-size: $fontSize;
+        @include transition($buttonTransition);
+        @include border-radius($borderRadius);
+
+        &:enabled:hover {
+            background-color: $buttonHoverBgColor;
+            color: $buttonHoverTextColor;
+            border-color: $buttonHoverBorderColor;
+        }
+
+        &:enabled:focus {
+            outline: $buttonFocusOutline;
+            outline-offset: $buttonFocusOutlineOffset;
+            @include shadow($buttonFocusShadow);
+        }
+
+        &:enabled:active  {
+            background-color: $buttonActiveBgColor;
+            color: $buttonActiveTextColor;
+            border-color: $buttonActiveBorderColor;
+        }
+
+        &.p-button-text-only {
+            .p-button-text {
+                padding: $buttonTextOnlyPadding;
+            }
+        }
+
+        &.p-button-text-icon-left {
+            .p-button-text {
+                padding: $buttonWithLeftIconPadding;
+            }
+        }
+
+        &.p-button-text-icon-right {
+            .p-button-text {
+                padding: $buttonWithRightIconPadding;
+            }
+        }
+
+        &.p-button-icon-only {
+            width: $buttonIconOnlyWidth;
+
+            .p-button-text {
+                padding: $buttonIconOnlyPadding;
+            }
+        }
+
+        &.p-button-raised {
+            @include shadow($raisedButtonShadow);
+        }
+
+        &.p-button-rounded {
+            @include border-radius($roundedButtonBorderRadius);
+        }
+    }
+
+    .p-fluid {
+        .p-button-icon-only {
+            width: $buttonIconOnlyWidth;
+        }
+    }
+
+    .p-togglebutton {
+        background-color: $toggleButtonBgColor;
+        border: $toggleButtonBorder;
+        color: $toggleButtonTextColor;
+        @include transition($buttonTransition);
+
+        .p-button-icon-left {
+            color: $toggleButtonIconColor;
+        }
+
+        &:not(.p-disabled):not(.p-highlight):hover {
+            background-color: $toggleButtonHoverBgColor;
+            border-color: $toggleButtonHoverBorderColor;
+            color: $toggleButtonHoverTextColor;
+
+            .p-button-icon-left {
+                color: $toggleButtonHoverIconColor;
+            }
+        }
+
+        &.p-focus {
+            background-color: $toggleButtonFocusBgColor;
+            border-color: $toggleButtonFocusBorderColor;
+            color: $toggleButtonFocusTextColor;
+            z-index: 1;
+            @include shadow($buttonFocusShadow);
+
+            .p-button-icon-left {
+                color: $toggleButtonFocusIconColor;
+            }
+        }
+
+        &.p-highlight {
+            background-color: $toggleButtonActiveBgColor;
+            border-color: $toggleButtonActiveBorderColor;
+            color: $toggleButtonActiveTextColor;
+
+            .p-button-icon-left {
+                color: $toggleButtonActiveIconColor;
+            }
+
+            &:hover {
+                background-color: $toggleButtonActiveHoverBgColor;
+                border-color: $toggleButtonActiveHoverBorderColor;
+                color: $toggleButtonActiveHoverTextColor;
+
+                .p-button-icon-left {
+                    color: $toggleButtonActiveHoverIconColor;
+                }
+            }
+        }
+    }
+
+    .p-selectbutton {
+        .p-button {
+            background-color: $toggleButtonBgColor;
+            border: $toggleButtonBorder;
+            color: $toggleButtonTextColor;
+            outline: 0 none;
+            @include transition($buttonTransition);
+            @include border-radius(0);
+    
+            .p-button-icon-left {
+                color: $toggleButtonIconColor;
+            }
+    
+            &:not(.p-disabled):not(.p-highlight):hover {
+                background-color: $toggleButtonHoverBgColor;
+                border-color: $toggleButtonHoverBorderColor;
+                color: $toggleButtonHoverTextColor;
+    
+                .p-button-icon-left {
+                    color: $toggleButtonHoverIconColor;
+                }
+            }
+    
+            &.p-focus,
+            &:focus {
+                background-color: $toggleButtonFocusBgColor;
+                border-color: $toggleButtonFocusBorderColor;
+                color: $toggleButtonFocusTextColor;
+                z-index: 1;
+                @include shadow($buttonFocusShadow);
+
+                .p-button-icon-left {
+                    color: $toggleButtonFocusIconColor;
+                }
+            }
+    
+            &.p-highlight {
+                background-color: $toggleButtonActiveBgColor;
+                border-color: $toggleButtonActiveBorderColor;
+                color: $toggleButtonActiveTextColor;
+    
+                .p-button-icon-left {
+                    color: $toggleButtonActiveIconColor;
+                }
+
+                &:not(.p-disabled):hover {
+                    background-color: $toggleButtonActiveHoverBgColor;
+                    border-color: $toggleButtonActiveHoverBorderColor;
+                    color: $toggleButtonActiveHoverTextColor;
+    
+                    .p-button-icon-left {
+                        color: $toggleButtonActiveHoverIconColor;
+                    }
+                }
+            }
+
+            &:first-child {
+                @include border-radius-left($borderRadius);
+            }
+
+            &:last-child {
+                @include border-radius-right($borderRadius);
+            }
+        }
+    }
+
+    .p-splitbutton {
+        &.p-buttonset {
+            .p-button {
+                border: 1px solid transparent;
+
+                &:first-child {
+                    @include border-radius-right(0);
+                }
+    
+                &.p-splitbutton-menubutton {
+                    @include border-radius-left(0);
+                }
+
+                &:focus {
+                    z-index: 1;
+                }
+            }
+    
+            .p-menu {
+                min-width: 100%;
+            }
+    
+            .p-splitbutton-menubutton {
+                .p-button-icon-left {
+                    @include icon_override("\e902");
+                }
+            }
+        }
+    }
+
+
+    .p-button.p-button-secondary, .p-buttonset.p-button-secondary > .p-button  {
+        color: $secondaryButtonTextColor;
+        background-color: $secondaryButtonBgColor;
+        border: $secondaryButtonBorder;
+
+        &:enabled:hover {
+            background-color: $secondaryButtonHoverBgColor;
+            color: $secondaryButtonHoverTextColor;
+            border-color: $secondaryButtonHoverBorderColor;
+        }
+
+        &:enabled:focus {
+            @include shadow($secondaryButtonFocusShadow);
+        }
+
+        &:enabled:active {
+            background-color: $secondaryButtonActiveBgColor;
+            color: $secondaryButtonActiveTextColor;
+            border-color: $secondaryButtonActiveBorderColor;
+        }
+    }
+
+    .p-button.p-button-info, .p-buttonset.p-button-info > .p-button  {
+        color: $infoButtonTextColor;
+        background-color: $infoButtonBgColor;
+        border: $infoButtonBorder;
+
+        &:enabled:hover {
+            background-color: $infoButtonHoverBgColor;
+            color: $infoButtonHoverTextColor;
+            border-color: $infoButtonHoverBorderColor;
+        }
+
+        &:enabled:focus {
+            @include shadow($infoButtonFocusShadow);
+        }
+
+        &:enabled:active {
+            background-color: $infoButtonActiveBgColor;
+            color: $infoButtonActiveTextColor;
+            border-color: $infoButtonActiveBorderColor;
+        }
+    }
+
+    .p-button.p-button-success, .p-buttonset.p-button-success > .p-button  {
+        color: $successButtonTextColor;
+        background-color: $successButtonBgColor;
+        border: $successButtonBorder;
+
+        &:enabled:hover {
+            background-color: $successButtonHoverBgColor;
+            color: $successButtonHoverTextColor;
+            border-color: $successButtonHoverBorderColor;
+        }
+
+        &:enabled:focus {
+            @include shadow($successButtonFocusShadow);
+        }
+
+        &:enabled:active {
+            background-color: $successButtonActiveBgColor;
+            color: $successButtonActiveTextColor;
+            border-color: $successButtonActiveBorderColor;
+        }
+    }
+
+    .p-button.p-button-warning, .p-buttonset.p-button-warning > .p-button  {
+        color: $warningButtonTextColor;
+        background-color: $warningButtonBgColor;
+        border: $warningButtonBorder;
+
+        &:enabled:hover {
+            background-color: $warningButtonHoverBgColor;
+            color: $warningButtonHoverTextColor;
+            border-color: $warningButtonHoverBorderColor;
+        }
+
+        &:enabled:focus {
+            @include shadow($warningButtonFocusShadow);
+        }
+
+        &:enabled:active {
+            background-color: $warningButtonActiveBgColor;
+            color: $warningButtonActiveTextColor;
+            border-color: $warningButtonActiveBorderColor;
+        }
+    }
+
+    .p-button.p-button-danger, .p-buttonset.p-button-danger > .p-button  {
+        color: $dangerButtonTextColor;
+        background-color: $dangerButtonBgColor;
+        border: $dangerButtonBorder;
+
+        &:enabled:hover {
+            background-color: $dangerButtonHoverBgColor;
+            color: $dangerButtonHoverTextColor;
+            border-color: $dangerButtonHoverBorderColor;
+        }
+
+        &:enabled:focus {
+            @include shadow($dangerButtonFocusShadow);
+        }
+
+        &:enabled:active  {
+            background-color: $dangerButtonActiveBgColor;
+            color: $dangerButtonActiveTextColor;
+            border-color: $dangerButtonActiveBorderColor;
+        }
+    }
+}

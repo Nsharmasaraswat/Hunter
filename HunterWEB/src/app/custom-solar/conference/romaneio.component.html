@@ -1,0 +1,50 @@
+<h2 class="first">Lista de Romaneio</h2>
+
+<p-toolbar *ngIf="dataLoaded">
+    <div class="ui-g">
+        <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="PDF" (click)="savePdf()"
+            style="float:left">
+        </button>
+    </div>
+
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-4 ui-lg-4">
+            <h5 class="first">Fornecedor</h5>
+            <input id="input" type="text" size="35" pInputText [(ngModel)]="cabecalho.NOME_FORNECEDOR" readonly>
+        </div>
+        <div class="ui-g-12 ui-md-4 ui-lg-4">
+            <h5 class="first">Data/Hora Descarga</h5>
+            <input id="input" type="text" size="35" pInputText [(ngModel)]="cabecalho.DATA_DESCARGA" readonly>
+        </div>
+        <div class="ui-g-12 ui-md-4 ui-lg-4">
+            <h5 class="first">CNPJ</h5>
+            <p-inputMask mask="99.999.999/9999-99" size="35" [(ngModel)]="cabecalho.CNPJ_FORNECEDOR" readonly="true">
+            </p-inputMask>
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-6 ui-lg-4">
+            <h5 class="first">Nota Fiscal</h5>
+            <input id="input" type="text" size="35" pInputText [(ngModel)]="cabecalho.NOTA_FISCAL" readonly>
+        </div>
+        <div class="ui-g-12 ui-md-6 ui-lg-4">
+            <h5 class="first">Data Nota Fiscal</h5>
+            <p-inputMask mask="99/99/9999" size="35" [(ngModel)]="cabecalho.DATA_NOTA_FISCAL" slotChar="mm/dd/yyyy"
+                readonly="true"></p-inputMask>
+        </div>
+        <div class="ui-g-12 ui-md-4 ui-lg-4">
+            <h5 class="first">PEDIDO</h5>
+            <input id="input" type="text" size="35" pInputText [(ngModel)]="cabecalho.PEDIDO" readonly>
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-6 ui-lg-4">
+            <h5 class="first">Placa Veiculo</h5>
+            <input id="input" type="text" size="35" pInputText [(ngModel)]="cabecalho.PLACA_VEICULO" readonly>
+        </div>
+    </div>
+
+</p-toolbar>
+
+<dynamic-table *ngIf="dataLoaded" [tableData]="data" [tableColumns]="selectedReport.columns" [rowCount]="6"
+    [showFooter]="false" [showCSV]="false" [showFilters]="false"></dynamic-table>

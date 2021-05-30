@@ -1,0 +1,12 @@
+{
+    "name": "Local",
+     "restserver": "http://localhost:8080",
+     "coreserver": "http://localhost:8080/hunter-core/api/",
+     "processserver": "http://localhost:8080/hunter-core/api/",
+     "reportserver": "http://localhost:8080/hunter-report/",
+     "tempreportserver": "http://localhost:8080/hunter-core/api/",
+     "customserver": "http://localhost:8080/hunter-custom-solar/api/",
+     "wsserver": "ws://localhost:8080",
+     "wsprocess": "ws://localhost:8080/hunter-core/",
+     "wscore": "ws://localhost:8080/hunter-core/"
+ }

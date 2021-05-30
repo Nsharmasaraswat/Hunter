@@ -1,0 +1,11 @@
+{
+    "name": "",
+    "restserver": "https://iwm-cnat.solarbr.com.br:8443",
+    "coreserver": "https://iwm-cnat.solarbr.com.br:8443/hunter-core/api/",
+    "processserver": "https://iwm-cnat.solarbr.com.br:8443/hunter-core/api/",
+    "reportserver": "https://iwm-cnat.solarbr.com.br:8443/hunter-report/",
+    "customserver": "https://iwm-cnat.solarbr.com.br:8443/hunter-custom-solar/api/",
+    "wsserver": "wss://iwm-cnat.solarbr.com.br:8443",
+    "wsprocess": "wss://iwm-cnat.solarbr.com.br:8443/hunter-core/",
+    "wscore": "wss://iwm-cnat.solarbr.com.br:8443/hunter-core/"
+}

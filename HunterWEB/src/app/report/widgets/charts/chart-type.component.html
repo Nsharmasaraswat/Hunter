@@ -1,0 +1,243 @@
+<!-- GRÁFICOS DE LINHAS -->
+<ngx-charts-line-chart *ngIf="widgetdata.charttype === 'line'" [view]="[widgetdata.width, widgetdata.height]"
+  [scheme]="colorScheme" [results]="data" [legend]="widgetdata.legend" [legendTitle]="widgetdata.legendTitle"
+  [showXAxisLabel]="widgetdata.showXAxisLabel" [showYAxisLabel]="widgetdata.showYAxisLabel" [xAxis]="widgetdata.xAxis"
+  [yAxis]="widgetdata.yAxis" [xAxisLabel]="widgetdata.xAxisLabel" [yAxisLabel]="widgetdata.yAxisLabel"
+  [timeline]="widgetdata.timeline" [gradient]="widgetdata.gradient" (select)="onSelect($event)"
+  (activate)="onActivate($event)" (deactivate)="onDeactivate($event)" data-toggle="modal" [attr.data-target]="'#' + modalId">
+</ngx-charts-line-chart>
+
+<ngx-charts-area-chart *ngIf="widgetdata.charttype === 'area'" [view]="[widgetdata.width, widgetdata.height]"
+  [scheme]="colorScheme" [legend]="widgetdata.legend" [legendTitle]="widgetdata.legendTitle"
+  [showXAxisLabel]="widgetdata.showXAxisLabel" [showYAxisLabel]="widgetdata.showYAxisLabel" [xAxis]="widgetdata.xAxis"
+  [yAxis]="widgetdata.yAxis" [xAxisLabel]="widgetdata.xAxisLabel" [yAxisLabel]="widgetdata.yAxisLabel"
+  [timeline]="widgetdata.timeline" [results]="data" [gradient]="widgetdata.gradient" (select)="onSelect($event)"
+  (activate)="onActivate($event)" (deactivate)="onDeactivate($event)" data-toggle="modal" [attr.data-target]="'#' + modalId">
+</ngx-charts-area-chart>
+
+<ngx-charts-polar-chart *ngIf="widgetdata.charttype === 'polar'" [view]="[widgetdata.width, widgetdata.height]"
+  [scheme]="colorScheme" [legend]="widgetdata.legend" [legendTitle]="widgetdata.legendTitle"
+  [gradient]="widgetdata.gradient" [showYAxisLabel]="widgetdata.showYAxisLabel" [xAxis]="widgetdata.xAxis"
+  [yAxis]="widgetdata.yAxis" [xAxisLabel]="widgetdata.xAxisLabel" [yAxisLabel]="widgetdata.yAxisLabel" [results]="data"
+  (select)="onSelect($event)" (activate)="onActivate($event)" (deactivate)="onDeactivate($event)" data-toggle="modal"
+  [attr.data-target]="'#' + modalId">
+</ngx-charts-polar-chart>
+
+<ngx-charts-area-chart-stacked *ngIf="widgetdata.charttype === 'area-stacked'"
+  [view]="[widgetdata.width, widgetdata.height]" [scheme]="colorScheme" [legend]="widgetdata.legend"
+  [legendTitle]="widgetdata.legendTitle" [showXAxisLabel]="widgetdata.showXAxisLabel"
+  [showYAxisLabel]="widgetdata.showYAxisLabel" [xAxis]="widgetdata.xAxis" [yAxis]="widgetdata.yAxis"
+  [xAxisLabel]="widgetdata.xAxisLabel" [yAxisLabel]="widgetdata.yAxisLabel" [timeline]="widgetdata.timeline"
+  [results]="widgetdata.multi" [gradient]="widgetdata.gradient" (select)="onSelect($event)"
+  (activate)="onActivate($event)" (deactivate)="onDeactivate($event)" data-toggle="modal" [attr.data-target]="'#' + modalId">
+</ngx-charts-area-chart-stacked>
+
+<ngx-charts-area-chart-normalized *ngIf="widgetdata.charttype === 'area-normalized'"
+  [view]="[widgetdata.width, widgetdata.height]" [scheme]="colorScheme" [legend]="widgetdata.legend"
+  [legendTitle]="widgetdata.legendTitle" [showXAxisLabel]="widgetdata.showXAxisLabel"
+  [showYAxisLabel]="widgetdata.showYAxisLabel" [xAxis]="widgetdata.xAxis" [yAxis]="widgetdata.yAxis"
+  [xAxisLabel]="widgetdata.xAxisLabel" [yAxisLabel]="widgetdata.yAxisLabel" [timeline]="widgetdata.timeline"
+  [results]="data" [gradient]="widgetdata.gradient" (select)="onSelect($event)" (activate)="onActivate($event)"
+  (deactivate)="onDeactivate($event)" data-toggle="modal" [attr.data-target]="'#' + modalId">
+</ngx-charts-area-chart-normalized>
+
+<!--FIM  GRÁFICOS DE LINHAS -->
+
+<!-- ///////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- GRÁFICOS DE BARRAS VERTICAIS -->
+<ngx-charts-bar-vertical *ngIf="widgetdata.charttype === 'bar-vertical'" [view]="[widgetdata.width, widgetdata.height]"
+  [results]="data" [showXAxisLabel]="widgetdata.showXAxisLabel" [xAxisLabel]="widgetdata.xAxisLabel"
+  [showYAxisLabel]="widgetdata.showYAxisLabel" [yAxisLabel]="widgetdata.yAxisLabel" [legend]="widgetdata.legend"
+  [legendTitle]="widgetdata.legendTitle" [xAxis]="widgetdata.xAxis" [yAxis]="widgetdata.yAxis"
+  [gradient]="widgetdata.gradient" [scheme]="colorScheme" [yScaleMin]="widgetdata.yScaleMin"
+  [yScaleMax]="widgetdata.yScaleMax" (select)="onSelect($event)" (activate)="onActivate($event)"
+  (deactivate)="onDeactivate($event)" data-toggle="modal" [attr.data-target]="'#' + modalId">
+</ngx-charts-bar-vertical>
+
+<ngx-charts-bar-vertical-2d *ngIf="widgetdata.charttype === 'bar-vertical-grouped'"
+  [view]="[widgetdata.width, widgetdata.height]" [scheme]="colorScheme" [legend]="widgetdata.legend"
+  [legendTitle]="widgetdata.legendTitle" [showXAxisLabel]="widgetdata.showXAxisLabel"
+  [showYAxisLabel]="widgetdata.showYAxisLabel" [xAxis]="widgetdata.xAxis" [yAxis]="widgetdata.yAxis"
+  [xAxisLabel]="widgetdata.xAxisLabel" [yAxisLabel]="widgetdata.yAxisLabel" [results]="data"
+  [gradient]="widgetdata.gradient" (select)="onSelect($event)" (activate)="onActivate($event)"
+  (deactivate)="onDeactivate($event)" data-toggle="modal" [attr.data-target]="'#' + modalId">
+</ngx-charts-bar-vertical-2d>
+
+<ngx-charts-bar-vertical-stacked *ngIf="widgetdata.charttype === 'bar-vertical-stacked'"
+  [view]="[widgetdata.width, widgetdata.height]" [scheme]="colorScheme" [results]="data"
+  [gradient]="widgetdata.gradient" [xAxis]="widgetdata.xAxis" [yAxis]="widgetdata.yAxis" [legend]="widgetdata.legend"
+  [legendTitle]="widgetdata.legendTitle" [showXAxisLabel]="widgetdata.showXAxisLabel"
+  [showYAxisLabel]="widgetdata.showYAxisLabel" [xAxisLabel]="widgetdata.xAxisLabel" [yAxisLabel]="widgetdata.yAxisLabel"
+  [animations]="widgetdata.animations" (select)="onSelect($event)" (activate)="onActivate($event)"
+  (deactivate)="onDeactivate($event)" data-toggle="modal" [attr.data-target]="'#' + modalId">
+</ngx-charts-bar-vertical-stacked>
+
+<ngx-charts-bar-vertical-normalized *ngIf="widgetdata.charttype === 'bar-vertical-normalized'"
+  [view]="[widgetdata.width, widgetdata.height]" [scheme]="colorScheme" [results]="data"
+  [gradient]="widgetdata.gradient" [xAxis]="widgetdata.xAxis" [yAxis]="widgetdata.yAxis" [legend]="widgetdata.legend"
+  [legendTitle]="widgetdata.legendTitle" [showXAxisLabel]="widgetdata.showXAxisLabel"
+  [showYAxisLabel]="widgetdata.showYAxisLabel" [xAxisLabel]="widgetdata.xAxisLabel" [yAxisLabel]="widgetdata.yAxisLabel"
+  (select)="onSelect($event)" (activate)="onActivate($event)" (deactivate)="onDeactivate($event)" data-toggle="modal"
+  [attr.data-target]="'#' + modalId">
+</ngx-charts-bar-vertical-normalized>
+
+<!-- FIM GRÁFICOS DE BARRAS VERTICAIS -->
+
+<!-- ///////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- GRÁFICOS DE BARRAS HORIZONTAIS -->
+
+<ngx-charts-bar-horizontal *ngIf="widgetdata.charttype === 'bar-horizontal'"
+  [view]="[widgetdata.width, widgetdata.height]" [scheme]="colorScheme" [results]="data"
+  [gradient]="widgetdata.gradient" [xAxis]="widgetdata.xAxis" [yAxis]="widgetdata.yAxis" [legend]="widgetdata.legend"
+  [legendTitle]="widgetdata.legendTitle" [showXAxisLabel]="widgetdata.showXAxisLabel"
+  [showYAxisLabel]="widgetdata.showYAxisLabel" [xAxisLabel]="widgetdata.xAxisLabel" [yAxisLabel]="widgetdata.yAxisLabel"
+  [xScaleMin]="widgetdata.xScaleMin" [xScaleMax]="widgetdata.xScaleMax" (select)="onSelect($event)"
+  (activate)="onActivate($event)" (deactivate)="onDeactivate($event)" data-toggle="modal" [attr.data-target]="'#' + modalId">
+</ngx-charts-bar-horizontal>
+
+<ngx-charts-bar-horizontal-2d *ngIf="widgetdata.charttype === 'bar-horizontal-grouped'"
+  [view]="[widgetdata.width, widgetdata.height]" [scheme]="colorScheme" [schemeType]="widgetdata.schemeType"
+  [results]="data" [gradient]="widgetdata.gradient" [xAxis]="widgetdata.xAxis" [yAxis]="widgetdata.showYAxis"
+  [legend]="widgetdata.yAxis" [legendTitle]="widgetdata.legendTitle" [showXAxisLabel]="widgetdata.showXAxisLabel"
+  [showYAxisLabel]="widgetdata.showYAxisLabel" [xAxisLabel]="widgetdata.xAxisLabel" [yAxisLabel]="widgetdata.yAxisLabel"
+  (select)="onSelect($event)" (activate)="onActivate($event)" (deactivate)="onDeactivate($event)" data-toggle="modal"
+  [attr.data-target]="'#' + modalId">
+</ngx-charts-bar-horizontal-2d>
+
+<ngx-charts-bar-horizontal-stacked *ngIf="widgetdata.charttype === 'bar-horizontal-stacked'"
+  [view]="[widgetdata.width, widgetdata.height]" [scheme]="colorScheme" [results]="data"
+  [gradient]="widgetdata.gradient" [xAxis]="widgetdata.xAxis" [yAxis]="widgetdata.yAxis"
+  [legend]="widgetdata.showLegend" [legendTitle]="widgetdata.legendTitle" [showXAxisLabel]="widgetdata.showXAxisLabel"
+  [showYAxisLabel]="widgetdata.showYAxisLabel" [xAxisLabel]="widgetdata.xAxisLabel" [yAxisLabel]="widgetdata.yAxisLabel"
+  (select)="onSelect($event)" (activate)="onActivate($event)" (deactivate)="onDeactivate($event)" data-toggle="modal"
+  [attr.data-target]="'#' + modalId">
+</ngx-charts-bar-horizontal-stacked>
+
+<ngx-charts-bar-horizontal-normalized *ngIf="widgetdata.charttype === 'bar-horizontal-normalized'"
+  [view]="[widgetdata.width, widgetdata.height]" [scheme]="colorScheme" [results]="data"
+  [gradient]="widgetdata.gradient" [xAxis]="widgetdata.xAxis" [yAxis]="widgetdata.yAxis"
+  [legend]="widgetdata.showLegend" [legendTitle]="widgetdata.legendTitle" [showXAxisLabel]="widgetdata.showXAxisLabel"
+  [showYAxisLabel]="widgetdata.showYAxisLabel" [xAxisLabel]="widgetdata.xAxisLabel" [yAxisLabel]="widgetdata.yAxisLabel"
+  (select)="onSelect($event)" (activate)="onActivate($event)" (deactivate)="onDeactivate($event)" data-toggle="modal"
+  [attr.data-target]="'#' + modalId">
+</ngx-charts-bar-horizontal-normalized>
+
+<!-- FIM GRÁFICOS DE BARRAS HORIZONTAIS -->
+
+<!-- ///////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- GRÁFICOS DE PIZZA-->
+
+<ngx-charts-pie-chart *ngIf="widgetdata.charttype === 'pie'" [view]="[widgetdata.width, widgetdata.height]"
+  [scheme]="colorScheme" [results]="data" [gradient]="widgetdata.gradient" [legend]="widgetdata.showLegend"
+  [legendTitle]="widgetdata.legendTitle" [labels]="widgetdata.showLabels" [doughnut]="widgetdata.isDoughnut"
+  (select)="onSelect($event)" (activate)="onActivate($event)" (deactivate)="onDeactivate($event)" data-toggle="modal"
+  [attr.data-target]="'#' + modalId">
+</ngx-charts-pie-chart>
+
+<ngx-charts-pie-grid *ngIf="widgetdata.charttype === 'pie-grid'" [view]="[widgetdata.width, widgetdata.height]"
+  [scheme]="colorScheme" [results]="data" (select)="onSelect($event)" (activate)="onActivate($event)"
+  (deactivate)="onDeactivate($event)" data-toggle="modal" [attr.data-target]="'#' + modalId">
+</ngx-charts-pie-grid>
+
+<ngx-charts-advanced-pie-chart *ngIf="widgetdata.charttype === 'pie-advanced'"
+  [view]="[widgetdata.width, widgetdata.height]" [scheme]="colorScheme" [results]="data"
+  [gradient]="widgetdata.gradient" (select)="onSelect($event)" (activate)="onActivate($event)"
+  (deactivate)="onDeactivate($event)" data-toggle="modal" [attr.data-target]="'#' + modalId">
+</ngx-charts-advanced-pie-chart>
+
+<!-- FIM GRÁFICOS DE PIZZA -->
+
+<!-- ///////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- GRÁFICOS DIVERSOS-->
+
+<ngx-charts-heat-map *ngIf="widgetdata.charttype === 'heat-map'" [view]="[widgetdata.width, widgetdata.height]"
+  [scheme]="colorScheme" [legend]="widgetdata.legend" [legendTitle]="widgetdata.legendTitle"
+  [showXAxisLabel]="widgetdata.showXAxisLabel" [showYAxisLabel]="widgetdata.showYAxisLabel" [xAxis]="widgetdata.xAxis"
+  [yAxis]="widgetdata.yAxis" [xAxisLabel]="widgetdata.xAxisLabel" [yAxisLabel]="widgetdata.yAxisLabel" [results]="data"
+  (select)="onSelect($event)" (activate)="onActivate($event)" (deactivate)="onDeactivate($event)" data-toggle="modal"
+  [attr.data-target]="'#' + modalId">
+</ngx-charts-heat-map>
+
+<ngx-charts-bubble-chart *ngIf="widgetdata.charttype === 'bubble'" [view]="[widgetdata.width, widgetdata.height]"
+  [scheme]="colorScheme" [results]="data" [xAxis]="widgetdata.xAxis" [yAxis]="widgetdata.yAxis"
+  [legend]="widgetdata.legend" [legendTitle]="widgetdata.legendTitle" [showXAxisLabel]="widgetdata.showXAxisLabel"
+  [showYAxisLabel]="widgetdata.showYAxisLabel" [xAxisLabel]="widgetdata.xAxisLabel" [yAxisLabel]="widgetdata.yAxisLabel"
+  [xScaleMin]="widgetdata.xScaleMin" [xScaleMax]="widgetdata.xScaleMax" [yScaleMin]="widgetdata.yScaleMin"
+  [yScaleMax]="widgetdata.yScaleMax" [minRadius]="widgetdata.minRadius" [maxRadius]="widgetdata.maxRadius"
+  (select)="onSelect($event)" (activate)="onActivate($event)" (deactivate)="onDeactivate($event)" data-toggle="modal"
+  [attr.data-target]="'#' + modalId">
+</ngx-charts-bubble-chart>
+
+<ngx-charts-tree-map *ngIf="widgetdata.charttype === 'tree-map'" [view]="[widgetdata.width, widgetdata.height]"
+  [scheme]="colorScheme" [results]="data" [gradient]="widgetdata.gradient" [animations]="widgetdata.animations"
+  [labelFormatting]="widgetdata.labelFormatting" (select)="onSelect($event)" (activate)="onActivate($event)"
+  (deactivate)="onDeactivate($event)" data-toggle="modal" [attr.data-target]="'#' + modalId">
+</ngx-charts-tree-map>
+
+<ngx-charts-number-card *ngIf="widgetdata.charttype === 'cards'" [view]="[widgetdata.width, widgetdata.height]"
+  [scheme]="colorScheme" [results]="data" [cardColor]="widgetdata.cardColor" (select)="onSelect($event)"
+  (activate)="onActivate($event)" (deactivate)="onDeactivate($event)" data-toggle="modal" [attr.data-target]="'#' + modalId">
+</ngx-charts-number-card>
+
+<ngx-charts-gauge *ngIf="widgetdata.charttype === 'gauge'" [view]="[widgetdata.width, widgetdata.height]"
+  [scheme]="colorScheme" [results]="data" [legend]="widgetdata.legend" [legendTitle]="widgetdata.legendTitle"
+  [min]="widgetdata.min" [max]="widgetdata.max" (select)="onSelect($event)" (activate)="onActivate($event)"
+  (deactivate)="onDeactivate($event)" data-toggle="modal" [attr.data-target]="'#' + modalId">
+</ngx-charts-gauge>
+
+<ngx-charts-linear-gauge *ngIf="widgetdata.charttype === 'gauge-linear'" [view]="[widgetdata.width, widgetdata.height]"
+  [scheme]="colorScheme" [value]="widgetdata.value" [previousValue]="widgetdata.previousValue"
+  [units]="widgetdata.units" (select)="onSelect($event)" (activate)="onActivate($event)"
+  (deactivate)="onDeactivate($event)" data-toggle="modal" [attr.data-target]="'#' + modalId">
+</ngx-charts-linear-gauge>
+
+
+<div *ngIf="selectedRawData.length" class="modal fade" [attr.id]="modalId" tabindex="-1" role="dialog" [attr.aria-labelledby]="modalId + 'Label'"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" [attr.id]="modalId + 'Label'">Valores da Seleção</h5>
+        <button type="button" class="close" data-dismiss="modal" (click)="onDeselect()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p-table *ngIf="selectedRawData.length" [value]="selectedRawData" [rows]="10" [paginator]="true" [pageLinks]="3"
+          [rowsPerPageOptions]="[5, 10, 20]" selectionMode="single"
+          [columns]="fieldsList"
+          dataKey="field">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns">
+                {{ col.header }}
+              </th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <!-- [pSelectableRow]="rowData" (click)="RowSelected(rowData)" -->
+            <tr [pContextMenuRow]="rowData" >
+              <td *ngFor="let a of rowData">{{ a.value }}</td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="summary">
+            Total: {{ selectedRawData?.length }} linhas
+          </ng-template>
+        </p-table>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="onDeselect()" data-dismiss="modal">
+          Fechar
+        </button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>

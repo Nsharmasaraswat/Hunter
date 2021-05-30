@@ -1,0 +1,64 @@
+<div class="ui-grid-row" [style.margin]="'0px 0px 15px 0px'">
+    <div class="ui-grid-col-1">
+        {{personLabel}}
+    </div>
+    <div class="ui-grid-col-8">
+        {{personName}}
+    </div>
+    <div class="ui-grid-col-1">
+        Transp. SAP: 
+    </div>
+    <div class="ui-grid-col-2">
+        {{transpSAP}}
+    </div>
+</div>
+<div class="ui-grid-row" [style.margin]="'0px 0px 15px 0px'">
+    <div class="ui-grid-col-1">
+        {{origdestLabel}}
+    </div>
+    <div class="ui-grid-col-8">
+        {{origdestName}}
+    </div>
+    <div class="ui-grid-col-1">
+        {{docMIGOLabel}}
+    </div>
+    <div class="ui-grid-col-2">
+        {{docMIGO}}
+    </div>
+</div>
+<div class="ui-grid-row" [pTooltip]="ztrans ? '' : 'Nota Fiscal Triângular'">
+    <div class="ui-grid-col-12">
+        <p-table [value]="items" *ngIf="nf !== undefined">
+            <ng-template pTemplate="colgroup">
+                <colgroup>
+                    <col [style.width]="'9ch'">
+                    <col [style.width]="'99%'">
+                    <col [style.width]="'12ch'">
+                    <col [style.width]="'7ch'">
+                    <col [style.width]="'12ch'">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th colspan="5">{{nf.name}} - {{nf.status}} - <small>{{nf.updatedAt | date:'dd/MM/yyyy HH:mm:ss'}}</small></th>
+                </tr>
+                <tr>
+                    <th>CODIGO</th>
+                    <th>PRODUTO</th>
+                    <th>QTD.</th>
+                    <th>U.M.</th>
+                    <th>PEDIDO</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                <tr [ngClass]="ztrans ? null : 'attention-document'">
+                    <td>{{rowData.sku}}</td>
+                    <td>{{rowData.product}}</td>
+                    <td>{{rowData.qty}}</td>
+                    <td>{{rowData.measure}}</td>
+                    <td>{{rowData.po}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

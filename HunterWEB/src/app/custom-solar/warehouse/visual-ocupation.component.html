@@ -1,0 +1,15 @@
+  <div class="row map-height">
+    <div class="col-10" #map leaflet [leafletOptions]="options" (leafletMapReady)="onMapReady($event)" 
+      leafletDraw [leafletDrawOptions]="drawOptions" (leafletDrawReady)="onDrawReady($event)"
+      [leafletMarkerCluster]="markers" [leafletMarkerClusterOptions]="markerClusterOptions" (leafletMarkerClusterReady)="markerClusterReady($event)"
+      *ngIf="options.center != null && options.center != undefined">
+    </div>
+    <div class="col-2" style="height: 100%;" *ngIf="showOptions">
+      <div class="row">
+        <div class="col-12">
+          <p-panel>
+            <p-header>Opções</p-header>
+          </p-panel>
+        </div>
+      </div>
+  </div>

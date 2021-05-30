@@ -1,0 +1,508 @@
+<div class="content-wrapper">
+  <div class="overflow-container">
+    <div class="overflow-content">
+      <div class="d-flex flex-wrap justify-content-center">
+        <div class="card shadow mb-5" style="width: 100%;">
+          <div id="editWidgetDiv" class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Criar ou Editar Widget</h6>
+            <div class="dropdown no-arrow">
+              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                aria-labelledby="dropdownMenuLink">
+                <div class="dropdown-header">Ação:</div>
+                <a class="dropdown-item" (click)="onSaveWidget()">Salvar</a>
+                <a class="dropdown-item" *ngIf="widgetService.selectedWidget.status === 'ATIVO'"
+                  (click)="onDeactivateWidget()">Desativar</a>
+                <a class="dropdown-item" *ngIf="widgetService.selectedWidget.status === 'INATIVO'"
+                  (click)="onActivateWidget()">Ativar</a>
+                <a class="dropdown-item" (click)="onClearWidget()">Limpar</a>
+                <div class="dropdown-divider"></div>
+
+                <a class="dropdown-item" data-toggle="modal" data-target="#selectWidgetModal"
+                  (click)="onButtonnSelectWidget()">Selecionar</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-data-tab" data-toggle="tab" href="#nav-data" role="tab"
+                  aria-controls="nav-data" aria-selected="true">Dados</a>
+
+                <a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                  aria-controls="nav-home" aria-selected="true">Informações Gerais</a>
+
+                <a class="nav-item nav-link" id="nav-legends-tab" data-toggle="tab" href="#nav-legends" role="tab"
+                  aria-controls="nav-legends" aria-selected="false">Legendas</a>
+
+                <a *ngIf="widgetService.selectedWidget.params.widgetType != 'table'" class="nav-item nav-link"
+                  id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact"
+                  aria-selected="false">Estilo</a>
+
+                <a *ngIf="widgetService.selectedWidget.params.widgetType != 'table'" class="nav-item nav-link"
+                  id="nav-advanced-tab" data-toggle="tab" href="#nav-advanced" role="tab" aria-controls="nav-advaned"
+                  aria-selected="false">Avançado</a>
+
+                <!-- <a
+            *ngIf="widgetService.selectedWidget.params.widgetType === 'table'"
+            class="nav-item nav-link"
+            id="nav-fields-tab"
+            data-toggle="tab"
+            href="#nav-fields"
+            role="tab"
+            aria-controls="nav-fields"
+            aria-selected="false"
+            >Campos</a
+          > -->
+              </div>
+            </nav>
+            <div class="tab-content myborder mypadding" id="nav-tabContent">
+              <div class="tab-pane fade show active mypadding" id="nav-data" role="tabpanel"
+                aria-labelledby="nav-home-tab">
+                <div class="form-group col mypadding">
+                  <div class="form-row">
+                    <div class="form-group col-md-3">
+                      <label>Tipo de Relatório</label>
+
+                      <select id="reportType" class="form-control" required
+                        [(ngModel)]="widgetService.selectedWidget.params.report"
+                        (change)="onReportChange($event.target.value)">
+                        <option value="">Selecione um relatório</option>
+                        <option *ngFor="let r of widgetService.allReports" [ngValue]="r.fileName">
+                          {{ r.name }}
+                        </option>
+                      </select>
+                    </div>
+
+
+                    <div class="form-group col-md-3"
+                      *ngFor="let param of widgetService.selectedWidget.params.searchParams">
+                      <label class="myLabel">{{ param.field }}</label>
+                      <input class="form-control" [type]="param.type" [(ngModel)]="param.value" />
+                    </div>
+
+                  </div>
+                  <div class="form-row">
+                    <!-- <div class="form-group col-md-3">
+                      <label>Campo 1</label>
+                      <select id="field1" class="form-control" [(ngModel)]="widgetService.selectedWidget.params.field1">
+                        <option value="">Nenhum</option>
+                        <option *ngFor="let r of widgetService.fieldsList" [ngValue]="r.field">
+                          {{ r.header }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                      <label>Ação Campo 1</label>
+                      <select class="custom-select" [(ngModel)]="widgetService.selectedWidget.params.action1">
+                        <optgroup *ngFor="let r of options.actions" label="{{ r.display }}">
+                          <ng-container *ngFor="let rr of r.actions">
+                            <option *ngIf="checkField(rr)" [ngValue]="rr.name">
+                              {{ rr.display }}
+                            </option>
+                          </ng-container>
+                        </optgroup>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label>Campo 2</label>
+                      <select id="field2" class="form-control" [(ngModel)]="widgetService.selectedWidget.params.field2">
+                        <option value="">Nenhum</option>
+
+                        <option *ngFor="let r of widgetService.fieldsList" [ngValue]="r.field">
+                          {{ r.header }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                      <label>Ação Campo 2</label>
+                      <select class="custom-select" [(ngModel)]="widgetService.selectedWidget.params.action2">
+                        <optgroup *ngFor="let r of options.actions" label="{{ r.display }}">
+                          <ng-container *ngFor="let rr of r.actions">
+                            <option [ngValue]="rr.name" *ngIf="checkField2(rr)">
+                              {{ rr.display }}
+                            </option>
+                          </ng-container>
+                        </optgroup>
+                      </select>
+                    </div> -->
+                  </div>
+                  <div class="form-group col-md-4" *ngIf="widgetService.selectedWidget.params.report.length > 0">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#configFieldsModal">
+                      Configurar Campos  
+                    </button>                  
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade mypadding" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="form-group col mypadding">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label>Nome do Widget</label>
+                      <div class="input-group">
+                        <input class="form-control form-control" type="text" placeholder="Digite um título..."
+                          [(ngModel)]="widgetService.selectedWidget.name" aria-label="Text input with checkbox" />
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                      <label>Tipo de Widget</label>
+                      <select class="form-control" [(ngModel)]="widgetService.selectedWidget.params.widgetType">
+                        <option *ngFor="let item of options.widgetType" [ngValue]="item.name">
+                          {{ item.display }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-md-3" *ngIf="widgetService.selectedWidget.params.widgetType != 'table'">
+                      <label>Tipo de Gráfico</label>
+                      <select class="custom-select" [(ngModel)]="widgetService.selectedWidget.params.charttype">
+                        <optgroup *ngFor="let w of options.chartTypes" label="{{ w.display }}">
+                          <ng-container *ngFor="let ww of w.chartTypes">
+                            <option [ngValue]="ww.name" *ngIf="ww.dataType === widgetService.selectedWidget.params.dataType">
+                              {{ ww.display }}
+                            </option>
+                          </ng-container>
+                        </optgroup>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-2">
+                      <label>Tempo Real</label>
+
+                      <div class="input-group">
+                        <input type="checkbox" [(ngModel)]="widgetService.selectedWidget.params.realTime" class="toggle"
+                          data-toggle="toggle" data-on="Sim" data-off="Não" data-onstyle="success"
+                          data-offstyle="danger" />
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                      <label>Largura:
+                        {{ widgetService.selectedWidget.params.width }} pixels</label>
+                      <div class="input-group">
+                        <input style="width: 100%" type="range" class="range-slider form-range" min="250" max="1800"
+                          step="20" [(ngModel)]="widgetService.selectedWidget.params.width" />
+                      </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label>Altura:
+                        {{ widgetService.selectedWidget.params.height }} pixels</label>
+                      <div class="input-group">
+                        <input style="width: 100%" type="range" class="range-slider form-range" min="200" max="1000"
+                          step="5" [(ngModel)]="widgetService.selectedWidget.params.height" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade show" id="nav-legends" role="tabpanel" aria-labelledby="nav-legends-tab">
+                <div class="form-group col mypadding">
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label>Título da Legenda</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <input clas="form-control" type="checkbox"
+                              [(ngModel)]="widgetService.selectedWidget.params.legend" />
+                          </div>
+                        </div>
+                        <input class="form-control" type="text" [(ngModel)]="
+                      widgetService.selectedWidget.params.legendTitle
+                    " />
+                      </div>
+                    </div>
+                    <div class="form-group col-md-4" *ngIf="
+                  widgetService.selectedWidget.params.widgetType != 'table'
+                ">
+                      <label>Rótulo do Eixo X</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <input clas="form-control" type="checkbox" [(ngModel)]="
+                          widgetService.selectedWidget.params.showXAxisLabel
+                        " />
+                          </div>
+                        </div>
+                        <input class="form-control form-control" type="text"
+                          [(ngModel)]="widgetService.selectedWidget.params.xAxisLabel" />
+                      </div>
+                    </div>
+                    <div class="form-group col-md-4" *ngIf="
+                  widgetService.selectedWidget.params.widgetType != 'table'
+                ">
+                      <label>Rótulo do Eixo Y</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <input clas="form-control" type="checkbox" [(ngModel)]="
+                          widgetService.selectedWidget.params.showYAxisLabel
+                        " />
+                          </div>
+                        </div>
+                        <input class="form-control form-control" type="text"
+                          [(ngModel)]="widgetService.selectedWidget.params.yAxisLabel" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-3">
+                      <label>Cabeçalho</label>
+
+                      <div class="input-group">
+                        <input type="checkbox" [(ngModel)]="widgetService.selectedWidget.params.showtitle" />
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                      <label>Rodapé</label>
+
+                      <div class="input-group">
+                        <input type="checkbox" [(ngModel)]="
+                      widgetService.selectedWidget.params.showlastupdate
+                    " data-toggle="toggle" data-on="Ready" data-off="Not Ready" data-onstyle="success"
+                          data-offstyle="danger" />
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-3" *ngIf="
+                  widgetService.selectedWidget.params.widgetType != 'table'
+                ">
+                      <label>Mostrar Eixo X</label>
+
+                      <div>
+                        <input type="checkbox" [(ngModel)]="widgetService.selectedWidget.params.xAxis"
+                          data-toggle="toggle" data-on="Sim" data-off="Não" data-onstyle="success"
+                          data-offstyle="danger" />
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-3" *ngIf="
+                  widgetService.selectedWidget.params.widgetType != 'table'
+                ">
+                      <label>Mostrar Eixo Y</label>
+
+                      <div class="input-group">
+                        <input type="checkbox" [(ngModel)]="widgetService.selectedWidget.params.yAxis"
+                          data-toggle="toggle" data-on="Sim" data-off="Não" data-onstyle="success"
+                          data-offstyle="danger" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade mypadding" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <div class="form-group col mypadding">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label>Esquema </label>
+                      <select [(ngModel)]="widgetService.selectedWidget.params.colorScheme" class="form-control">
+                        <option *ngFor="let la of options.colorScheme" [ngValue]="la.scheme.name">
+                          {{ la.display }}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label>Mostrar em Gradiente</label>
+
+                      <div class="input-group">
+                        <input type="checkbox" [(ngModel)]="widgetService.selectedWidget.params.gradient" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade mypadding" id="nav-advanced" role="tabpanel" aria-labelledby="nav-advanced-tab">
+                <div class="form-group col mypadding">
+                  <div class="form-row">
+                    <div class="form-group col-md-2">
+                      <label>Escala X Mínima</label>
+                      <input class="form-control form-control" type="number"
+                        [(ngModel)]="widgetService.selectedWidget.params.xScaleMin"
+                        aria-label="Text input with checkbox" />
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Escala X Máxima</label>
+                      <input class="form-control form-control" type="number"
+                        [(ngModel)]="widgetService.selectedWidget.params.xScaleMax"
+                        aria-label="Text input with checkbox" />
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Escala Y Mínima</label>
+                      <input class="form-control form-control" type="number"
+                        [(ngModel)]="widgetService.selectedWidget.params.yScaleMin"
+                        aria-label="Text input with checkbox" />
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Escala Y Máxima</label>
+                      <input class="form-control form-control" type="number"
+                        [(ngModel)]="widgetService.selectedWidget.params.yScaleMax"
+                        aria-label="Text input with checkbox" />
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Raio Mínimo</label>
+                      <input class="form-control form-control" type="number"
+                        [(ngModel)]="widgetService.selectedWidget.params.minRadius"
+                        aria-label="Text input with checkbox" />
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Raio Máximo</label>
+                      <input class="form-control form-control" type="number"
+                        [(ngModel)]="widgetService.selectedWidget.params.maxRadius"
+                        aria-label="Text input with checkbox" />
+                    </div>
+
+                    <div class="form-group col-md-2" *ngIf="
+                  widgetService.selectedWidget.params.charttype === 'gauge-linear'
+                ">
+                      <label>Unidade</label>
+                      <input class="form-control form-control" type="text"
+                        [(ngModel)]="widgetService.selectedWidget.params.units" aria-label="Text input with checkbox" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade mypadding" id="nav-fields" role="tabpanel" aria-labelledby="nav-fields-tab">
+                <div class="form-group col mypadding">
+                  <div class="form-row">
+                    <div class="form-group col-md-2" *ngFor="let col of widgetService.fieldsList; let i; of: index">
+                      <label class="myLabel">{{ col.field }}</label>
+                      <input type="checkbox" checked (change)="checkBoxChange($event, i)" data-toggle="toggle"
+                        data-on="Sim" data-off="Não" data-onstyle="success" data-offstyle="danger" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <chart *ngIf="widgetService.mydata.length > 0" [_widget]="widgetService.selectedWidget"></chart>
+        </div>
+      </div>
+
+      <div class="modal fade" id="selectWidgetModal" tabindex="-1" role="dialog"
+        aria-labelledby="selectWidgetModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="selectWidgetModalLabel">
+                Widgets Cadastrados
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p-table [value]="widgetService.widgetList" #dt [rows]="10" [paginator]="true" [pageLinks]="10"
+                [rowsPerPageOptions]="[5, 10, 15]" selectionMode="single" [(selection)]="selectedRow" dataKey="id">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Status</th>
+                    <!-- <th>Data Criação</th>
+                    <th>Data Atualização</th> -->
+                    <th>Relatório</th>
+                    <th>Campo 1</th>
+                    <th>Campo 2</th>
+                    <th>Tipo de Widget</th>
+                    <th>Tipo de Chart</th>
+                  </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                  <tr (click)="onSelectWidget(rowData)"  data-dismiss="modal" >
+                    <td>{{ rowData.name }}</td>
+                    <td>{{ rowData.status }}</td>
+                    <!-- <td>{{ rowData.createdAt | date: "dd/MM/yyyy" }}</td>
+                    <td>{{ rowData.updatedAt | date: "dd/MM/yyyy" }}</td> -->
+                    <td>{{ rowData.params.report }}</td>
+                    <td>{{ rowData.params.field1 }}</td>
+                    <td>{{ rowData.params.field2 }}</td>
+                    <td>{{ rowData.params.widgetType }}</td>
+                    <td>{{ rowData.params.charttype }}</td>
+                  </tr>
+                </ng-template>
+
+                <ng-template pTemplate="summary">
+                  Total: {{ widgetService.widgetList?.length }}
+                </ng-template>
+              </p-table>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Fechar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="modal fade" id="configFieldsModal" tabindex="-1" role="dialog"
+        aria-labelledby="configFieldsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="configFieldsModalLabel">
+                Configurar Campos
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <div class="form-group col-mb-6" *ngFor="let f of widgetService.selectedWidget.params.fields; let i of index;">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" >{{f.header}}</label>
+                  </div>
+                  <select class="custom-select" [(ngModel)]="f.action">
+                    <option [ngValue]="''">
+                      Nenhum
+                    </option>
+                    <optgroup *ngFor="let r of options.actions" label="{{ r.display }}">
+                     
+                      <ng-container *ngFor="let rr of r.actions">
+                        <option [ngValue]="rr.name" *ngIf="checkFields(rr, f)">
+                          {{ rr.display }}
+                        </option>
+                      </ng-container>
+                    </optgroup>
+                  </select>
+                </div>
+
+               
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                  Fechar
+                </button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" (click)="gerarGrafico()">
+                  Gerar Widget
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

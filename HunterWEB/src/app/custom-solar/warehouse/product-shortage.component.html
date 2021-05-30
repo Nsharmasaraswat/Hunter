@@ -1,0 +1,52 @@
+<!--component html goes here -->
+<h1 *ngIf="prdshrt != null">Transporte {{transport.code}}</h1>
+<p-accordion *ngIf="prdshrt != null && customer != null" [multiple]="true">
+    <p-accordionTab *ngIf="customer != null" header="{{getCustomerName()}}" [selected]="true">
+        <div class="container-fluid">
+            <div class="row">
+                <ng-container *ngFor="let field of customer.fields">
+                    <div class="col-3" *ngIf="field.field.visible">
+                        <b>{{field.field.name}}:</b>
+                    </div>
+                    <div class="col-3" *ngIf="field.field.visible">
+                        {{field.value}}
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </p-accordionTab>
+    <p-accordionTab *ngIf="prdshrt.items !== null" header="PRODUTOS" [selected]="true">
+        <div class="container-fluid">
+            <div class="row">
+                <ng-container *ngFor="let item of prdshrt.items">
+                    <div class="col-4">
+                        <b>{{item.product.sku}} - {{item.product.name}}:</b>
+                    </div>
+                    <div class="col-2">
+                        {{item.qty | number:'1.4-4'}} {{item.measureUnit}}
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </p-accordionTab>
+    <p-accordionTab *ngIf="ruleLoaded" header="REGRA" [selected]="false">
+        <div class="ui-grid-row">
+            <p-dropdown [options]="ruleList" optionLabel="name" [(ngModel)]="selectedRule" (onChange)="ruleChange($event)"></p-dropdown>
+        </div>
+        <p>Condições</p>
+        <div class="ui-grid-row" *ngFor="let cond of selectedRule.conds">
+            <div class="ui-grid-col-12">
+                {{cond}}
+            </div>
+        </div>
+    </p-accordionTab>
+</p-accordion>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" label="Salvar" icon="fa-folder-open" class="ui-button-success" [disabled]="!ruleChanged" (click)="changeRule()"></button>
+        <button pButton type="button" label="Ajustar" class="ui-button-primary" [disabled]="prdshrt === undefined || prdshrt.status !== 'NOVO'" (click)="fixRule()"></button>
+    </div>
+    <div class="ui-toolbar-group-right">
+        <button pButton type="button" label="Reavaliar" class="ui-button-primary" [disabled]="prdshrt === undefined || prdshrt.status !== 'NOVO'" (click)="resendDocument()"></button>
+    </div>
+</p-toolbar>

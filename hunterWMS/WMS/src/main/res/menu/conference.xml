@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".TasksActivity">
+
+    <group
+        android:id="@+id/confGrpProduct"
+        android:menuCategory="container"
+        android:orderInCategory="10">
+        <item
+            android:id="@+id/confAddProduct"
+            android:icon="@android:drawable/ic_menu_add"
+            android:orderInCategory="10"
+            android:title="@string/add"
+            app:showAsAction="ifRoom" />
+
+        <item
+            android:id="@+id/confCopyProduct"
+            android:icon="@android:drawable/ic_menu_set_as"
+            android:orderInCategory="15"
+            android:title="@string/copy"
+            android:visible="false"
+            app:showAsAction="ifRoom" />
+
+        <item
+            android:id="@+id/confRemoveProduct"
+            android:icon="@android:drawable/ic_menu_delete"
+            android:orderInCategory="20"
+            android:title="@string/remove"
+            app:showAsAction="ifRoom" />
+    </group>
+
+    <group
+        android:id="@+id/confGrpPositive"
+        android:menuCategory="container"
+        android:orderInCategory="20">
+        <item
+            android:id="@+id/confApply"
+            android:icon="@android:drawable/ic_menu_save"
+            android:orderInCategory="30"
+            android:title="@string/save"
+            app:showAsAction="ifRoom" />
+    </group>
+    <group
+        android:id="@+id/grpConfActions"
+        android:menuCategory="container"
+        android:orderInCategory="30"
+        android:visible="false">
+        <item
+            android:id="@+id/confPrint"
+            android:icon="@android:drawable/ic_menu_upload"
+            android:orderInCategory="40"
+            android:title="@string/print"
+            app:showAsAction="ifRoom" />
+    </group>
+    <group
+        android:id="@+id/grpConfNegative"
+        android:menuCategory="container"
+        android:orderInCategory="40">
+        <item
+            android:id="@+id/confCancel"
+            android:icon="@android:drawable/ic_menu_close_clear_cancel"
+            android:orderInCategory="50"
+            android:title="@string/cancel"
+            app:showAsAction="ifRoom" />
+    </group>
+</menu>

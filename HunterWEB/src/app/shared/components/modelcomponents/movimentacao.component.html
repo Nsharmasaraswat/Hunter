@@ -1,0 +1,39 @@
+<p-table #tbl [value]="transpStubs | sort:'seq'" *ngIf="transpStubs !== undefined">
+    <ng-template pTemplate="colgroup">
+        <colgroup>
+            <col [style.width]="'7ch'">
+            <col [style.width]="'9ch'">
+            <col [style.width]="'99%'">
+            <col [style.width]="'14ch'">
+            <col [style.width]="'14ch'">
+        </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th colspan="5">{{ordmov.name}} - {{movStatus}} - <small>{{ordmov.updatedAt | date:'dd/MM/yyyy HH:mm:ss'}}</small></th>
+        </tr>
+        <tr>
+            <th>SEQ.</th>
+            <th>CODIGO</th>
+            <th>PRODUTO</th>
+            <th>ORIGEM</th>
+            <th>DESTINO</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+        <tr [ngClass]="ordmov.status === 'CANCELADO' ? 'canceled-document' : null">
+            <td>{{rowData.seq}}</td>
+            <td>{{rowData.sku}}</td>
+            <td>{{rowData.product}}</td>
+            <td>{{rowData.origin}}</td>
+            <td>{{rowData.destination}}</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary" *ngIf="userComp !== null && userComp !== undefined">
+        Executada por {{userComp?.name}}
+    </ng-template>
+</p-table>
+
+<!-- <p-overlayPanel #op [appendTo]="tbl">
+    <span>Test</span>
+</p-overlayPanel> -->

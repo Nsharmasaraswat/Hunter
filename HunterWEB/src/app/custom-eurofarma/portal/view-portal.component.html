@@ -1,0 +1,16 @@
+<h3>{{permission?.name}}</h3>
+<div class="ui-g-10" style="display: inline-block; padding-right: 20px;">
+    <p-dataGrid [value]="tags">
+        <ng-template let-tag let-i="index" pTemplate="item">
+            <p-panel [header]="(i + 1) + ' - ' + tag.tagid" [style]="{'text-align':'center'}" [styleClass]="tag.error ? 'tag-nok' : 'tag-ok'">
+                <i [class]="('fa ') + (tag.error ? 'fa-close' : 'fa-check')" style="font-size: 18px">{{' ' + tag.message}}</i>
+            </p-panel>
+        </ng-template>
+    </p-dataGrid>
+</div>
+<div class="ui-g-2">
+    <p-panel class="float" [header]="portalState" [styleClass]="portalState === 'FECHADO' ? '' : 'portal-state'">
+        Válidos: {{right?.length || 0}}
+        Inválidos: {{wrong?.length || 0}}
+    </p-panel>
+</div>

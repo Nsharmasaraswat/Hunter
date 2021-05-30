@@ -1,0 +1,22 @@
+span.min-20 {
+    min-width: 20%;
+}
+
+span.min-40 {
+    min-width: 40%;
+}
+
+input.min-50,
+span.min-50 {
+    min-width: 50%;
+}
+
+.canceled-document {
+    background-color: #fc9595 !important;
+    color: #000000 !important;
+}
+
+.attention-document {
+    background-color: #fff1ba !important;
+    color: #000000 !important;
+}

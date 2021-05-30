@@ -1,0 +1,31 @@
+<button type="button" pButton (click)="onNewField()" label="New Field"></button>
+
+<p-dataTable [value]="fieldList | sort:'name'">
+    <p-column field="metaname" header="Metaname"></p-column>
+    <p-column field="name" header="Name"></p-column>
+    <p-column field="type" header="Type"></p-column>
+    <p-column field="status" header="Status"></p-column>
+    <p-column field="createdAtText" header="Create Date"></p-column>
+    <p-column header="Actions">
+        <ng-template let-data="rowData" pTemplate="body">
+            <button icon="fa-trash" type="button" pButton (click)="onDeleteField(data.id)" label="Delete"></button>
+            <button icon="fa-pencil" type="button" pButton (click)="onEditField(data)" label="Edit"></button>
+        </ng-template>
+    </p-column>
+</p-dataTable>
+<div *ngIf="newField">
+    <label>Name:
+        <input type="text" pInputText [(ngModel)]="field.name" placeholder="name">
+    </label>
+    <label>Metaname:
+        <input type="text" pInputText [(ngModel)]="field.metaname" placeholder="metaname">
+    </label>
+    <label>Status:
+        <input type="text" pInputText [(ngModel)]="field.status" placeholder="status">
+    </label>
+    <label>Type:
+        <p-dropdown [options]="fieldTypeList" [(ngModel)]="fieldType" optionLabel="name" (onChange)="onFieldTypeChange()" placeholder="Select a Type"></p-dropdown>
+    </label>
+    <button type="button" pButton (click)="onSaveField()" label="Save"></button>
+    <button type="button" pButton (click)="onDiscardField()" label="Discard"></button>
+</div>

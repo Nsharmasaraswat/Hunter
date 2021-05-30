@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutItemInv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_item_task"
+    android:padding="1sp"
+    android:visibility="visible">
+
+    <TextView
+        android:id="@+id/txtTaskTitle"
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
+        android:layout_margin="6dp"
+        android:textAlignment="center"
+        android:textColor="@color/textBoxDark"
+        android:textStyle="bold"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@id/txtTaskName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtTaskName"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:layout_margin="6dp"
+        android:textAlignment="viewStart"
+        android:textColor="@color/textBoxDark"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@id/txtTaskContent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTaskTitle" />
+
+    <TextView
+        android:id="@+id/txtTaskContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="@color/textBoxDark"
+        android:textSize="18sp"
+        app:autoSizeTextType="none"
+        app:layout_constraintBottom_toTopOf="@id/btnAction"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTaskName" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAction"
+        android:layout_width="0dp"
+        android:layout_height="50sp"
+        android:layout_margin="6dp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTaskContent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

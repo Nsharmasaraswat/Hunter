@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Driver</string>
+    <string name="google_maps_key" translatable="false">AIzaSyDvLjwbXPNNb3Zg_C4ZkBofbmDgdH_l8cE</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="quantity">Quantity %d</string>
+    <string name="loading">Loading…</string>
+    <string name="retry">Retry</string>
+    <string name="completed_orders">Completed orders</string>
+    <string name="delivery_on">Delivery on</string>
+    <string name="direction">Direction</string>
+    <string name="end_session">End session</string>
+    <string name="orders">Orders</string>
+    <string name="appointment_details">Appointment Details</string>
+    <string name="please_wait">Please wait…</string>
+    <string name="order_initiated">Order is initiated.</string>
+    <string name="order_pending">Order is pending.</string>
+    <string name="order_changed_by_supplier">Order is changed by supplier.</string>
+    <string name="order_confirmed">Order is confirmed.</string>
+    <string name="order_scheduled">Order is scheduled.</string>
+    <string name="truck_entered">Truck is entered.</string>
+    <string name="order_completed">Order is completed.</string>
+    <string name="order_rejected">Order is rejected.</string>
+    <string name="end_session_alert_title">End session?</string>
+    <string name="end_session_alert_message">Are you sure you want to end this session??</string>
+    <string name="session_completed_message">Your session has completed. Please submit your phone in gate.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="qr_code_page_title">Place the QR code inside the area</string>
+    <string name="scanning_will_start_automatically">Scanning will start automatically</string>
+    <string name="allow_camera_permission">Allow camera permission to continue</string>
+    <string name="unable_to_scan_qr">Unable to scan QR code.</string>
+    <string name="no_route_found">No route is found</string>
+    <string name="name">Name</string>
+    <string name="username">Username</string>
+    <string name="dock_information">Dock information</string>
+    <string name="warehouse_information">Warehouse information</string>
+    <string name="complete_order">Complete order</string>
+    <string name="accepted_by_security_guard">Accepted By Security guard</string>
+    <string name="rejected_by_security_guard">Rejected By Security guard</string>
+    <string name="order_cancelled">Order cancelled</string>
+    <string name="profile">Profile</string>
+    <string name="view_in_google_map">View in Google Map</string>
+    <string name="install_map_application">Please install a maps application</string>
+    <string name="allow_location_permission">Allow location permission to continue</string>
+    <string name="securityNotification">The Driver %s with appointment no %s has already completed his/her job before 10 minutes. Collect Smartphone from the driver soon.</string>
+</resources>

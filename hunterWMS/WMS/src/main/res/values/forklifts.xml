@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="forklifts">
+        <item>c6f10197–3328–11eb–85f1–aa8cdf3b6ef4|Itapevi 01|c0e988ba–332e–11eb–85f1–aa8cdf3b6ef4</item>
+        <item>c7377d04–3328–11eb–85f1–aa8cdf3b6ef4|Itapevi 02|c0e988ba–332e–11eb–85f1–aa8cdf3b6ef4</item>
+        <item>c77dde22–3328–11eb–85f1–aa8cdf3b6ef4|Itapevi 03|c0e988ba–332e–11eb–85f1–aa8cdf3b6ef4</item>
+        <item>c7c3e3fb–3328–11eb–85f1–aa8cdf3b6ef4|Itapevi 04|c0e988ba–332e–11eb–85f1–aa8cdf3b6ef4</item>
+        <item>c80aac68–3328–11eb–85f1–aa8cdf3b6ef4|Itapevi 05|c0e988ba–332e–11eb–85f1–aa8cdf3b6ef4</item>
+        <item>c852c030–3328–11eb–85f1–aa8cdf3b6ef4|Itapevi 06|c0e988ba–332e–11eb–85f1–aa8cdf3b6ef4</item>
+        <item>c899d12f–3328–11eb–85f1–aa8cdf3b6ef4|Varginha 01|ca7c528d–332e–11eb–85f1–aa8cdf3b6ef4</item>
+        <item>c8e004a6–3328–11eb–85f1–aa8cdf3b6ef4|Varginha 02|ca7c528d–332e–11eb–85f1–aa8cdf3b6ef4</item>
+        <item>c92633e0–3328–11eb–85f1–aa8cdf3b6ef4|Varginha 03|ca7c528d–332e–11eb–85f1–aa8cdf3b6ef4</item>
+        <item>c96c62c1–3328–11eb–85f1–aa8cdf3b6ef4|Varginha 04|ca7c528d–332e–11eb–85f1–aa8cdf3b6ef4</item>
+        <item>c9b29690–3328–11eb–85f1–aa8cdf3b6ef4|Varginha 05|ca7c528d–332e–11eb–85f1–aa8cdf3b6ef4</item>
+        <item>c9f8dd28–3328–11eb–85f1–aa8cdf3b6ef4|Varginha 06|ca7c528d–332e–11eb–85f1–aa8cdf3b6ef4</item>
+        <item>ca433814–3328–11eb–85f1–aa8cdf3b6ef4|Varginha 07|ca7c528d–332e–11eb–85f1–aa8cdf3b6ef4</item>
+        <item>ca8cc569–3328–11eb–85f1–aa8cdf3b6ef4|Varginha 08|ca7c528d–332e–11eb–85f1–aa8cdf3b6ef4</item>
+        <item>cad34865–3328–11eb–85f1–aa8cdf3b6ef4|Varginha 09|ca7c528d–332e–11eb–85f1–aa8cdf3b6ef4</item>
+        <item>cb1971fb–3328–11eb–85f1–aa8cdf3b6ef4|Varginha 10|ca7c528d–332e–11eb–85f1–aa8cdf3b6ef4</item>
+    </string-array>
+</resources>

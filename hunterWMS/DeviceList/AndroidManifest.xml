@@ -1,0 +1,18 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gtp.hunter.rfid.devicelist"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
+    <application
+        android:allowBackup="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.gtp.hunter.rfid.DeviceListActivity"
+            android:theme="@android:style/Theme.Dialog"
+            android:label="@string/select_device" />
+    </application>
+
+</manifest>

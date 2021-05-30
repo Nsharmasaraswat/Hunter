@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.TasksActivity">
+
+    <group
+        android:id="@+id/confGrpNetural"
+        android:menuCategory="container"
+        android:orderInCategory="10">
+        <item
+            android:id="@+id/mnuResume"
+            android:icon="@android:drawable/ic_menu_view"
+            android:orderInCategory="10"
+            android:title="@string/resume"
+            app:showAsAction="ifRoom" />
+
+        <item
+            android:id="@+id/mnuDiff"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:orderInCategory="20"
+            android:title="@string/diff"
+            android:visible="false"
+            app:showAsAction="ifRoom" />
+    </group>
+
+    <group
+        android:id="@+id/confGrpPositive"
+        android:menuCategory="container"
+        android:orderInCategory="20">
+        <item
+            android:id="@+id/mnuAddProduct"
+            android:icon="@android:drawable/ic_menu_revert"
+            android:orderInCategory="5"
+            android:title="@string/add"
+            android:visible="false"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/mnuSend"
+            android:icon="@android:drawable/ic_menu_save"
+            android:orderInCategory="10"
+            android:title="@string/save"
+            app:showAsAction="always" />
+    </group>
+    <group
+        android:id="@+id/confGrpNegative"
+        android:menuCategory="container"
+        android:orderInCategory="40"
+        android:visible="false">
+        <item
+            android:id="@+id/mnuClose"
+            android:icon="@android:drawable/ic_menu_close_clear_cancel"
+            android:orderInCategory="50"
+            android:title="@string/cancel"
+            app:showAsAction="ifRoom" />
+    </group>
+    <group
+        android:id="@+id/grpRfid"
+        android:menuCategory="container"
+        android:orderInCategory="30"
+        android:visible="false">
+        <item
+            android:id="@+id/action_settings"
+            android:icon="@android:drawable/ic_menu_preferences"
+            android:orderInCategory="100"
+            android:title="@string/action_settings"
+            app:showAsAction="never" />
+    </group>
+</menu>

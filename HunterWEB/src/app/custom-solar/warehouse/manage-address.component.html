@@ -1,0 +1,252 @@
+<div class="stk-manager">
+    <h3>Manipulação de Estoque</h3>
+    <div class="row">
+        <div class="col-12">
+            <p-toolbar>
+                <div class="ui-toolbar-group-left">
+                    <button pButton type="button" label="Recarregar" icon="fa-refresh" class="ui-button-info" (click)=loadAddresses()></button>
+                    <button *ngIf="canBlockProduct" pButton type="button" label="Bloquear" icon="fa-ban" class="ui-button-warning" (click)="changePalletsStatus('BLOQUEADO')" [disabled]="selAddress.length === 0"></button>
+                    <button *ngIf="canUnblockProduct" pButton type="button" label="Desbloquear" icon="fa-circle-o" class="ui-button-success" (click)="changePalletsStatus('ARMAZENADO')"
+                        [disabled]="selAddress.length === 0"></button>
+                </div>
+                <div class="ui-toolbar-group-right">
+                    <button *ngIf="canRemovePallet" pButton type="button" label="Limpar" icon="fa-check" class="ui-button-danger" (click)=changeComplete() [disabled]="selAddress.length === 0"></button>
+                </div>
+            </p-toolbar>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p-table #tbl *ngIf="addressList != null && addressList.length > 0" 
+                [value]="addressList | sort:'name'" [columns]="colsAddress"
+                [paginator]="addressList.length > 10" [rows]="rows" [rowHover]="true"
+                [resizableColumns]="true" immutable="false" [columnResizeMode]="'expand'"
+                [rowsPerPageOptions]="rowOptions" [(selection)]="selAddress">
+                <ng-template pTemplate="colgroup" let-columns>
+                    <colgroup>
+                        <col class="ui-p-6" [style.width]="'2.5%'">
+                        <col [class]="col.priority === undefined ? '' : ('ui-p-') + (col.priority)" *ngFor="let col of columns" [style.width]="col.width">
+                        <col [style.width]="'8.5em'">
+                    </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pResizableColumn class="ui-p-6">SEL.</th>
+                        <th pResizableColumn [class]="col.priority === undefined ? '' : ('ui-p-') + (col.priority)" *ngFor="let col of colsAddress">
+                            {{col.header}}
+                        </th>
+                        <th pResizableColumn class="ui-p-1">AÇÕES</th>
+                    </tr>
+                    <tr>
+                        <th pResizableColumn class="ui-p-6">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pResizableColumn [class]="col.priority === undefined ? '' : ('ui-p-') + (col.priority)" *ngFor="let col of colsAddress">
+                            <input *ngIf="col.type !== 'NUMBER'" pInputText type="text" (input)="tbl.filter($event.target.value, col.field, 'contains')">
+                            <input *ngIf="col.type === 'NUMBER'" pInputText type="text" (input)="tbl.filter($event.target.value, col.field, 'equals')">
+                        </th>
+                        <th pResizableColumn  class="ui-p-1"></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-addr>
+                    <tr [pSelectableRow]="addr">
+                        <td class="ui-resizable-column ui-p-6">
+                            <!-- <span class="ui-column-title">Sel.</span> -->
+                            <p-tableCheckbox [value]="addr"></p-tableCheckbox>
+                        </td>
+                        <td [class]="('ui-resizable-column') + (col.priority === undefined ? '' : (' ui-p-') + (col.priority))" *ngFor="let col of colsAddress">
+                            <!-- <span class="ui-column-title">{{col.header}}</span> -->
+                            <span *ngIf="col.type === 'DATE'">{{addr[col.field] | date:'dd/MM/yyyy'}}</span>
+                            <span *ngIf="col.type === 'NUMBER'">{{addr[col.field] | number: '0.0-0'}}</span>
+                            <span *ngIf="col.type !== 'DATE' && col.type !== 'NUMBER'">{{addr[col.field]}}</span>
+                        </td>
+                        <td class="ui-resizable-column ui-p-1">
+                            <!-- <span class="ui-column-title">Ações</span> -->
+                            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                <button pButton [pTooltip]="'Detalhar Rua'" icon="fa-search" class="ui-button-info" (click)="detailAddress(addr)"></button>
+                                <button pButton [pTooltip]="'Adicionar Paletes'" icon="fa-plus" class="ui-button-success" (click)="add(addr)" *ngIf="canAddPallet"></button>
+                                <button pButton [pTooltip]="'Remover Paletes'" icon="fa-close" class="ui-button-danger" (click)="rem(addr)" *ngIf="canRemovePallet"></button>
+                                <button pButton [pTooltip]="'Gerar Movimentação'" icon="fa-share-square-o" class="ui-button-info" (click)="trn(addr)" *ngIf="canTransportPallet"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+    <p-dialog [(visible)]="displayDialog" [contentStyle]="{'overflow':'auto !important'}" showEffect="fade" [responsive]="true"
+        [minX]="-detailDialogWidth" [breakpoint]="720" [positionTop]="detailDialogTop || null"
+        [style]="{'max-width':detailDialogWidth,'max-height':detailDialogHeight,'overflow':'auto !important'}"
+        [modal]="true" [dismissableMask]="true"
+        appendTo="body" *ngIf="detAddress !== undefined">
+        <p-header>
+            {{detAddress.name}}
+        </p-header>
+        <div class="row">
+            <div class="col">
+                <p-table #tblThings *ngIf="thingList != null && thingList.length > 0" [value]="(thingList | sort: 'thing?.createdAt':-1) | sort:'addr_name':-1" 
+                    [scrollable]="true" [scrollHeight]="(detailDialogHeight * 0.7) + ('px')" [rowHover]="true" [style]="{'min-width':(detailDialogWidth * 0.7) + ('px')}"
+                    [columns]="colsThing" autoLayout="true" [resizableColumns]="true" immutable="false" [columnResizeMode]="'fit'"
+                    [responsive]="true" [paginator]="thingList.length > 10" [rows]="10" [rowsPerPageOptions]="rowOptionsThing">
+                    <ng-template pTemplate="colgroup" let-col>
+                        <colgroup>
+                            <col [class]="col.priority === undefined ? '' : ('ui-p-') + (col.priority)" *ngFor="let col of colsThing" [style.width]="col.width">
+                            <col class="'ui-p-1'" [style.width]="'13.5em'">
+                        </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pResizableColumn [class]="col.priority === undefined ? '' : ('ui-p-') + (col.priority)" *ngFor="let col of colsThing">
+                                {{col.header}}
+                            </th>
+                            <th pResizableColumn class="ui-p-1" style="width: 2em" *ngIf="canAddPallet || canCopyPallet || canRemovePallet">AÇÕES</th>
+                        </tr>
+                        <tr>
+                            <th pResizableColumn [class]="col.priority === undefined ? '' : ('ui-p-') + (col.priority)" *ngFor="let col of colsThing">
+                                <input pInputText type="text" (input)="tblThings.filter($event.target.value, col.field, 'contains')" [size]="col.header.length + 3">
+                            </th>
+                            <th pResizableColumn class="ui-p-1"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-thing>
+                        <tr [ngClass]="thing.allocation === 3 ? 'null' : (thing.allocation === 2 ? 'disabled-row' : 'warning-row')"
+                            [pTooltip]="thing.allocation === 3 ? null : (thing.allocation === 2 ? 'Movimentação de Saída Pendente' : 'Movimentação de Entrada Pendente')">
+                            <td [class]="('ui-resizable-column') + col.priority === undefined ? '' : (' ui-p-') + (col.priority)" *ngFor="let col of colsThing">
+                                <span *ngIf="col.type === 'DATE'">{{thing[col.field] !== undefined ? (thing[col.field] | date:'dd/MM/yyyy') : ''}}</span>
+                                <span *ngIf="col.type === 'TIMESTAMP'">{{thing[col.field] | date:'dd/MM/yyyy hh:mm:ss'}}</span>
+                                <span *ngIf="col.type === 'NUMBER'">{{thing[col.field] | number: '0.0-3'}}</span>
+                                <span *ngIf="col.type !== 'TIMESTAMP' && col.type !== 'DATE' && col.type !== 'NUMBER'">{{thing[col.field]}}</span>
+                            </td>
+                            <td class="ui-resizable-column ui-p-1" *ngIf="canAddPallet || canCopyPallet || canRemovePallet">
+                                <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                    <button *ngIf="canAddPallet" pButton icon="fa-search" class="ui-button-info" (click)="detailPallet(thing)" [disabled]="!thing.enableActions && !bypassThingAction"></button>
+                                    <button *ngIf="canCopyPallet" pButton icon="fa-copy" class="ui-button-warning" (click)="copyPallet(thing)" [disabled]="!thing.enableActions && !bypassThingAction"></button>
+                                    <button *ngIf="canRemovePallet" pButton icon="fa-close" class="ui-button-danger" (click)="removePallet(thing.id)" [disabled]="!thing.enableActions && !bypassThingAction"></button>
+                                    <button *ngIf="canTransportPallet" pButton icon="fa-share-square-o" class="ui-button-info" (click)="chngAddr(thing)" [disabled]="!thing.enableActions && !bypassThingAction" [pTooltip]="'Alterar Endereço (Não gera movimentação)'"></button>
+                                    <button pButton icon="fa-info" class="ui-button-info" (click)="viewHistory(thing.thing)" pTooltip="Visualizar Histórico"></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                <div class="text-center" *ngIf="thingList === null || thingList.length <= 0">
+                    <h1>VAZIO</h1>
+                    <button *ngIf="canAddPallet" pButton class="ui-button-success" icon="fa fa-plus" [label]="'Adicionar'" (click)="add(detAddress)"></button>
+                </div>
+            </div>
+        </div>
+    </p-dialog>
+
+    <p-dialog [(visible)]="displayDialogAdd" [responsive]="true" showEffect="fade" [modal]="true" [resizable]="false" [width]="650" [contentStyle]="{'padding':'20px'}" appendTo="body" *ngIf="detAddress !== undefined">
+        <p-header>
+            <h3>{{detAddress.name}}<span *ngIf="selProd !== null && selProd !== undefined" class="align-text-bottom"> - {{selProd.name}}</span></h3>
+        </p-header>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6 ui-md-3">
+                <h4>Código</h4>
+                <p-inputMask #sku [ngModel]="selProd?.sku" mask="9999999" placeholder="Código do produto" size="15" (onComplete)="loadProduct(sku.value)" (onChange)="selProd = null" autofocus></p-inputMask>
+            </div>
+            <div class="ui-g-6 ui-md-3">
+                <h4>Lote</h4>
+                <p-inputMask [(ngModel)]="selPallet.lot" mask="aaaa" placeholder="Prefixo do Lote" size="15"></p-inputMask>
+            </div>
+            <div class="ui-g-6 ui-md-3">
+                <h4>Cx/Camada</h4>
+                <p-spinner inputStyleClass="disabled-row" [(ngModel)]="selPallet.lyb" [min]="1" [max]="100"  (onChange)="calcBoxLayer()"></p-spinner>
+            </div>
+            <div class="ui-g-6 ui-md-3">
+                <h4>Cx/Palete</h4>
+                <p-spinner inputStyleClass="disabled-row" [(ngModel)]="selPallet.plb" [min]="1" [max]="1000" (onChange)="calcBoxPallet()"></p-spinner>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <h4>Fabricação</h4>
+                <p-calendar [(ngModel)]="selPallet.man" tabindex="0" readonlyInput="true" [inline]="true"></p-calendar>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <h4>Vencimento</h4>
+                <p-calendar [(ngModel)]="selPallet.exp" tabindex="0" readonlyInput="true" [inline]="true" (onSelect)="expireSelected($event)"></p-calendar>
+            </div>
+            <div class="ui-g-6 ui-md-3">
+                <h4>Paletes</h4>
+                <p-spinner [(ngModel)]="selPallet.vol" [min]="0" [max]="100" (onChange)="calcBoxPallet()"></p-spinner>
+            </div>
+            <div class="ui-g-6 ui-md-3">
+                <h4>Camadas</h4>
+                <p-spinner [(ngModel)]="selPallet.lyr" [min]="0" [max]="100" (onChange)="calcBoxLayer()"></p-spinner>
+            </div>
+            <div class="ui-g-6 ui-md-3">
+                <h4>Caixas</h4>
+                <p-spinner [(ngModel)]="selPallet.bx" [min]="0" [max]="100" (onChange)="calcBoxLayer()"></p-spinner>
+            </div>
+            <div class="ui-g-6 ui-md-3">
+                <h4>Quantidade</h4>
+                <p-spinner [inputStyleClass]="selPallet.qty !== (selPallet.lyr * selPallet.lyb) ? 'warning-row' : ''" [(ngModel)]="selPallet.qty" [min]="0" [max]="1000"></p-spinner>
+            </div>
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="button" pButton class="ui-button-success" icon="fa fa-plus" [label]="selPallet === null || selPallet === undefined || selPallet.id === null || selPallet.id === undefined ? 'Adicionar' : 'Alterar'"
+                    (click)="addPallets()"></button>
+            </div>
+        </p-footer>
+    </p-dialog>
+
+    <p-dialog [(visible)]="displayDialogRem" [responsive]="true" showEffect="fade" [modal]="true" [draggable]="false" appendTo="body" *ngIf="detAddress !== undefined">
+        <p-header>
+            {{detAddress.name}}
+        </p-header>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-12">
+                <h2>Quantidade</h2>
+                <p-spinner #qty></p-spinner>
+            </div>
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="button" pButton class="ui-button-danger" icon="fa fa-close" label="Remover" (click)="removePallets(qty.value)"></button>
+            </div>
+        </p-footer>
+    </p-dialog>
+    <p-dialog [(visible)]="displayDialogTransport" [responsive]="true" showEffect="fade" [modal]="true" [draggable]="false" appendTo="body" *ngIf="detAddress !== undefined">
+        <p-header>
+            {{detAddress.name}}
+        </p-header>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-4 ui-md-2">
+                <h3>Qtd</h3>
+                <p-spinner #qty maxLength="3" [min]="1" [max]="detAddress.ocupation" [ngModel]="detAddress.ocupation" size="35"></p-spinner>
+            </div>
+            <div class="ui-g-8 ui-md-10">
+                <h3>Destino</h3>
+                <p-dropdown [options]="destinations | sort: 'name'" [(ngModel)]="selAddressDest" filter="true" [autoDisplayFirst]="false" appendTo="body" [autoWidth]="false"></p-dropdown>
+            </div>
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="button" pButton class="ui-button-success" icon="fa fa-close" label="Gerar Movimentação" (click)="transportPallets(qty.value)"></button>
+            </div>
+        </p-footer>
+    </p-dialog>
+
+    <p-dialog [(visible)]="displayDialogChangeAddress" [responsive]="true" showEffect="fade" [modal]="true" [draggable]="false" appendTo="body" *ngIf="detAddress !== undefined">
+        <p-header>
+            {{detAddress.name}} - Alteração de Endereço Sem Movimentação
+        </p-header>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-12">
+                <h3>Rua</h3>
+                <p-dropdown [options]="destinations | sort: 'name'" [(ngModel)]="selAddressDest" filter="true" [autoDisplayFirst]="false" appendTo="body" (onChange)="loadAddressSiblings()" [autoWidth]="false"></p-dropdown>
+            </div>
+            <div class="ui-g-12 ui-md-12" *ngIf="destSiblings !== undefined">
+                <h3>Endereço</h3>
+                <p-dropdown [options]="destSiblings | sort: 'label':-1" [(ngModel)]="sibDest" [autoDisplayFirst]="false" appendTo="body" [autoWidth]="false"></p-dropdown>
+            </div>
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="button" pButton class="ui-button-info" icon="fa fa-close" label="Alterar" (click)="changePalletAddress()"></button>
+            </div>
+        </p-footer>
+    </p-dialog>
+</div>

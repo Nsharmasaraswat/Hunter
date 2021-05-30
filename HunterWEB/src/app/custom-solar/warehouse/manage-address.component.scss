@@ -1,0 +1,18 @@
+.stk-manager {
+  .ui-table .ui-table-tbody > tr > td {
+    white-space: nowrap;
+    text-overflow: ellipsis !important;
+  }
+}
+
+table tr.disabled-row {
+  background-color: #fff1ba !important;
+  color: #000000 !important;
+}
+
+table tr.warning-row {
+  background-color: #fc9595 !important;
+  color: #000000 !important;
+}
+
+//@media screen and (max-width: 40em)

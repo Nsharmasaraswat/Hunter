@@ -1,0 +1,3 @@
+<select (change)="select()">
+  <option *ngFor="let item of items|keys" [value]="item">{{ items[item] }}</option>
+</select>

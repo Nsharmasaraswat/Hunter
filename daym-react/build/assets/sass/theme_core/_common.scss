@@ -1,0 +1,42 @@
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    .p-component {
+        font-family: $fontFamily;
+        font-size: $fontSize;
+        text-decoration: none;
+    }
+
+    a {
+        color: $linkColor;
+        text-decoration: none;
+
+        &:hover {
+            color: $linkHoverColor;
+        }
+
+        &:active {
+            color: $linkActiveColor;
+        }
+    }
+
+    .p-disabled, .p-component:disabled {
+        @include opacity($disabledOpacity);
+    }
+
+    .pi {
+        font-size: $primeIconFontSize;
+    }
+
+    .p-link {
+        font-size: $fontSize;
+        font-family: $fontFamily;
+        background: transparent;
+        background-color: transparent;
+        @include border-radius($borderRadius);
+    }
+}

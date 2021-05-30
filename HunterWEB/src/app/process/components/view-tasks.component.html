@@ -1,0 +1,94 @@
+<div class="tasks">
+    <div class="row">
+        <div class="col">
+            <h3>{{permission?.name }}</h3>
+        </div>
+    </div>
+    <div class="row task-table" *ngIf="data !== undefined && permission !== undefined">
+        <div class="col">
+            <p-table #dt [value]="data | sort:'priority'" [responsive]="true" [scrollable]="true" scrollHeight="100%">
+                <ng-template pTemplate="colgroup" let-columns>
+                    <colgroup [style.width]="'100%'">
+                        <col [style.width]="'20ch'">
+                        <col [style.width]="'8em'">
+                        <col [style.width]="'13em'">
+                        <col [style.width]="prioritizable ? '27.5em' : '34.5em'">
+                        <col *ngIf="prioritizable" [style.width]="'5em'">
+                        <col [style.width]="'17em'">
+                    </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pResizableColumn>
+                            {{permission.properties.datelabel}}
+                        </th>
+                        <th pResizableColumn>
+                            Tarefa
+                        </th>
+                        <th pResizableColumn>
+                            {{permission.properties.docnamelabel}}
+                        </th>
+                        <th pResizableColumn>
+                            {{permission.properties.contentslabel}}
+                        </th>
+                        <th *ngIf="prioritizable" pResizableColumn>Pri.</th>
+                        <th pResizableColumn>Ações</th>
+                    </tr>
+                    <tr>
+                        <th><input pInputText type="text" class="task-filter" (input)="dt.filter($event.target.value, 'created_at2', 'contains')" pResizableColumn></th>
+                        <th><input pInputText type="text" class="task-filter" (input)="dt.filter($event.target.value, 'doccode', 'contains')" pResizableColumn></th>
+                        <th><input pInputText type="text" class="task-filter" (input)="dt.filter($event.target.value, 'docname', 'contains')" pResizableColumn></th>
+                        <th><input pInputText type="text" class="task-filter" (input)="dt.filter($event.target.value, 'contents', 'contains')" pResizableColumn></th>
+                        <th *ngIf="prioritizable"><input pInputText type="text" class="task-filter" (input)="dt.filter($event.target.value, 'priority', 'contains')" pResizableColumn></th>
+                        <th pResizableColumn></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr [ngClass]="('priority_') + (item.priority) + (item.contents.indexOf('***') > -1 ? ' row-alert' : '')" [pTooltip]="item.doccode">
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">{{permission.properties.datelabel}}</span>
+                            <span [ngClass]="'break-spaces'">{{item.created_at2}}</span>
+                        </td>
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">Tarefa</span>
+                            <span [ngClass]="'break-spaces'">{{item.doccode}}</span>
+                        </td>
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">{{permission.properties.docnamelabel}}</span>
+                            <span [ngClass]="'break-spaces'">{{item.docname}}</span>
+                        </td>
+                        <td class="ui-resizable-column">
+                            <span class="ui-column-title">{{permission.properties.contentslabel}}</span>
+                            <span [ngClass]="'break-spaces'">{{item.contents}}</span>
+                        </td>
+                        <td class="ui-resizable-column" *ngIf="prioritizable">
+                            <span class="ui-column-title">Prioridade</span>
+                            <p-spinner styleClass="hide-border" size="1" [(ngModel)]="item.priority" [min]="0" [max]="100" [step]="-1" (onChange)="updatePriority(item.id, $event)"></p-spinner>
+                        </td>
+                        <td *ngIf="item.actions.length > 1" class="ui-resizable-column">
+                            <span class="ui-column-title">Ações</span>
+                            <p-dropdown [options]="item.actions | sort:'name'" [(ngModel)]="action" optionLabel="name" placeholder="Selecione: " appendTo="body"></p-dropdown>
+                            <button type="button" pButton (click)="confirmTask(item.docname, action)" label="Executar"></button>
+                        </td>
+                        <td *ngIf="item.actions.length == 1" class="ui-resizable-column">
+                            <span class="ui-column-title">Ações</span>
+                            <button type="button" pButton (click)="confirmTask(item.docname, item.actions[0])" [label]="item.actions[0].name" [disabled]="disableAction"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="5" class="text-center">
+                            <h6>AGUARDANDO TAREFAS</h6>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <div class="ui-toolbar-group-left" *ngIf="dt.totalRecords > 0 && dt.totalRecords < data.length"><strong>FILTRADAS: {{dt?.totalRecords}}</strong></div>
+                    <div class="ui-toolbar-group-right"><strong>TAREFAS: {{data?.length}}</strong></div>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <p-confirmDialog header="Confirmação" icon="fa fa-question-circle" responsive="true" acceptLabel="Sim" rejectLabel="Não" closeable="false" closeOnEscape="false"></p-confirmDialog>
+</div>

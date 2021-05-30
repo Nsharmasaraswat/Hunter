@@ -1,0 +1,5 @@
+<select [(ngModel)]="origin" (change)="conecta($event)">
+    <option *ngFor="let item of itens|keys" [value]="item">{{ itens[item] }}</option>
+</select> {{(msgs|keys).length}}
+<br>
+<rawdata [lstRawData]="msgs"></rawdata>

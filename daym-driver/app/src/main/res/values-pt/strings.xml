@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<resources>
+    <string name="app_name">Motorista</string>
+    <string name="google_maps_key">AIzaSyDvLjwbXPNNb3Zg_C4ZkBofbmDgdH_l8cE</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="quantity">Quantidade %d</string>
+    <string name="loading">Carregando…</string>
+    <string name="retry">Tentar novamente</string>
+    <string name="completed_orders">Pedidos concluídos</string>
+    <string name="delivery_on">Entrega em</string>
+    <string name="direction">Direção</string>
+    <string name="end_session">Terminar sessão</string>
+    <string name="orders">Pedidos</string>
+    <string name="appointment_details">Detalhes do compromisso</string>
+    <string name="please_wait">Por favor, espere…</string>
+    <string name="order_initiated">O pedido é iniciado.</string>
+    <string name="order_pending">O pedido está pendente.</string>
+    <string name="order_changed_by_supplier">O pedido é alterado pelo fornecedor.</string>
+    <string name="order_confirmed">O pedido foi confirmado.</string>
+    <string name="order_scheduled">O pedido está programado.</string>
+    <string name="truck_entered">O caminhão é inserido.</string>
+    <string name="order_completed">Pedido concluído</string>
+    <string name="order_rejected">Pedido rejeitado</string>
+    <string name="end_session_alert_title">Terminar sessão?</string>
+    <string name="end_session_alert_message">Tem certeza que deseja encerrar esta sessão ??</string>
+    <string name="session_completed_message">Sua sessão foi concluída. Por favor, envie seu telefone no portão.</string>
+    <string name="yes">sim</string>
+    <string name="no">Não</string>
+    <string name="qr_code_page_title">Coloque o código QR dentro da área</string>
+    <string name="scanning_will_start_automatically">A digitalização começará automaticamente</string>
+    <string name="allow_camera_permission">Permitir permissão da câmera para continuar</string>
+    <string name="unable_to_scan_qr">Não foi possível ler o código QR.</string>
+    <string name="no_route_found">Nenhuma rota encontrada</string>
+    <string name="name">Nome</string>
+    <string name="username">Nome do usuário</string>
+    <string name="dock_information">Informação da doca</string>
+    <string name="warehouse_information">Informação de armazém</string>
+    <string name="complete_order">Ordem completa</string>
+    <string name="accepted_by_security_guard">Aceito pelo segurança</string>
+    <string name="rejected_by_security_guard">Rejeitado pelo segurança</string>
+    <string name="order_cancelled">Pedido cancelado</string>
+    <string name="profile">Perfil</string>
+    <string name="view_in_google_map">Ver no mapa do Google</string>
+    <string name="install_map_application">Instale um aplicativo de mapas</string>
+    <string name="allow_location_permission">Allow location permission to continue</string>
+    <string name="securityNotification">The Driver %s with appointment no %s has already completed his/her job before 10 minutes. Collect Smartphone from the driver soon.</string>
+</resources>

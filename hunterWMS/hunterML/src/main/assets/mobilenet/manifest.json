@@ -1,0 +1,5 @@
+{
+  "modelType": "IMAGE_LABELING",
+  "modelFile": "mobilenet_v1_1.0_224_quant.tflite",
+  "labelsFile": "labels_mobilenet_quant_v1_224.txt"
+}

@@ -1,0 +1,12 @@
+{
+    "name": "Dev47",
+    "restserver": "http://10.62.132.47:8080",
+    "coreserver": "http://10.62.132.47:8080/hunter-core/api/",
+    "processserver": "http://10.62.132.47:8080/hunter-core/api/",
+    "reportserver": "http://10.62.132.47:8080/hunter-report/",
+    "tempreportserver": "http://10.62.132.47:8080/hunter-core/api/",
+    "customserver": "http://10.62.132.47:8080/hunter-custom-solar/api/",
+    "wsserver": "ws://10.62.132.47:8080",
+    "wsprocess": "ws://10.62.132.47:8080/hunter-core/",
+    "wscore": "ws://10.62.132.47:8080/hunter-core/"
+}

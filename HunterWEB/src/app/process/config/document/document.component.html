@@ -1,0 +1,51 @@
+<h2 class="first">{{getHeader()}}</h2>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" (click)="onBack()" icon="fa-arrow-left" class="ui-button-warning"></button>
+        <button pButton type="button" (click)="onSave()" icon="fa-check" class="ui-button-success"></button>
+        <button pButton type="button" (click)="onDiscard()" icon="fa-close" class="ui-button-danger"></button>
+    </div>
+    <div *ngIf="id !== '0'" class="ui-toolbar-group-right">
+        <button pButton type="button" (click)="onDelete()" icon="fa-trash" class="ui-button-danger"></button>
+        <i class="fa fa-bars"></i>
+        <button pButton type="button" label="Document" (click)="onDocument()" icon="fa-folder-open" class="ui-button-secundary"></button>
+        <button pButton type="button" label="Items" (click)="onItem()" icon="fa-folder-open" class="ui-button-secundary"></button>
+        <button pButton type="button" label="Things" (click)="onThing()" icon="fa-folder-open" class="ui-button-secundary"></button>
+        <button pButton type="button" label="Fields" (click)="onField()" icon="fa-folder-open" class="ui-button-secundary"></button>
+    </div>
+</p-toolbar>
+
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-4">
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon">
+                <i class="fa fa-user"></i>
+            </span>
+            <input type="text" pInputText [(ngModel)]="data.name" placeholder="name">
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon">
+                <i class="fa fa-user"></i>
+            </span>
+            <input type="text" pInputText [(ngModel)]="data.metaname" placeholder="metaname">
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon">
+                <i class="fa fa-user"></i>
+            </span>
+            <input type="text" pInputText [(ngModel)]="data.code" placeholder="code">
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon">
+                <i class="fa fa-user"></i>
+            </span>
+            <input type="text" pInputText [(ngModel)]="data.status" placeholder="status">
+        </div>
+    </div>
+</div>

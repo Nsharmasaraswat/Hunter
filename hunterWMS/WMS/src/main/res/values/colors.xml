@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2c74e8</color>
+    <color name="colorPrimaryDark">#011433</color>
+    <color name="colorPrimaryVariant">#011433</color>
+    <color name="colorAccent">#1d4463</color>
+    <color name="colorSecondary">#1d4463</color>
+    <color name="colorSecondaryVariant">#D81B60</color>
+    <color name="colorAccentAlt">#D81B60</color>
+
+    <color name="black_overlay">#66959595</color>
+    <color name="GTPNavy">#1F335F</color>
+    <color name="textBoxDark">#1F335F</color>
+    <color name="textBoxLight">#558585</color>
+    <color name="listItemLight">#EDEFF2</color>
+    <color name="itemHint">#A1A1A1</color>
+    <color name="textBoxLightTransparent">#55858595</color>
+    <color name="yellow">#fff199</color>
+    <color name="white">#FFFFFF</color>
+    <color name="error">#990101</color>
+    <color name="warn">#9b9b01</color>
+    <color name="info">#056003</color>
+
+    <color name="light_error">#40990101</color>
+    <color name="light_warn">#409B9B01</color>
+    <color name="light_success">#40056003</color>
+    <color name="light_info">#40033060</color>
+
+    <color name="running">#4CAF50</color>
+    <color name="paused">#FFEB3B</color>
+    <color name="stopped">#F44336</color>
+</resources>

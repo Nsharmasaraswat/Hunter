@@ -1,0 +1,56 @@
+.dynamic-table {
+    // component css goes here
+    //table ui
+    // .ui-table table {
+    //     table-layout: auto !important;
+    // }
+
+    //https://stackoverflow.com/a/51517954
+    // .ui-table-tablewrapper {
+    //     width: auto !important;
+    // }
+
+    .ui-table-scrollable-header-box {
+        margin-right: 0 !important;
+    }
+
+    // .ui-table-resizable {
+    //     padding-bottom: 1px;
+    //     /* overflow: auto; */
+    //     width: auto !important;
+    // }
+
+    .ui-table-scrollable-body {
+        // height: -moz-calc(var(--tableHeight, 1px)) !important;
+        // height: -webkit-calc(var(--tableHeight, 1px)) !important;
+        // height: -o-calc(var(--tableHeight, 1px)) !important;
+        // height: calc(var(--tableHeight, 1px)) !important;
+        // min-height: -moz-calc(var(--tableHeight, 1px)) !important;
+        // min-height: -webkit-calc(var(--tableHeight, 1px)) !important;
+        // min-height: -o-calc(var(--tableHeight, 1px)) !important;
+        // min-height: calc(var(--tableHeight, 1px)) !important;
+        max-height: -moz-calc(var(--tableHeight, 1px)) !important;
+        max-height: -webkit-calc(var(--tableHeight, 1px)) !important;
+        max-height: -o-calc(var(--tableHeight, 1px)) !important;
+        max-height: calc(var(--tableHeight, 1px)) !important;
+    }
+
+    // .ui-table .ui-table-tbody > tr,
+    // .ui-table .ui-table-thead > tr > th,
+    // .ui-table .ui-table-tfoot > tr > td {
+    //     max-width: 300px !important;
+    //     padding: 0px !important;
+    //     padding-left: 4px !important;
+    //     color: black;
+    //     text-transform: capitalize;
+    //     white-space: nowrap;
+    //     overflow: hidden;
+    //     text-overflow: ellipsis !important;
+    //     border-width: 1px;
+    // }
+
+    // .ui-table .ui-table-tbody > tr > td {
+    //     font-size: 0.9em !important;
+    //     white-space: normal !important;
+    // }
+}

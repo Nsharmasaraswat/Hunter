@@ -1,0 +1,12 @@
+{
+    "name": "QA",
+    "restserver": "https:///natsrp005.solarbr.com.br:8443",
+    "coreserver": "https:///natsrp005.solarbr.com.br:8443/hunter-core/api/",
+    "processserver": "https:///natsrp005.solarbr.com.br:8443/hunter-core/api/",
+    "reportserver": "https:///natsrp005.solarbr.com.br:8443/hunter-report/",
+    "tempreportserver": "https:///natsrp005.solarbr.com.br:8443/hunter-core/api/",
+    "customserver": "https:///natsrp005.solarbr.com.br:8443/hunter-custom-solar/api/",
+    "wsserver": "wss:///natsrp005.solarbr.com.br:8443",
+    "wsprocess": "wss:///natsrp005.solarbr.com.br:8443/hunter-core/",
+    "wscore": "wss:///natsrp005.solarbr.com.br:8443/hunter-core/"
+}

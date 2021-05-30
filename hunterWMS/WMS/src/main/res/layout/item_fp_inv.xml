@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutItemInv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_item_task"
+    android:padding="8dp"
+    android:visibility="visible">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightActionGuideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="0dp"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/txtAddressName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textAlignment="center"
+        android:textColor="@color/textBoxDark"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rightActionGuideline2"
+        app:layout_constraintStart_toEndOf="@+id/lblAddressName"
+        app:layout_constraintTop_toBottomOf="@+id/txtProduct" />
+
+    <TextView
+        android:id="@+id/txtProduct"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAlignment="viewStart"
+        android:textAllCaps="true"
+        android:textColor="@color/textBoxDark"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/rightActionGuideline"
+        app:layout_constraintStart_toStartOf="@+id/txtAddressName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtPalletCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textAlignment="viewStart"
+        android:textColor="@color/textBoxDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rightActionGuideline3"
+        app:layout_constraintStart_toEndOf="@+id/lblPalletCount"
+        app:layout_constraintTop_toBottomOf="@+id/txtProduct" />
+
+    <TextView
+        android:id="@+id/txtBoxCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:textAlignment="viewStart"
+        android:textColor="@color/textBoxDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rightActionGuideline"
+        app:layout_constraintStart_toEndOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/txtProduct" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightActionGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="0dp"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightActionGuideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="0dp"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAction"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:padding="6dp"
+        android:shadowColor="@color/GTPNavy"
+        android:text="@string/delete"
+        android:textColor="@color/textBoxDark"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/rightActionGuideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lblAddressName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/txtAddressName"
+        android:text="@string/label_address"
+        app:layout_constraintBottom_toBottomOf="@+id/txtAddressName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtAddressName" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/txtProduct"
+        android:text="@string/label_product"
+        app:layout_constraintBottom_toBottomOf="@+id/txtProduct"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtProduct" />
+
+    <TextView
+        android:id="@+id/lblPalletCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/txtPalletCount"
+        android:text="@string/label_pallets"
+        app:layout_constraintBottom_toBottomOf="@+id/txtPalletCount"
+        app:layout_constraintStart_toStartOf="@+id/rightActionGuideline2"
+        app:layout_constraintTop_toTopOf="@+id/txtPalletCount" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/txtBoxCount"
+        android:text="@string/label_boxes"
+        app:layout_constraintBottom_toBottomOf="@+id/txtBoxCount"
+        app:layout_constraintStart_toStartOf="@+id/rightActionGuideline3"
+        app:layout_constraintTop_toTopOf="@+id/txtBoxCount" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

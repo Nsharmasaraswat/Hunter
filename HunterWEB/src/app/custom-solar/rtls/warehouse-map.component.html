@@ -1,0 +1,75 @@
+<p-dialog [(visible)]="displayPathDialog" [responsive]="true" showEffect="fade" [modal]="true" [draggable]="true" appendTo="body">
+  <p-table #tbl [value]="clickList" styleClass="mb-5" [responsive]="true">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>LAT</th>
+        <th>LNG</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td>{{item.x | number:'0.0-0' | removeComma}}</td>
+        <td>{{item.y | number:'0.0-0' | removeComma}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <button icon="fa-eraser" type="button" pButton (click)="clearPath()" label="Limpar" class="ui-button-danger"></button>
+  <button icon="fa-copy" type="button" pButton (click)="copyTable(tbl)" label="Copiar"></button>
+</p-dialog>
+<div class="row map-height">
+  <div class="col-10" #map leaflet [leafletOptions]="options" (leafletMapReady)="onMapReady($event)" leafletDraw [leafletDrawOptions]="drawOptions" (leafletDrawReady)="onDrawReady($event)" [leafletMarkerCluster]="markers"
+    [leafletMarkerClusterOptions]="markerClusterOptions" (leafletMarkerClusterReady)="markerClusterReady($event)" *ngIf="options.center != null && options.center != undefined">
+  </div>
+  <div class="col-2" *ngIf="showOptions">
+    <div class="row">
+      <div class="col">
+        <p-panel>
+          <p-header>Opções</p-header>
+          <div class="row">
+            <div class="col">
+              <p>Tamanho do ícone</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input type="text" pInputText [(ngModel)]="iconSize" />
+              <p-slider [(ngModel)]="iconSize" [style]="{'width':'14em'}" (onChange)="resize($event)"></p-slider>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p>Outras</p>
+              <div class="row">
+                <div class="col">
+                  <p-checkbox label="Centralizar" pTooltip="Centralizar no evento" [(ngModel)]="centerOnEvent" binary="true"></p-checkbox>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <p-checkbox label="Rastros" pTooltip="Mostrar Rastros" [(ngModel)]="leaveTrail" binary="true"></p-checkbox>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <p-checkbox label="Mover Endereços" [ngModel]="moveEnabled" binary="true" (ngModelChange)="enableMove($event)"></p-checkbox>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button icon="fa-file" type="button" pButton (click)="tempLoadZonesFromRest(locationId)" label="Carregar Endereços" *ngIf="!autoLoadZones"></button>
+              <button icon="fa-file" type="button" pButton (click)="loadChildren(locationId)" label="Carregar Localizações" *ngIf="false"></button>
+              <button icon="fa-file" type="button" pButton (click)="connectOrigin()" label="Conectar Eventos" *ngIf="!autoConnectOrigin"></button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button icon="fa-location-arrow" type="button" pButton (click)="displayPathDialog = !displayPathDialog" label="Gerar Caminho"></button>
+            </div>
+          </div>
+        </p-panel>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col">
+        <p-toolbar>
+            <div class="ui-toolbar-group-left">
+                <button pButton class="ui-button-info" (click)="loadLockedTasks()" icon="fas fa-refresh" label="Recarregar"></button>
+            </div>
+            <div class="ui-toolbar-group-right">
+                <button pButton class="ui-button-danger" (click)="unlockTasks()" icon="fas fa-unlock" iconPos="right" label="Liberar Todas"></button>
+            </div>
+        </p-toolbar>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <p-table #tbl *ngIf="lockedTasks != null && lockedTasks.length > 0" [value]="lockedTasks" [columns]="columns" appendTo="body" autoLayout="true" [responsive]="true" [style]="{'overflow':'auto!important'}"
+            [paginator]="lockedTasks.length > 15" [rows]="15" [rowsPerPageOptions]="[0, 5, 10, 15, 20, 50]">
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngFor="let col of columns" [style.width]="col.width">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                    <th>AÇÕES</th>
+                </tr>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        <input *ngIf="col.type !== 'NUMBER'" pInputText type="text" (input)="tbl.filter($event.target.value, col.field, 'contains')">
+                        <input *ngIf="col.type === 'NUMBER'" pInputText type="text" (input)="tbl.filter($event.target.value, col.field, 'equals')">
+                    </th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td class="ui-resizable-column" *ngFor="let col of columns">
+                        <span *ngIf="col.type === 'DATE'">{{item[col.field] | date:'dd/MM/yyyy'}}</span>
+                        <span *ngIf="col.type === 'TIMESTAMP'">{{item[col.field] | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+                        <span *ngIf="col.type === 'NUMBER'">{{item[col.field] | number: '0.0-0'}}</span>
+                        <span *ngIf="col.type !== 'DATE' && col.type !== 'NUMBER' && col.type !== 'TIMESTAMP'">{{item[col.field]}}</span>
+                    </td>
+                    <td class="ui-resizable-column">
+                        <button pButton class="ui-button-danger" (click)="unlockTask(item.id)" icon="fas fa-unlock-alt" pTooltip="Liberar Tarefa"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

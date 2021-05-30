@@ -1,0 +1,26 @@
+.table-isolation {
+    .inv_missing {
+        background-color: rgb(170, 233, 241) !important;
+        color: #000000 !important;
+    }
+
+    .inv_greater {
+        background-color: rgb(247, 187, 187) !important;
+        color: #000000 !important;
+    }
+
+    .inv_smaller {
+        background-color: rgb(247, 235, 181) !important;
+        color: #000000 !important;
+    }
+
+    .snap_missing {
+        background-color: rgb(143, 137, 168) !important;
+        color: #000000 !important;
+    }
+    
+    .adj_add {
+        background-color: rgb(133, 187, 140) !important;
+        color: #000000 !important;
+    }
+}

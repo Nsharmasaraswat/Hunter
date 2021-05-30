@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.TasksActivity">
+
+    <group
+        android:id="@+id/confGrpNetural"
+        android:menuCategory="container"
+        android:orderInCategory="10">
+        <item
+            android:id="@+id/mnuResume"
+            android:icon="@android:drawable/ic_menu_view"
+            android:orderInCategory="10"
+            android:title="@string/resume"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/mnuCancel"
+            android:icon="@android:drawable/ic_menu_close_clear_cancel"
+            android:orderInCategory="50"
+            android:title="@string/cancel"
+            app:showAsAction="ifRoom" />
+    </group>
+</menu>

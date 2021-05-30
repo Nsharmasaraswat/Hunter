@@ -1,0 +1,132 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/GTPNavy"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:visibility="gone"
+        tools:context="com.gtp.hunter.wms.activity.InventoryActivity">
+
+        <LinearLayout
+            android:id="@+id/resultLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/fastIdCheckBox"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="8dp"
+            android:background="#eef"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="1"
+                android:background="#cce"
+                android:text="@string/tag_list_title"
+                android:textColor="#000" />
+
+            <ListView
+                android:id="@+id/resultListView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="2">
+
+            </ListView>
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/clearButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:text="@string/clear_button_text" />
+
+        <SeekBar
+            android:id="@+id/powerSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/clearButton"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_toStartOf="@+id/powerTextView" />
+
+        <TextView
+            android:id="@+id/powerTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/powerSeekBar"
+            android:layout_alignEnd="@+id/clearButton"
+            android:layout_alignBottom="@+id/powerSeekBar"
+            android:gravity="center"
+            android:text="@string/power_level_label_text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white" />
+
+        <CheckBox
+            android:id="@+id/fastIdCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/powerSeekBar"
+            android:layout_alignTop="@+id/sessionSpinner"
+            android:layout_alignEnd="@+id/powerTextView"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/white"
+            android:buttonTint="@color/white"
+            android:drawableTint="@color/white"
+            android:text="@string/use_fast_id_title"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
+
+        <Spinner
+            android:id="@+id/sessionSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/powerSeekBar"
+            android:layout_alignStart="@+id/powerSeekBar"
+            android:layout_marginBottom="8dp"
+            android:layout_toStartOf="@+id/fastIdCheckBox"
+            android:backgroundTint="@color/white"
+            android:foregroundTint="@color/white"
+            android:spinnerMode="dropdown" />
+
+        <TextView
+            android:id="@+id/resultTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/clearButton"
+            android:layout_alignBottom="@+id/clearButton"
+            android:layout_toStartOf="@+id/resultLinearLayout"
+            android:layout_toEndOf="@+id/clearButton"
+            android:gravity="center_vertical|center_horizontal"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#A00"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <fragment
+        android:id="@+id/fpInventoryFragment"
+        class="com.gtp.hunter.wms.fragment.FPInventoryFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:layout_weight="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_fp_inventory" />
+</androidx.constraintlayout.widget.ConstraintLayout>

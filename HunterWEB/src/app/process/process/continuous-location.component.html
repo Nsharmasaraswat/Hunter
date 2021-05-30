@@ -1,0 +1,8 @@
+<!--component html goes here -->
+<h1>{{locationName}}</h1>
+<p-toolbar *ngIf="connected">
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" (click)="reload()" icon="fa-search" class="ui-button-danger"></button>
+    </div>
+</p-toolbar>
+<div #map leaflet [leafletOptions]="options" (leafletMapReady)="onMapReady($event)" style="height: 100%;" (click)="mapClick($event)" *ngIf="connected"></div>

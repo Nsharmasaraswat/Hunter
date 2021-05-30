@@ -1,0 +1,57 @@
+<div class="d-flex flex-wrap justify-content-center">
+  <p-table [value]="wgtService.widgetList" #dt [rows]="15" [paginator]="true" [pageLinks]="10"
+    [rowsPerPageOptions]="[15, 20, 30]" selectionMode="single" [(selection)]="selectedWgt" dataKey="id">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th>Nome</th>
+        <th>Última Atualização</th>
+        <th>Relatório</th>
+        <th>Tipo de Widget</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr *ngIf="rowData.status === 'ATIVO'" [pSelectableRow]="rowData" data-toggle="modal" data-target="#widgetModal"
+        [ngClass]="{'text-success': userHasWidget(rowData) === 'true'}">
+        <td>{{ rowData.name }}</td>
+        <td>{{ rowData.updatedAt | date: "dd/MM/yyyy" }}</td>
+        <td>{{ getReportName(rowData.params.report) }}</td>
+        <td>{{ getWidgetTypeName(rowData.params.widgetType) }} <span *ngIf="rowData.params.widgetType != 'table'"> ({{
+            getWidgetChartTypeName(rowData.params.charttype) }}) </span></td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- <div *ngFor="let wgt of wgtService.widgetList; let i; of: index">
+    <div *ngIf="wgt.status === 'ATIVO'" class="mb-3 mr-3 ml-3">
+    </div>
+  </div> -->
+</div>
+
+
+<!-- Modal -->
+<div *ngIf="selectedWgt.id != null" class="modal fade" id="widgetModal" tabindex="-1" role="dialog"
+  aria-labelledby="widgetModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="max-width: 1800px;" [style.width.px]="selectedWgt.params.width + 35" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="widgetModalLabel">Visualizar Widget</h5>
+        <button type="button" class="close" data-dismiss="modal" (click)="unselectWidget()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body d-flex">
+        <chart [_widget]="selectedWgt"></chart>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="unselectWidget()" data-dismiss="modal">Fechar</button>
+
+        <button type="button" class="btn btn-success" *ngIf="userHasWidget(selectedWgt) === 'false'"
+          (click)="addWidget()" data-dismiss="modal">Adicionar</button>
+          
+        <button type="button" class="btn btn-danger" *ngIf="userHasWidget(selectedWgt) === 'true'"
+          (click)="removeWidget()" data-dismiss="modal">Remover</button>
+      </div>
+    </div>
+  </div>
+</div>

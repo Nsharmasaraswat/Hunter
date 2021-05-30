@@ -1,0 +1,56 @@
+<!--component html goes here -->
+<h3>Criação de Ordem de Transferência</h3>
+<p-table #tblPrd *ngIf="products !== undefined && products.length > 0 && rows !== undefined" [value]="products | sort:'sku'" [columns]="colsPrd" [paginator]="true" [rows]="rows" (onEditComplete)="createDI($event)">
+    <ng-template pTemplate="header">
+        <tr>
+            <th *ngFor="let col of colsPrd" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+            <th [pSortableColumn]="'selQty'">
+                QUANTIDADE
+                <p-sortIcon [field]="'selQty'"></p-sortIcon>
+            </th>
+        </tr>
+        <tr>
+            <th *ngFor="let col of colsPrd">
+                <input pInputText type="text" (input)="tblPrd.filter($event.target.value, col.field, 'contains')" size="15">
+            </th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+            <td [pEditableColumn]="rowData" [pEditableColumnField]="'selQty'">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <p-spinner [(ngModel)]="rowData.selQty" [min]="0" decimalSeparator="," thousandSeparator="." [step]="0.001"></p-spinner>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.selQty | number : '0.3-3' : 'pt'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-toolbar *ngIf="products !== undefined && products.length > 0">
+    <div class="ui-toolbar-group-left">
+        <span class="ui-inputgroup-addon">ORIGEM</span>
+        <input pInputText type="text" placeholder="ORIGEM" [(ngModel)]="docProperties.FROM">
+        <span class="ui-inputgroup-addon">DESTINO</span>
+        <input pInputText type="text" placeholder="DESTINO" [(ngModel)]="docProperties.TO">
+    </div>
+
+
+
+    <div class="ui-toolbar-group-right">
+
+        <button pButton type="button" label="Concluir" icon="fa fa-upload" class="ui-button-success" (click)="createOrdTransfs()"></button>
+        <button pButton type="button" label="Cancelar" icon="fa fa-times" class="ui-button-danger" (click)="clearTransf()"></button>
+    </div>
+</p-toolbar>

@@ -1,0 +1,32 @@
+<!--component html goes here -->
+<h3>REIMPRESSÃO DE ETIQUETAS</h3>
+<p-panel>
+    <p-header>
+        Produto
+    </p-header>
+    <input type="text" pInputText [(ngModel)]="code" placeholder="CÓDIGO" autofocus>
+    <button type="button" pButton (click)="listTags()" label="Buscar Etiquetas" icon='fa-search'></button>
+</p-panel>
+
+<p-table *ngIf="dataLoaded" [value]="data" [columns]="columns" [resizableColumns]="true" columnResizeMode="expand" 
+    autoLayout="true" [responsive]="true" selectionMode="single" [(selection)]="selectedThing">
+    <ng-template pTemplate="header">
+        <tr>
+            <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-data let-i="rowIndex">
+        <tr [pSelectableRow]="data">
+            <td class="ui-resizable-column" *ngFor="let col of columns">
+                <span *ngIf="col.type === 'NUMBER'; else otherTypes">{{data[col.field] | number:'0.0-3'}}</span>
+                <ng-template #otherTypes>{{data[col.field]}}</ng-template>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+<p-toolbar *ngIf="selectedThing != undefined && selectedThing != null">
+        <button type="button" pButton label='Imprimir' icon="fa-print" (click)="printTag()"></button>
+</p-toolbar>

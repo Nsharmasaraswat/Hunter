@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col">
+        <div class="ui-g ui-fluid">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fa fa-filter"></i></span>
+                <input type="text" [(ngModel)]="filter" [style]="{'background-color': envColor}" pInputText placeholder="Filtrar" (keyup)="filterItems();">
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="menu">
+    <p-panelMenu [model]="items" [multiple]="mult"></p-panelMenu>
+</div>

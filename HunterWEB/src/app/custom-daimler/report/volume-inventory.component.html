@@ -1,0 +1,31 @@
+<p-table #tblPrd *ngIf="inventory !== undefined" [value]="data | sort:'t5'" [columns]="columns" [paginator]="true" [rows]="15"
+[resizableColumns]="true" columnResizeMode="expand"  csvSeparator=";" exportFilename="Report-hunter.csv"
+[autoLayout]="true" [responsive]="true">
+    <ng-template pTemplate="header">
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+        </tr>
+        <tr>
+            <th *ngFor="let col of columns">
+                <input pInputText type="text" (input)="tblPrd.filter($event.target.value, col.field, 'contains')"
+                    size="15">
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+<img [src]="gridImg">
+<p-toolbar *ngIf="inventory !== undefined">
+    <div class="ui-toolbar-group-right">
+        <button pButton type="button" icon="fa fa-download" class="ui-button-info" (click)="export()" label="PDF"></button>
+    </div>
+</p-toolbar>
