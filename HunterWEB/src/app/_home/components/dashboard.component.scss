@@ -1,0 +1,31 @@
+.dash-item {
+    border-radius: .1em;
+    cursor: pointer;
+    &:hover {
+        box-shadow: 2px 2px 20px 2px rgba(0, 0, 128, 0.5);
+        -webkit-box-shadow: 2px 2px 20px 2px rgba(0, 0, 128, 0.5);
+        -moz-box-shadow: 2px 2px 20px 2px rgba(0, 0, 128, 0.5);
+    }
+}
+
+.row > div[class*='col-'] {
+    display: flex;
+    flex:1 0 auto;
+}
+
+.logo{
+    text-align: center;
+    margin-left: auto;
+	margin-right: auto;
+    display: block;
+    margin-bottom: 1em;
+}
+
+.ui-panel-titlebar {
+    text-align: center;
+}
+
+.ui-panel-content {
+    background-color: ghostwhite;
+    width: 100%;
+}

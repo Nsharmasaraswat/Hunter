@@ -1,0 +1,34 @@
+<p-dialog [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [draggable]="false"
+    [contentStyle]="{'min-height':'418px'}" appendTo="body">
+    <p-header>
+        Veículos
+    </p-header>
+    <p-table #tblVehicle [value]="things | sort:'plates'" [columns]="columns" selectionMode="single"
+        [paginator]="true" [rows]="rowCount" [(selection)]="selectedVehicle" dataKey="thing.id">
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+            <tr>
+                <th *ngFor="let col of columns">
+                    <input pInputText type="text" (input)="tblVehicle.filter($event.target.value, col.field, 'contains')" size="15">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data>
+            <tr [pSelectableRow]="data">
+                <td>{{data.plates}}</td>
+                <td>{{data.thing.name}}</td>
+                <td>{{data.tracker}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fa fa-close" (click)="close()" label="Fechar"></button>
+            <button type="button" pButton icon="fa fa-check" (click)="vehicleChosen()" [disabled]="selectedVehicle === null" label="Selecionar"></button>
+        </div>
+    </p-footer>
+</p-dialog>

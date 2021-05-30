@@ -1,0 +1,5 @@
+{
+  "local": "http://localhost:3030/",
+  "dev": "http://api.test.daym.smarttersstudio.com/",
+  "prod": "http://api.daym.smarttersstudio.com/"
+}

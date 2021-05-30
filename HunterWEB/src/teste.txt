@@ -1,0 +1,28 @@
+** NG Live Development Server is listening on 0.0.0.0:4444, open your browser on http://localhost:4444/ **
+[0mDate: [1m[37m2017-12-01T00:50:35.759Z[39m[22m[0m
+[0mHash: [1m[37m25a3255c479000fb51ec[39m[22m[0m
+[0mTime: [1m[37m19064[39m[22mms[0m
+[0mchunk {[1m[33mcore.module[39m[22m} [1m[32mcore.module.chunk.js[39m[22m () 14 kB [1m[32m [rendered][39m[22m[0m
+[0mchunk {[1m[33mdescarpack.module[39m[22m} [1m[32mdescarpack.module.chunk.js[39m[22m () 12.6 kB [1m[32m [rendered][39m[22m[0m
+[0mchunk {[1m[33minline[39m[22m} [1m[32minline.bundle.js[39m[22m (inline) 5.79 kB [1m[33m[entry][39m[22m[1m[32m [rendered][39m[22m[0m
+[0mchunk {[1m[33mmain[39m[22m} [1m[32mmain.bundle.js[39m[22m (main) 144 kB [1m[33m[initial][39m[22m[1m[32m [rendered][39m[22m[0m
+[0mchunk {[1m[33mpolyfills[39m[22m} [1m[32mpolyfills.bundle.js[39m[22m (polyfills) 603 kB [1m[33m[initial][39m[22m[1m[32m [rendered][39m[22m[0m
+[0mchunk {[1m[33mprocess.module[39m[22m} [1m[32mprocess.module.chunk.js[39m[22m () 30.1 kB [1m[32m [rendered][39m[22m[0m
+[0mchunk {[1m[33mstyles[39m[22m} [1m[32mstyles.bundle.js[39m[22m (styles) 563 kB [1m[33m[initial][39m[22m[1m[32m [rendered][39m[22m[0m
+[0mchunk {[1m[33mvendor[39m[22m} [1m[32mvendor.bundle.js[39m[22m (vendor) 12 MB [1m[33m[initial][39m[22m[1m[32m [rendered][39m[22m[0m
+webpack: Failed to compile.
+webpack: Compiling...
+[0mDate: [1m[37m2017-12-01T00:51:08.844Z[39m[22m[0m
+[0mHash: [1m[37m0fbba78e3817ecc85225[39m[22m[0m
+[0mTime: [1m[37m973[39m[22mms[0m
+[0mchunk {[1m[33mcore.module[39m[22m} [1m[32mcore.module.chunk.js[39m[22m () 14 kB [0m
+[0mchunk {[1m[33mdescarpack.module[39m[22m} [1m[32mdescarpack.module.chunk.js[39m[22m () 12.5 kB [1m[32m [rendered][39m[22m[0m
+[0mchunk {[1m[33minline[39m[22m} [1m[32minline.bundle.js[39m[22m (inline) 5.79 kB [1m[33m[entry][39m[22m[0m
+[0mchunk {[1m[33mmain[39m[22m} [1m[32mmain.bundle.js[39m[22m (main) 144 kB [1m[33m[initial][39m[22m[0m
+[0mchunk {[1m[33mpolyfills[39m[22m} [1m[32mpolyfills.bundle.js[39m[22m (polyfills) 603 kB [1m[33m[initial][39m[22m[0m
+[0mchunk {[1m[33mprocess.module[39m[22m} [1m[32mprocess.module.chunk.js[39m[22m () 30.1 kB [0m
+[0mchunk {[1m[33mstyles[39m[22m} [1m[32mstyles.bundle.js[39m[22m (styles) 563 kB [1m[33m[initial][39m[22m[0m
+[0mchunk {[1m[33mvendor[39m[22m} [1m[32mvendor.bundle.js[39m[22m (vendor) 12 MB [1m[33m[initial][39m[22m[0m
+
+webpack: Compiled successfully.
+Terminate batch job (Y/N)? Terminate batch job (Y/N)? Terminate batch job (Y/N)? Terminate batch job (Y/N)? 

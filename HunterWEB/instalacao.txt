@@ -1,0 +1,33 @@
+﻿Passos para instalação:
+
+1 - Instalar Node.js na última versão 6.X.X
+2 - Instalar o MSVS 2015 (http://landinghub.visualstudio.com/visual-cpp-build-tools)
+3 - Instalar o Python 2.7 (https://www.python.org/ftp/python/2.7.14/python-2.7.14.msi)
+4 - Em um prompt de comando com permissão administrativa, mover para a pasta HunterWEB e executar os seguintes comandos:
+4.1 - npm config set msvs_version 2015
+4.2 - npm i -g @angular/cli@1
+4.3 - npm i node-sass -g
+4.4 - npm i
+4.5 - npm upgrade
+
+Para executar:
+
+ng serve
+Ajustar o /assets/config/config.json com os valores corretos.
+
+Para gerar pacote para produção:
+
+npm run build
+Ajustar o /assets/config/config.json com os valores corretos.
+
+---------------------------PDFMAKE----------------------------------
+1 - npm install pdfmake --save
+2 - npm install @types/pdfmake --save
+3 - On angular-cli.json file
+	"scripts": [
+	  "../node_modules/pdfmake/build/pdfmake.min.js",
+	  "../node_modules/pdfmake/build/vfs_fonts.js"
+	],
+		
+more info: https://github.com/bpampuch/pdfmake/tree/0.1
+-------------------------------------------------------------------

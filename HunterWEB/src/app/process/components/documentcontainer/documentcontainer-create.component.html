@@ -1,0 +1,72 @@
+<h2 class="first">New Document Container</h2>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" (click)="onSave()" icon="fa-check" class="ui-button-success"></button>
+    </div>
+    <div class="ui-toolbar-group-right">
+        <button pButton type="button" (click)="onDelete()" icon="fa-trash" class="ui-button-danger"></button>
+        <i class="fa fa-bars"></i>
+    </div>
+</p-toolbar>
+
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-4">
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon">
+                <i class="fa fa-angle-double-right"></i>
+            </span>
+            <input type="text" pInputText [(ngModel)]="data.name" disabled='disabled' placeholder="name">
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon">
+                <i class="fa fa-angle-double-right"></i>
+            </span>
+            <input type="text" pInputText [(ngModel)]="data.code" disabled='disabled' placeholder="code">
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon">
+                <i class="fa fa-angle-double-right"></i>
+            </span>
+            <input type="text" pInputText [(ngModel)]='data.status' disabled='disabled' placeholder="status">
+        </div>
+    </div>
+</div>
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12">
+        <h2 class="first">Invoices</h2>
+
+        <p-table [value]="childrenData | sort:'name'" [(selection)]="selectedChildren" selectionMode="multiplie" [rows]="20" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 2.25em">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData>
+                <tr [pSelectableRow]="rowData">
+                    <td>
+                        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                    </td>
+                    <td>{{rowData.updatedAt}}</td>
+                    <td>{{rowData.name}}</td>
+                    <td>{{rowData.status}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                    <ul>
+                        <li style="text-align: left">
+                            SELECTED: {{selectedChildren.length}}
+                        </li>
+                    </ul>
+                </ng-template>
+        </p-table>
+    </div>
+</div>

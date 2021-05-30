@@ -1,0 +1,42 @@
+<body>
+    <!-- Login -->
+    <div class="login">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="content-wrapper">
+                    <div class="topLogo">
+                        <img src="assets/imgs/logo_hunter_horizontal.png" alt="Hunter Logo">
+                        <p class="light">Technology for Business Transformation</p>
+                    </div>
+                    
+                    <div class="form-box">
+                        <span class="lighter" id="cardTitle">Entre com seu usuário de rede</span>
+                        <form>
+                            <!-- <input *ngIf="!showUsernameInLabel" type="text" pInputText [(ngModel)]="username" autocomplete="off" name="user"
+                                placeholder="Nome de Usuário" class="user distanciamento ui-inputtext" (change)="reportedName($event)" autofocus> -->
+                            <input *ngIf="!showUsernameInLabel" type="text" pInputText [(ngModel)]="username" autocomplete="off" name="user"
+                                placeholder="Nome de Usuário" class="user distanciamento ui-inputtext" autofocus>
+                            <label *ngIf="showUsernameInLabel">{{username}}</label>
+                            <div class="ui-inputgroup" *ngIf=" showUsernameInLabel && credentials!=null && credentials.type!='CredentialDevice'">
+                                <input placeholder="Senha" autocomplete="off" pInputText [(ngModel)]="pwd" name="password" [type]="showPass ? 'text' : 'password'" autofocus>
+                                <button pButton type="button" [icon]="showPass ? 'fa-eye-slash' : 'fa-eye'" class="ui-button-secondary ui-inputgroup-addon" (click)="togglePassword()"></button>
+                            </div>
+                            <button *ngIf="credentials==null" type="submit" class="btn btn-sm enter" (click)="getCredential()">Entrar</button>
+                            <button *ngIf="credentials!=null" type="submit" class="btn btn-sm enter" (click)="login()">Validar</button>
+                        </form>
+                        <!--<p id="labelForgotPassword">
+                            <a href=""> <small>Forgot your password?</small></a> <br>
+                            <a id="backToReportUser" *ngIf="showUsernameInLabel == true" (click)="backToLogin()"
+                                style="cursor:pointer"><small>Change
+                                    user</small></a>
+                        </p>-->
+                    </div>
+                    <div class="bottomLogo">
+                        <img src="assets/imgs/logo_gtp.svg" alt="GTP Logo">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <span class="login-version">v{{version}}</span>
+    </div>
+</body>

@@ -1,0 +1,177 @@
+<!--component html goes here -->
+<p-progressBar [value]="printProgress"></p-progressBar>
+<h1>Impressão</h1>
+<div class="ui-fluid">
+    <p-table *ngIf="items.length > 0" [value]="items | sort: 'prd'" [columns]="columns" [resizableColumns]="true" [rows]="4"
+        columnResizeMode="expand" autoLayout="true" [responsive]="true" selectionMode="single" [paginator]="items.length > 4"
+        (onRowSelect)="getProductDetails($event)" (onRowUnselect)="productUnselected($event)">
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-i="rowIndex">
+            <tr [pSelectableRow]="data">
+                <td class="ui-resizable-column" *ngFor="let col of columns">
+                    <span *ngIf="col.type === 'DATE'">{{data[col.field] | date:'dd/MM/yyyy'}}</span>
+                    <span *ngIf="col.type === 'NUMBER'; else otherTypes">{{data[col.field] | number:'0.0-3'}}</span>
+                    <ng-template #otherTypes>{{data[col.field]}}</ng-template>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    
+    <p-table *ngIf="printOrders !== undefined && printOrders.length > 0" [value]="printOrders" [paginator]="printOrders.length > 4"
+        [columns]="columnsConference" [resizableColumns]="true" columnResizeMode="expand" autoLayout="true" [rows]="4"
+        [responsive]="true" selectionMode="single" (onRowSelect)="confSelected($event)" (onRowUnselect)="confUnselected($event)">
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of columnsConference" pResizableColumn [pSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-po let-i="rowIndex">
+            <tr [pSelectableRow]="po">
+                <td class="ui-resizable-column" *ngFor="let col of columnsConference">
+                    <span *ngIf="col.type === 'DATE' && po[col.field] !== 'Indeterminado'">{{po[col.field] | date:'dd/MM/yyyy'}}</span>
+                    <span *ngIf="col.type !== 'DATE' || po[col.field] === 'Indeterminado'">{{po[col.field]}}</span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p-panel *ngIf="loadDetails">
+        <p-header>Etiqueta</p-header>
+        <div class="ui-g">
+            <!--Primeira Linha-->
+            <div class="ui-g-12 ui-md-3">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-50">Destino</span>
+                    <input pInputText type="text" [(ngModel)]="labelData.destino" readonly>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-50">Recebimento</span>
+                    <input pInputText type="text" [(ngModel)]="labelData.dtRecebimento" readonly>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-50">Fabricação</span>
+                    <input pInputText type="text" [(ngModel)]="labelData.dtFabricacao" readonly>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-50">Validade</span>
+                    <input pInputText type="text" [(ngModel)]="labelData.dtValidade" readonly>
+                </div>
+            </div>
+            <!--Segunda Linha-->
+            <div class="ui-g-12 ui-md-3">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-50">Lote</span>
+                    <input pInputText type="text" [(ngModel)]="labelData.loteFornecedor" readonly>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-50">Código</span>
+                    <input pInputText type="text" [(ngModel)]="labelData.sku" readonly>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-50">Produto</span>
+                    <input pInputText type="text" [(ngModel)]="labelData.produto" readonly>
+                </div>
+            </div>
+            <!--Terceira Linha-->
+            <!--
+                <div class="ui-g-12 ui-md-4">
+                    <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon min-50">Nota Fiscal</span>
+                        <input pInputText type="text" [ngModel]="labelData.nfEntrada | number: '0.0'" (ngModelChange)="labelData.nfEntrada = $event" readonly>
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-md-8">
+                    <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon min-50">Fornecedor</span>
+                        <input pInputText type="text" [(ngModel)]="labelData.fornecedor" readonly>
+                    </div>
+                </div>
+            -->
+            <!--Quarta Linha-->
+            <div class="ui-g-12 ui-md-3">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-50">Qtd Recebimento</span>
+                    <input pInputText type="text" [ngModel]="labelData.qtdRecebimento | number: '0.0-3'" (ngModelChange)="labelData.qtdRecebimento = $event" readonly>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+                    <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon min-50">Qtd Volume</span>
+                        <input pInputText type="text" [ngModel]="labelData.qtdPorVolume | number: '0.0-3'" (ngModelChange)="labelData.qtdPorVolume = $event" readonly>
+                    </div>
+                </div>
+            <div class="ui-g-12 ui-md-3">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-50">Etiquetas</span>
+                    <input pInputText type="text" [(ngModel)]="labelData.qtdVolume" readonly>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-50">Impressas</span>
+                    <input pInputText type="text" [(ngModel)]="labelData.qtdImpresso" readonly>
+                </div>
+            </div>
+
+            <!--Quinta Linha-->
+            <div class="ui-g-12 ui-md-3">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-50 color-info">Inflamabilidade</span>
+                    <input pInputText type="number" [maxlength]="2" [(ngModel)]="labelData.inflamabilidade">
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-50 color-info">Reatividade</span>
+                    <input pInputText type="number" [maxlength]="2" [(ngModel)]="labelData.reatividade">
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-50 color-info">Lote Interno</span>
+                    <input pInputText type="text" [maxlength]="6" [(ngModel)]="labelData.loteInterno">
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-50 color-info">Rodapé</span>
+                    <input pInputText type="text" [maxlength]="12" [(ngModel)]="labelData.rodape">
+                </div>
+            </div>
+            <!--Sexta Linha-->
+            <div class="ui-g-12 ui-md-3">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-50 color-info">Recomendações Especiais</span>
+                    <input pInputText type="number" [maxlength]="2" [(ngModel)]="labelData.recomendacoesEspeciais">
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon min-50 color-info">Risco à Vida</span>
+                    <input pInputText type="number" [maxlength]="2" [(ngModel)]="labelData.riscoAVida">
+                </div>
+            </div>
+        </div>
+        <button type="button" pButton label='Imprimir' icon="fa-print" (click)="printTag()" [disabled]="labelData.qtdImpresso >= labelData.qtdVolume || labelData.loteInterno === undefined || labelData.loteInterno === ''"></button>
+    </p-panel>
+</div>

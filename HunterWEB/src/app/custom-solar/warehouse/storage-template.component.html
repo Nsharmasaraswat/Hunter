@@ -1,0 +1,12 @@
+<input pInput placeholder="Nome" [(ngModel)]="tplDesc">
+<p-pickList [sourceHeader]="'Endereços'" [source]="addressList" targetHeader="Selecionados" [target]="selAddressList" 
+filterBy="metaname" dragdrop="true" [showSourceControls]="false" [showTargetFilter]="false" [responsive]="true"
+(onMoveToSource)="orderSource()">
+    <ng-template let-addr pTemplate let-i="index">
+        {{i + 1}} - {{addr.name}}
+    </ng-template>
+</p-pickList>
+<button (click)="createTemplate()"></button>
+<div *ngFor="let query of queries" style="font-size: 10px;">
+    {{query}}
+</div>

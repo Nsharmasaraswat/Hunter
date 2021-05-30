@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="16dp"
+    android:background="@drawable/background_white_border">
+
+    <RadioGroup
+        android:id="@+id/rdgRncType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:orientation="horizontal"
+        android:padding="1sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtRncType">
+
+        <RadioButton
+            android:id="@+id/rbtRncLot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:checked="true"
+            android:text="@string/label_lot"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/rbtRncProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/label_product"
+            android:textSize="20sp" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/txtRncType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_type"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutLot"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="1sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rdgRncType">
+
+        <EditText
+            android:id="@+id/edtLot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:autofillHints="@string/label_end"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/rncLotVertGL"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtLot"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:labelFor="@id/edtLot"
+            android:text="@string/label_lot"
+            android:textAlignment="gravity"
+            app:layout_constraintBottom_toBottomOf="@+id/edtLot"
+            app:layout_constraintEnd_toStartOf="@+id/rncLotVertGL"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/edtLot" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/rncLotVertGL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="0dp"
+            app:layout_constraintGuide_percent=".3" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutProduct"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="1sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rdgRncType">
+
+        <EditText
+            android:id="@+id/edtStart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:autofillHints="@string/label_start"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/rncProductVertGL"
+            app:layout_constraintTop_toBottomOf="@+id/cbxProduct" />
+
+        <EditText
+            android:id="@+id/edtEnd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:autofillHints="@string/label_end"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/rncProductVertGL"
+            app:layout_constraintTop_toBottomOf="@+id/edtStart" />
+
+        <TextView
+            android:id="@+id/txtStart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:labelFor="@id/edtStart"
+            android:text="@string/label_start"
+            android:textAlignment="gravity"
+            app:layout_constraintBottom_toBottomOf="@+id/edtStart"
+            app:layout_constraintEnd_toStartOf="@+id/rncProductVertGL"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/edtStart" />
+
+        <TextView
+            android:id="@+id/txtEnd"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:labelFor="@id/edtEnd"
+            android:text="@string/label_end"
+            android:textAlignment="gravity"
+            app:layout_constraintBottom_toBottomOf="@+id/edtEnd"
+            app:layout_constraintEnd_toStartOf="@+id/rncProductVertGL"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/edtEnd" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/rncProductVertGL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="0dp"
+            app:layout_constraintGuide_percent=".3" />
+
+        <com.gtp.hunter.structure.spinner.SearchableSpinner
+            android:id="@+id/cbxProduct"
+            android:layout_width="260dip"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:dropDownWidth="match_parent"
+            android:maxWidth="50dip"
+            android:padding="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

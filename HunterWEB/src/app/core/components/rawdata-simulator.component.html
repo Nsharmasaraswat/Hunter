@@ -1,0 +1,84 @@
+<!--component html goes here -->
+<p-panel>
+    <p-header>Raw Data</p-header>
+    <form #rdForm="ngForm" (ngSubmit)="register(rdForm)" novalidate>
+        <div class="ui-g ui-fluid form-group">
+            <div class="ui-g-12 ui-md-3">
+                <label for="rdOrigin">ORIGIN</label>
+                <select #rdOrigin name="rdOrigin" class="form-control" [(ngModel)]="origin" (change)="connectOrigin($event)" [value]="'Selecione'" required>
+                    <option selected [ngValue]="null" value="Selecione">Selecione</option>
+                    <option *ngFor="let item of origins|keys" [value]="item">{{ origins[item] }}</option>
+                </select>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+                <label for="rdSource"> SOURCE</label>
+                <select #rdSource name="rdSource" class="form-control" [(ngModel)]="rd.source" [disabled]="!originConnected || sources.length === 0" (change)="onChange($event)" [value]="'Selecione'" required>
+                    <option selected [ngValue]="null" value="Selecione">Selecione</option>
+                    <option *ngFor="let item of sources | sort:'name'" [value]="item.id">{{ item.name }}</option>
+                </select>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+                <label for="rdDevice"> DEVICE</label>
+                <select #rdDevice name="rdDevice" class="form-control" [(ngModel)]="rd.device" [disabled]="!originConnected || filteredDevices.length === 0" (change)="onChange($event)" [value]="'Selecione'" required>
+                    <!-- <option value='Selecione'>Selecione</option> -->
+                    <option selected [ngValue]="null" value="Selecione">Selecione</option>
+                    <option *ngFor="let item of filteredDevices | sort:'name'" [value]="item.id">{{ item.name }}</option>
+                </select>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+                <label for="rdPort"> PORT</label>
+                <select #rdPort name="rdPort" class="form-control" [(ngModel)]="rd.port" [disabled]="!originConnected || filteredPorts.length === 0" [value]="'Selecione'" required>
+                    <option selected [ngValue]="null" value="-1">Selecione</option>
+                    <option *ngFor="let item of filteredPorts | sort:'name'" [selected]='filteredPorts.length === 1' [value]="item.portId">{{ item.name }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-3">
+                <label for="rdTagId"> TAG</label>
+                <input #rdTagId name="rdTagId" class="form-control" [(ngModel)]="rd.tagId" type="text" pInputText required minlength="1" [disabled]="!originConnected">
+            </div>
+            <div class="ui-g-12 ui-md-3">
+                <label for="rdType"> TYPE</label>
+                <select #rdType name="rdType" class="form-control" [(ngModel)]="rd.type" (change)="preFill()" required [disabled]="!originConnected">
+                    <option *ngFor="let item of rawDataTypes|keys" [value]="item">{{ rawDataTypes[item] }}</option>
+                </select>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <label for="rdPayload"> PAYLOAD</label>
+                <textarea #rdPayload name="rdPayload" class="form-control" pInputTextArea [(ngModel)]="fieldPayload" autoResize="autoResize" [rows]="6" [cols]="30" required minlength="2" (input)="prettyPrint()"
+                    [disabled]="!originConnected" (ngModelChange)="prettyPrint()"></textarea>
+            </div>
+        </div>
+    </form>
+</p-panel>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" (click)="payloadPeso()" icon="fa-arrow-up" class="ui-button-info" iconPos="left" label="Peso"></button>
+        <button pButton type="button" (click)="payloadLocal()" icon="fa-arrow-up" class="ui-button-info" iconPos="left" label="Local"></button>
+        <button pButton type="button" (click)="payloadArmazenagem()" icon="fa-arrow-up" class="ui-button-info" iconPos="left" label="Armaz."></button>
+        <button pButton type="button" (click)="payloadLinha()" icon="fa-arrow-up" class="ui-button-info" iconPos="left" label="Linha"></button>
+        <!-- <button pButton type="button" (click)="startDroneInventorySimulation()" icon="fa-fighter-jet" class="ui-button-info" iconPos="left" label="Drone"></button> -->
+        <!-- <button pButton type="button" (click)="simRack()" icon="fa-ra" class="ui-button-info" iconPos="left" label="Rack"></button> -->
+    </div>
+
+
+    <div class="ui-toolbar-group-right">
+        <button pButton type="button" (click)="payloadAlmox()" icon="fa-arrow-up" class="ui-button-info" iconPos="left" label="Almox."></button>
+        <button pButton type="button" (click)="payloadPreforma()" icon="fa-arrow-up" class="ui-button-info" iconPos="left" label="PréF."></button>
+        <button pButton type="button" (click)="payloadExpedicao()" icon="fa-arrow-up" class="ui-button-info" iconPos="left" label="Exp."></button>
+        <button pButton type="button" (click)="payloadSaida()" icon="fa-arrow-up" class="ui-button-info" iconPos="left" label="Saída"></button>
+        <button pButton type="button" (click)="payloadEntrada()" icon="fa-arrow-up" class="ui-button-info" iconPos="left" label="Entrada"></button>
+        <button pButton type="button" (click)="payloadRota()" icon="fa-arrow-up" class="ui-button-info" iconPos="left" label="Rota"></button>
+    </div>
+</p-toolbar>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="submit" (click)="onSend()" icon="fa-arrow-right" class="ui-button-success" label="Send" [disabled]="!rdForm.valid">
+        </button>
+    </div>
+    <div class="ui-toolbar-group-right">
+        <button pButton type="button" (click)="onClear()" icon="fa-close" class="ui-button-danger" label="Clear" [disabled]="!originConnected"></button>
+    </div>
+</p-toolbar>
+<rawdata [lstRawData]="msgs" *ngIf="msgs !== undefined && msgs.length > 0"></rawdata>

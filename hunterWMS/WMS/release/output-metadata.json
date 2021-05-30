@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.gtp.hunter",
+  "variantName": "release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "versionCode": 1818,
+      "versionName": "1.8.18",
+      "outputFile": "hunterWMS-1.8.18.apk"
+    }
+  ]
+}

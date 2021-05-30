@@ -1,0 +1,23 @@
+<div class="container-fluid p-0" *ngIf="options.center != null && options.center != undefined">
+  <div class="row">
+    <div class="col-10 map-height" #map leaflet [leafletOptions]="options" (leafletMapReady)="onMapReady($event)" 
+    [leafletMarkerCluster]="markers" [leafletMarkerClusterOptions]="markerClusterOptions" (leafletMarkerClusterReady)="markerClusterReady($event)">
+    </div>
+    <div class="col-2" style="height: 100%;" *ngIf="showOptions">
+      <div class="row">
+        <div class="col-12">
+          <p-panel>
+            <p-header>Opções</p-header>
+            <p>Tamanho do ícone</p>
+            <input type="text" pInputText [(ngModel)]="iconSize" style="width:14em" />
+            <p-slider [(ngModel)]="iconSize" [style]="{'width':'14em'}" (onChange)="resize($event)"></p-slider>
+            <p-checkbox label="Centralizar no evento" [(ngModel)]="centerOnEvent" binary="true"></p-checkbox>
+            <p-checkbox label="Mostrar rastros" [(ngModel)]="leaveTrail" binary="true"></p-checkbox>
+            <button icon="fa-file" type="button" pButton (click)="tempLoadZonesFromRest(locationId)" label="Carregar Endereços" *ngIf="!autoLoadZones"></button>
+            <button icon="fa-file" type="button" pButton (click)="loadChildren(locationId)" label="Carregar Localizações" *ngIf="false"></button>
+            <button icon="fa-file" type="button" pButton (click)="connectOrigin()" label="Conectar Eventos" *ngIf="!autoConnectOrigin"></button>
+        </p-panel>
+      </div>
+    </div>
+  </div>
+</div>

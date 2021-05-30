@@ -1,0 +1,26 @@
+<h3>Rowspan</h3>
+<p-table #tbl [value]="data" sortField="LOCAL" sortMode="single" (onSort)="onSort()" *ngIf="dataProcessed">
+    <ng-template pTemplate="header">
+        <tr>
+            <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+        </tr>
+        <tr>
+            <th *ngFor="let col of columns">
+                <input pInputText type="text" (input)="tbl.filter($event.target.value, col.field, 'contains')"
+                    size="15">
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+        <tr>
+            <td *ngIf="rowGroupMetadata[rowData.LOCAL].index === rowIndex"
+                [attr.rowspan]="rowGroupMetadata[rowData.LOCAL].size">
+                {{rowData.LOCAL}}
+            </td>
+            <td class="ui-resizable-column" *ngFor="let col of columnsFiltered">{{rowData[col.field]}}</td>
+        </tr>
+    </ng-template>
+</p-table>

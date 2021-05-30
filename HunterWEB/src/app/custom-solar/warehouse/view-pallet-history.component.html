@@ -1,0 +1,82 @@
+<h3>Histórico</h3>
+<p-panel *ngIf="th === null || th === undefined">
+    <h1 class="text-center">PALETE NÃO ENCONTRADO</h1>
+</p-panel>
+<p-accordion [multiple]="true" *ngIf="th !== undefined">
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+        <p-accordionTab header="PRODUTOS" [selected]="true">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <pallet-history [model]="th"></pallet-history>
+                </div>
+            </div>
+        </p-accordionTab>
+        <p-accordionTab header="DOCUMENTOS" [selected]="true"  *ngIf="docs !== null && docs !== undefined && docs.length > 0">
+            <p-table [value]="docs | sort:'createdAt'" *ngIf="docs !== undefined && docs.length > 0" [resizableColumns]="true" columnResizeMode="expand">
+                <ng-template pTemplate="colgroup">
+                    <colgroup>
+                        <col [style.width]="'12ch'">
+                        <col [style.width]="'9ch'">
+                        <col [style.width]="'9ch'">
+                        <col [style.width]="'9ch'">
+                        <col [style.width]="'15ch'">
+                    </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>TIPO</th>
+                        <th>CÓDIGO</th>
+                        <th>STATUS</th>
+                        <th>ÚLTIMA ATUALIZAÇÃO</th>
+                        <th>USUÁRIO</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td>{{rowData.model.name}}</td>
+                        <td>{{rowData.code}}</td>
+                        <td>{{getDocStatus(rowData)}}</td>
+                        <td>{{rowData.updatedAt | date:'dd/MM/yyyy hh:mm:ss'}}</td>
+                        <td>{{rowData.user?.name}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-accordionTab>
+        <p-accordionTab header="MOVIMENTAÇÕES" *ngIf="movs !== null && movs !== undefined && movs.length > 0">
+            <ng-container *ngFor="let mov of movs">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                        <ordem-movimentacao [model]="mov" [single]="th.id"></ordem-movimentacao>
+                    </div>
+                </div>
+            </ng-container>
+        </p-accordionTab>
+        <p-accordionTab header="SEPARAÇÕES" *ngIf="picks !== null && picks !== undefined && picks.length > 0">
+            <ng-container *ngFor="let pick of picks">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                        <ordem-separacao [model]="pick"></ordem-separacao>
+                    </div>
+                </div>
+            </ng-container>
+        </p-accordionTab>
+        <p-accordionTab header="CONFERENCIAS" *ngIf="checks !== null && checks !== undefined && checks.length > 0">
+            <ng-container *ngFor="let conf of checks">
+                <div class="ui-grid-row" *ngIf="conf.user !== null && conf.user !== undefined">
+                    <div class="ui-grid-col-2">
+                        Usuário:
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText type="text" [value]="conf.user?.name" size="40" readonly />
+                    </div>
+                    <div class="ui-grid-col-4"></div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                        <ordem-conferencia [model]="conf"></ordem-conferencia>
+                    </div>
+                </div>
+            </ng-container>
+        </p-accordionTab>
+    </div>
+</p-accordion>

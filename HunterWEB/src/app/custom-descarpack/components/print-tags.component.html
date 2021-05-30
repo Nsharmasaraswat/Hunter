@@ -1,0 +1,72 @@
+<p>PRODUCT: {{doc[0]?.docname}}</p>
+<p-dataTable [value]="doc" sortField="prodname" selectionMode="single" [(selection)]="prdItem" (onRowSelect)="onProdSelected($event)">
+    <p-column field="sku" header="SKU#"></p-column>
+    <p-column field="prodname" header="Product"></p-column>
+    <p-column field="status" header="Status"></p-column>
+    <p-column field="qty" header="Total"></p-column>
+    <p-column field="printed" header="Printed"></p-column>
+    <p-column header="Awaiting">
+        <ng-template let-col let-row="rowData" let-ri="rowIndex" pTemplate="body">
+            <span>{{row['qty'] - row['printed']}}</span>
+        </ng-template>
+    </p-column>
+</p-dataTable>
+<div *ngIf="prdItem!=null && prdThings.length==0">
+    <p>PRODUCT: {{prdItem?.prodname}} - QUANTITY: {{prdItem?.qty}}</p>
+    <div class="ui-g">
+        <div class="ui-g-8">
+            <div *ngFor="let fld of prdItem?.metadata|keys">
+                <input *ngIf="prdItem.metadata[fld]=='TEXT' && fld!=='BATCH'" type="text" pInputText [(ngModel)]="prdItem.properties[fld]" [placeholder]="fld">
+                <p-inputMask *ngIf="prdItem.metadata[fld]=='TEXT' && fld==='BATCH'" [(ngModel)]="prdItem.properties[fld]" placeholder="LOT NUMBER" mask="**********" slotChar=" " characterPattern="[a-zA-Z]" (onBlur)="batchFilled($event)" minlength="10" maxlength="10"></p-inputMask>
+                <p-inputMask *ngIf="prdItem.metadata[fld]=='DATE' && fld!=='EXPIRY'" [(ngModel)]="prdItem.properties[fld]" mask="99/99/9999" [placeholder]="fld"></p-inputMask>
+                <p-inputMask *ngIf="prdItem.metadata[fld]=='DATE' && fld==='EXPIRY'" [(ngModel)]="prdItem.properties[fld]" [mask]="dateMask" [placeholder]="fld"></p-inputMask>
+                <p-checkbox *ngIf="fld==='EXPIRY'" (onChange)="undefChanged($event)" label="Indefinite" name="Indefinite"></p-checkbox>
+            </div>
+            <div>
+                <input type="text" pInputText [(ngModel)]="prdItem.properties['qty']" placeholder="Quantity">
+            </div>
+        </div>
+        <div class="ui-g-4">
+            <button type="button" pButton (click)="onSetAll()" [disabled]="prdItem?.properties['BATCH']?.trim().length !== 10" label="Create Print Order">
+                <i class="fa fa-print"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div *ngIf="prdThings.length>0">
+    PRODUCTION ORDER
+    <p-table [value]="prdThings">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>PRODUCT</th>
+                <th *ngFor="let fld of metadata|keys">
+                    {{fld}}
+                </th>
+                <th>
+                    QUANTITY
+                </th>
+                <th>&nbsp;</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data>
+            <tr>
+                <td>{{data.prodname}}</td>
+                <td *ngFor="let fld of metadata|keys">
+                    {{data.properties[fld]}}
+                </td>
+                <td>
+                    {{data.properties['qty']}}
+                </td>
+                <td>
+                    <button type="button" pButton (click)="limpaThings()" label="Remove Order">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <br>
+    <button type="button" pButton (click)="enviaThings()" label="Print Tags">
+        <i class="fa fa-print"></i>
+    </button>
+</div>

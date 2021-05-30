@@ -1,0 +1,71 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".TasksActivity">
+
+    <group
+        android:id="@+id/sepGrpPositive"
+        android:menuCategory="container"
+        android:orderInCategory="20">
+        <item
+            android:id="@+id/rmiSend"
+            android:icon="@android:drawable/ic_menu_upload"
+            android:orderInCategory="30"
+            android:title="@string/send"
+            app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/sepSend"
+            android:icon="@android:drawable/ic_menu_upload"
+            android:orderInCategory="30"
+            android:title="@string/send"
+            app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/sepApply"
+            android:icon="@android:drawable/ic_menu_save"
+            android:orderInCategory="30"
+            android:title="@string/save"
+            app:showAsAction="ifRoom" />
+    </group>
+    <group
+        android:id="@+id/sepGrpNegative"
+        android:menuCategory="container"
+        android:orderInCategory="40">
+        <item
+            android:id="@+id/sepCancel"
+            android:icon="@android:drawable/ic_menu_close_clear_cancel"
+            android:orderInCategory="50"
+            android:title="@string/cancel"
+            app:showAsAction="ifRoom" />
+    </group>
+
+    <group
+        android:id="@+id/sepGrpRFID"
+        android:menuCategory="container"
+        android:orderInCategory="40">
+        <item
+            android:id="@+id/reconnect_reader_menu_item"
+            android:orderInCategory="1"
+            android:title="@string/reconnect_reader_menu_item_text" />
+        <item
+            android:id="@+id/secure_connect_reader_menu_item"
+            android:enabled="false"
+            android:orderInCategory="2"
+            android:title="@string/secure_connect"
+            android:visible="false" />
+        <item
+            android:id="@+id/insecure_connect_reader_menu_item"
+            android:enabled="false"
+            android:orderInCategory="3"
+            android:title="@string/insecure_connect" />
+        <item
+            android:id="@+id/disconnect_reader_menu_item"
+            android:enabled="false"
+            android:orderInCategory="4"
+            android:title="@string/disconnect" />
+        <item
+            android:id="@+id/reset_reader_menu_item"
+            android:enabled="false"
+            android:orderInCategory="5"
+            android:title="@string/reset_reader_menu_text" />
+    </group>
+</menu>

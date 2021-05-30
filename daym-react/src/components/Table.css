@@ -1,0 +1,29 @@
+.p-dialog-content {
+    overflow-y: unset !important;
+}
+.tableC{
+    display: flex;
+    flex-direction: column;
+}
+.thC{
+    border: 1px solid #323232;
+    border-collapse: collapse;
+    text-align: center;
+    overflow: hidden;
+    line-height: 1;
+    font-size: 11px;
+    padding: 3px 0px;
+    height: 30px;
+    width: 150px;
+}
+.tdC{
+    border: 1px solid #323232;
+    border-collapse: collapse;
+    text-align: center;
+    overflow: hidden;
+    line-height: 1;
+    font-size: 12px;
+    padding: 3px 0px;
+    height: 30px;
+    width: 150px;
+}

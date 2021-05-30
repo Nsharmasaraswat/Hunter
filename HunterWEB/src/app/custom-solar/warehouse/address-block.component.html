@@ -1,0 +1,42 @@
+<h3>Status dos Endereços</h3>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+    </div>
+    <div class="ui-toolbar-group-right">
+        <p-dropdown appendTo="body" [filter]="false" [autoWidth]="false" [autofocus]="true" [autoDisplayFirst]="true" [options]="statusOptions" [(ngModel)]="selStatus" (onChange)="checkState()"></p-dropdown>
+        <button pButton type="button" label="Salvar" icon="fa-folder-open" class="ui-button-success" (click)=changeComplete() [disabled]="selAddress.length === 0 || disableSave"></button>
+    </div>
+</p-toolbar>
+<p-table #tbl *ngIf="addressList != null && addressList.length > 0" [value]="addressList | sort:'name'"
+    [columns]="colsAddress" [resizableColumns]="true" columnResizeMode="expand" autoLayout="true" [responsive]="true"
+    [paginator]="addressList.length > 10" [rows]="rows" [rowsPerPageOptions]="rowOptions" [(selection)]="selAddress"
+    (onRowSelect)="checkState()" (onRowUnselect)="checkState()">
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 2.25em"></th>
+            <th *ngFor="let col of colsAddress" pResizableColumn>
+                {{col.header}}
+            </th>
+        </tr>
+        <tr>
+            <th style="width: 2.25em">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th *ngFor="let col of colsAddress">
+                <input pInputText type="text" (input)="tbl.filter($event.target.value, col.field, 'contains')" [size]="col.header.length + 3">
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-addr let-i="rowIndex">
+        <tr [pSelectableRow]="addr">
+            <td>
+                <p-tableCheckbox [value]="addr"></p-tableCheckbox>
+            </td>
+            <td class="ui-resizable-column" *ngFor="let col of colsAddress">
+                <span *ngIf="col.type === 'DATE'">{{addr[col.field] | date:'dd/MM/yyyy'}}</span>
+                <span *ngIf="col.type === 'NUMBER'">{{addr[col.field] | number: '0.0-3'}}</span>
+                <span *ngIf="col.type !== 'DATE' && col.type !== 'NUMBER'">{{addr[col.field]}}</span>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_white_border"
+    tools:ignore="SmallSp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="9dp">
+
+        <TextView
+            android:id="@+id/lblProduct"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/cbxProduct"
+            android:text="@string/label_product"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/cbxProduct"
+            app:layout_constraintStart_toStartOf="@id/cbxProduct"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.gtp.hunter.structure.spinner.SearchableSpinner
+            android:id="@+id/cbxProduct"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:dropDownWidth="match_parent"
+            android:scrollbarSize="6dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lblProduct" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tfPalletBox"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="8dp"
+            android:hint="@string/prd_box_pallet"
+            app:hintTextAppearance="@style/SmallHint"
+            app:layout_constraintBottom_toTopOf="@id/tfPalletCount"
+            app:layout_constraintEnd_toStartOf="@+id/tfLayerBox"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cbxProduct"
+            app:layout_constraintVertical_bias="0.95">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPalletBoxCount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/yellow"
+                android:inputType="number"
+                android:nextFocusDown="@id/etPalletCount"
+                android:textSize="12sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tfLayerBox"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="8dp"
+            android:hint="@string/prd_box_layer"
+            app:hintTextAppearance="@style/SmallHint"
+            app:layout_constraintBottom_toTopOf="@id/tfLayerCount"
+            app:layout_constraintEnd_toStartOf="@+id/tfBoxUnit"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tfPalletBox"
+            app:layout_constraintTop_toBottomOf="@id/cbxProduct"
+            app:layout_constraintVertical_bias="0.95">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etLayerBoxCount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/yellow"
+                android:inputType="number"
+                android:nextFocusDown="@id/etLayerCount"
+                android:textSize="12sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tfBoxUnit"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="8dp"
+            android:hint="@string/prd_unit_box"
+            app:hintTextAppearance="@style/SmallHint"
+            app:layout_constraintBottom_toTopOf="@id/tfUnitCount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/tfLayerBox"
+            app:layout_constraintTop_toBottomOf="@id/cbxProduct"
+            app:layout_constraintVertical_bias="0.95">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etBoxUnitCount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/yellow"
+                android:inputType="number"
+                android:nextFocusDown="@id/etUnitCount"
+                android:textSize="12sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tfPalletCount"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="8dp"
+            android:hint="@string/label_pallets"
+            app:hintTextAppearance="@style/SmallHint"
+            app:layout_constraintBottom_toTopOf="@id/fpItemList"
+            app:layout_constraintEnd_toStartOf="@+id/tfLayerCount"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tfPalletBox"
+            app:layout_constraintVertical_bias="0.95">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPalletCount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number"
+                android:nextFocusDown="@id/etLayerCount"
+                android:textSize="12sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tfLayerCount"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:hint="@string/label_layers"
+            app:hintTextAppearance="@style/SmallHint"
+            app:layout_constraintBottom_toTopOf="@id/fpItemList"
+            app:layout_constraintEnd_toStartOf="@+id/tfBoxCount"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tfPalletCount"
+            app:layout_constraintTop_toBottomOf="@id/tfLayerBox"
+            app:layout_constraintVertical_bias="0.95">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etLayerCount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number"
+                android:nextFocusDown="@id/etBoxCount"
+                android:textSize="12sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tfBoxCount"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:hint="@string/label_boxes"
+            app:hintTextAppearance="@style/SmallHint"
+            app:layout_constraintBottom_toTopOf="@id/fpItemList"
+            app:layout_constraintEnd_toStartOf="@+id/tfUnitCount"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tfLayerCount"
+            app:layout_constraintTop_toBottomOf="@id/tfBoxUnit"
+            app:layout_constraintVertical_bias="0.95">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etBoxCount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:nextFocusDown="@id/etUnitCount"
+                android:textSize="12sp">
+
+                <requestFocus />
+            </com.google.android.material.textfield.TextInputEditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tfUnitCount"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:hint="@string/label_units"
+            app:hintTextAppearance="@style/SmallHint"
+            app:layout_constraintBottom_toTopOf="@id/fpItemList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tfBoxCount"
+            app:layout_constraintTop_toBottomOf="@id/tfBoxUnit"
+            app:layout_constraintVertical_bias="0.95">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etUnitCount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:nextFocusDown="@+id/btnAddInv"
+                android:textSize="12sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/lblBoxes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/etBoxes"
+            android:text="@string/label_boxes"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/etBoxes"
+            app:layout_constraintEnd_toEndOf="@id/etBoxes"
+            app:layout_constraintStart_toStartOf="@id/etBoxes"
+            app:layout_constraintTop_toBottomOf="@id/tfLayerCount"
+            app:layout_constraintVertical_bias="0.2"
+            app:layout_goneMarginTop="4dp" />
+
+        <EditText
+            android:id="@+id/etBoxes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/label_boxes"
+            android:ems="4"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textSize="28sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/fpItemList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblBoxes"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_goneMarginBottom="4dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fpItemList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="9dp"
+            android:background="@color/colorPrimaryDark"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tfLayerCount"
+            app:layout_constraintVertical_bias="0.95"
+            app:reverseLayout="true"
+            app:stackFromEnd="true"
+            tools:context=".fragment.FPPalletCheckingFragment"
+            tools:listitem="@layout/item_fp_inv" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAddInv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/colorAccentAlt"
+        android:src="@android:drawable/ic_input_add"
+        app:tint="@color/white"
+        android:contentDescription="@string/add" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

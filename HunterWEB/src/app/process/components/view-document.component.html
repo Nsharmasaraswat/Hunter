@@ -1,0 +1,44 @@
+<h1>{{data?.name}}</h1>
+<h2>Code: {{ data?.code }} </h2>
+<button *ngIf="data?.model?.metaname==='NFENTRADA'" pButton type="button" (click)="conf()" >CONFERÊNCIA NOTA</button>
+<button *ngIf="data?.model?.metaname==='NFENTRADA'" pButton type="button" (click)="conf2()" >CONFERÊNCIA ALEATÓRIA</button>
+<div class="ui-g">
+    <div class="ui-g-6">
+        <p>Itens</p>
+        <p-table [value]="data?.itens">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>SKU</th>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                    <th>Unidade de Medida</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData>
+                <tr [pSelectableRow]="rowData">
+                    <td>{{rowData.product.sku}}</td>
+                    <td>{{rowData.product.name}}</td>
+                    <td>{{rowData.qty}}</td>
+                    <td>{{rowData.measureUnit}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="ui-g-6">
+            <p>Propriedades</p>
+            <p-table [value]="data?.fields">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Campo</th>
+                        <th>Valor</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData>
+                    <tr [pSelectableRow]="rowData">
+                        <td>{{rowData.field.metaname}}</td>
+                        <td>{{rowData.value}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+    </div>
+</div>

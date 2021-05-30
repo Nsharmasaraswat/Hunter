@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="warehouse_types">
+        <item>WAREHOUSE|warehouse_stock</item>
+        <item>PICKING|warehouse_picking</item>
+        <item>EXPEDICAO|warehouse_dock</item>
+        <item>SEGREGATION|warehouse_segregation</item>
+        <item>STAGE_PCK|warehouse_picking_stage</item>
+    </string-array>
+</resources>

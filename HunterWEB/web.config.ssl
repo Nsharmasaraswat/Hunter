@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <system.webServer>
+        <rewrite>
+            <rules>
+                <rule name="CanonicalHostNameRule1" enabled="true" stopProcessing="true">
+                    <match url="(.*)" />
+                    <conditions logicalGrouping="MatchAll">
+                        <add input="{HTTP_HOST}" pattern="^iwm-dnat\.solarbr\.com\.br$" negate="true" />
+                    </conditions>
+                    <action type="Redirect" url="https://iwm-dnat.solarbr.com.br/{R:1}" redirectType="Permanent" />
+                </rule>
+				<rule name="HTTPS force" enabled="true" stopProcessing="true">
+					<match url="(.*)" />
+					<conditions>
+                        <add input="{HTTPS}" pattern="^OFF$" />
+					</conditions>
+					<action type="Redirect" url="https://iwm-dnat.solarbr.com.br/{R:1}" redirectType="Permanent" />
+				</rule>
+                <rule name="Angular Routes" stopProcessing="true">
+					<match url="(.*)" />
+					<conditions logicalGrouping="MatchAll">
+					  <add input="{REQUEST_URI}" pattern="\.png|\.css|\.jpg|\.svg|\.js" negate="true" />
+					  <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
+					  <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
+					</conditions>
+					<action type="Rewrite" url="./index.html" />
+				</rule>
+            </rules>
+        </rewrite>
+        <httpRedirect enabled="false" destination="https://natsrp005.solarbr.com.br/" />
+    </system.webServer>
+</configuration>

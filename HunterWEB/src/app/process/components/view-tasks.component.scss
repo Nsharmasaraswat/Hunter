@@ -1,0 +1,56 @@
+// component css goes here
+.tasks {
+    margin-right: 15px;
+    height: 98% !important;
+    //table ui
+    .ui-table table {
+        table-layout: auto !important;
+        font-size: 0.85em !important;
+    }
+
+    .ui-table .ui-table-thead > tr > th {
+        font-size: 1.15em !important;
+    }
+
+    .ui-table-tablewrapper {
+        width: auto !important;
+    }
+
+    .ui-table-resizable {
+        padding-bottom: 1px;
+        /* overflow: auto; */
+        width: auto !important;
+    }
+
+    [class ^= "priority_"] {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+    }
+
+    .hide-border {
+        border: 0px solid !important;
+        outline: none !important;
+        width: 3.5em !important;
+    }
+
+    .task-filter {
+        min-width: 4em;
+        width: 100%;
+    }
+
+    .break-spaces {
+        white-space: pre-line !important;
+        font-size: 0.85em !important;
+        line-height: 1.38em !important;
+    }
+
+    .row-alert {
+        background-color: mistyrose !important;
+    }
+
+    .task-table {
+        height: calc(var(--actualVH, 1vh) * 89) !important;
+        padding-bottom: 0.25rem;
+        margin-bottom: 0.25rem;
+    }
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="production_lines">
+        <item>ESCOLHA A LINHA DE PRODUÇÀO</item>
+        <item>LINHA 03</item>
+        <item>LINHA 04</item>
+        <item>LINHA 05</item>
+    </string-array>
+</resources>

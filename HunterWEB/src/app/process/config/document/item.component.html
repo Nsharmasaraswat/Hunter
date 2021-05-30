@@ -1,0 +1,53 @@
+<h2 class="first">Items</h2>
+
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" (click)="onBack()" icon="fa-arrow-left" class="ui-button-warning"></button>
+        <button pButton type="button" (click)="onSave()" icon="fa-check" class="ui-button-success"></button>
+        <button pButton type="button" (click)="onDiscard()" icon="fa-close" class="ui-button-danger"></button>
+    </div>
+    <div class="ui-toolbar-group-right">
+        <button pButton type="button" label="Document" (click)="onDocument()" icon="fa-folder-open" class="ui-button-secundary"></button>
+        <button pButton type="button" label="Items" (click)="onItem()" icon="fa-folder-open" class="ui-button-secundary"></button>
+        <button pButton type="button" label="Things" (click)="onThing()" icon="fa-folder-open" class="ui-button-secundary"></button>
+        <button pButton type="button" label="Fields" (click)="onField()" icon="fa-folder-open" class="ui-button-secundary"></button>
+    </div>
+</p-toolbar>
+
+<div class="ui-g">
+    <div class="ui-g-6">
+        <h4 class="first">Available Items</h4>
+        <div class="ui-g ui-fluid">
+            <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input #gb type="text" pInputText size="50" placeholder="filter">
+            </div>
+            <p-dataTable [value]="productList | sort:'name'" [rows]="5" [paginator]="true" [globalFilter]="gb" selectionMode="single"
+                [(selection)]="selectedProduct">
+                <p-column field="name" header="Name" filterMatchMode="contains"></p-column>
+                <p-column field="sku" header="SKU" filterMatchMode="contains"></p-column>
+            </p-dataTable>
+        </div>
+    </div>
+    <div class="ui-g-6">
+        <h4 class="first">Current List</h4>
+        <p-dataTable [value]="itemList | sort:'name'" [rows]="5" [paginator]="true" selectionMode="single" [(selection)]="selectedItem">
+            <p-column field="name" header="Name"></p-column>
+            <p-column field="qty" header="Quantity"></p-column>
+        </p-dataTable>
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon">
+                        <i class="fa fa-user"></i>
+                    </span>
+                    <input type="text" pInputText [(ngModel)]="qty" placeholder="qty">
+                </div>
+            </div>
+            <div class="ui-g-6">
+                <button icon="fa-plus" type="button" pButton (click)="onAdd()" label="Add"></button>
+                <button icon="fa-trash" type="button" pButton (click)="onDelete()" class="ui-button-danger"></button>
+            </div>
+        </div>
+    </div>
+</div>

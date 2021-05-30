@@ -1,0 +1,5 @@
+<input type="text" *ngIf="data[0]" pInputText [(ngModel)]="from" placeholder="Status From">
+<input type="text" *ngIf="data[0]" pInputText [(ngModel)]="to" placeholder="Status To">
+<p-dropdown *ngIf="data[0]" [options]="data[0].actions | sort:'name'" [disabled]="!from || !to" [(ngModel)]="action" optionLabel="name"
+    placeholder="Selecione: "></p-dropdown>
+<button type="button" *ngIf="data[0]" [disabled]="!from || !to" pButton (click)="runAction()" label="Executar"></button>

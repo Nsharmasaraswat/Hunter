@@ -1,0 +1,67 @@
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button *ngIf="canSuccess==true" pButton type="button" (click)="success()" icon="fa-check" class="ui-button-success"></button>
+        <button pButton type="button" (click)="failure()" icon="fa-close" class="ui-button-danger"></button>
+    </div>
+</p-toolbar>
+<p-table [value]="lstDi" class="ui-g-12 ui-md-12">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>SKU</th>
+            <th>Product</th>
+            <th>Expected</th>
+            <th>Found</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+        <tr>
+            <td>{{item.product.sku}}</td>
+            <td>{{item.product.name}}</td>
+            <td>{{item.qty}}</td>
+            <td>{{item.things?.length}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-table [value]="lstFail" class="ui-g-12 ui-md-12" #tblFail>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Problemas</th>
+        </tr>
+        <tr>
+            <th><input pInputText type="text" (input)="tblFail.filter($event.target.value, 'unitModel[0].tagId', 'contains')"></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+        <tr>
+            <td>{{item.product.sku}} - {{item.unitModel[0]?.tagId}} {{item.errors[0]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-table [value]="lstErr" class="ui-g-12 ui-md-6" #tblErr>
+    <ng-template pTemplate="header">
+        <tr>
+            <th><input pInputText type="text" (input)="tblErr.filter($event.target.value, 'unitModel[0].tagId', 'contains')"></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+        <tr>
+            <td>{{item.product.sku}} - {{item.unitModel[0]?.tagId}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-table [value]="lstOk" class="ui-g-12 ui-md-6" #tblOk>
+    <ng-template pTemplate="header">
+        <tr>
+            <th><input pInputText type="text" (input)="tblOk.filter($event.target.value, 'unitModel[0].tagId', 'contains')"></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+        <tr>
+            <td>{{item.product.sku}} - {{item.unitModel[0]?.tagId}}</td>
+        </tr>
+    </ng-template>
+</p-table>

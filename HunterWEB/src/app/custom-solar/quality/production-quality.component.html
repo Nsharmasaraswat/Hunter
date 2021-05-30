@@ -1,0 +1,124 @@
+<div class="row">
+    <div class="col">
+        <h1>Bloqueio/Desboqueio de Estoque</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <p-toolbar>
+            <div class="ui-toolbar-group-left">
+                <span>Data de Produção</span>  
+                <p-calendar #txtVar dateFormat="dd/mm/yy" [inputStyle]="{'height':'100%'}"></p-calendar>
+                <button pButton label="Carregar" (click)="loadData(txtVar.value)"></button>
+            </div>
+            <div class="ui-toolbar-group-right">
+                <button pButton type="button" icon="fa fa-check" label="Desbloquear" class="ui-button-success"
+                    (click)="unblockProducts()" *ngIf="selectedRows !== null && selectedRows !== undefined && selectedRows.length > 0"></button>
+                <button pButton type="button" icon="fa fa-search" label="Detalhar"
+                    (click)="displayDialog = ! displayDialog" [disabled]="data === null || data === undefined || data.length === 0"></button>
+            </div>
+        </p-toolbar>
+    </div>
+</div>
+<div class="row" *ngIf="dataLoaded">
+    <div class="col">
+        <p-table #tblExpRes  [value]="rows" [columns]="colsRows" dataKey="id" [rows]="5" [paginator]="true" columnResizeMode="expand" [resizableColumns]="true"
+        autoLayout="true" [responsive]="true" exportFilename="hunter-Expedidos" csvSeparator=";" [(selection)]="selectedRows">
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngFor="let col of columns" [class]="col.priority === undefined ? 'ui-p-1' : ('ui-p-') + (col.priority)" [style.width]="col.width" [style.min-width]="col.min_width">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="caption">
+                <div class="ui-helper-clearfix">
+                    <span style="float: left">
+                        <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="Todos"
+                            (click)="tblExpRes.exportCSV()"></button>
+                    </span>
+                    <span style="float: right">
+                        <button type="button" pButton icon="fa fa-file" iconPos="left" label="Apenas Seleção"
+                            (click)="tblExpRes.exportCSV({selectionOnly:true})"></button>
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th style="width: 2.25em">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th *ngFor="let col of columns">
+                        <input pInputText type="text" (input)="tblExpRes.filter($event.target.value, col.field, 'contains')"
+                            size="10">
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr [pSelectableRow]="rowData" [ngStyle]="calcStyle(rowData)"
+                [pTooltip]="rowData.cap === rowData.plt ? null : 'Rua Incompleta' + (rowData.ordstatus === 'ATIVO' ? ' com ordem de produção Ativa' : '')">
+                    <td>
+                        <p-tableCheckbox [value]="rowData" [disabled]="rowData.ordstatus === 'ATIVO' && rowData.cap != rowData.plt"></p-tableCheckbox>
+                    </td>
+                    <td *ngFor="let col of columns" class="ui-resizable-column">
+                        <span *ngIf="col.type === 'DATE'">{{(rowData[col.field] === null || rowData[col.field] === undefined || rowData[col.field] === '-') ? '' : (rowData[col.field] | date:'dd/MM/yyyy')}}</span>
+                        <span *ngIf="col.type === 'TIMESTAMP'">{{(rowData[col.field] === null || rowData[col.field] === undefined || rowData[col.field] === '-') ? '' : (rowData[col.field] | date:'dd/MM/yyyy HH:mm:ss')}}</span>
+                        <span *ngIf="col.type === 'NUMBER'">{{rowData[col.field] | number: '0.0-4'}}</span>
+                        <span *ngIf="col.type !== 'DATE' && col.type !== 'NUMBER' && col.type !== 'TIMESTAMP'">{{rowData[col.field]}}</span>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>   
+    </div>
+</div>
+<p-dialog  *ngIf="data != null && data != undefined" [(visible)]="displayDialog" [responsive]="true" [modal]="true" [dismissableMask]="true" appendTo="body" header="Detalhamento Produção">
+    <p-table #tblExpRes  [value]="data" [columns]="cols" dataKey="id" [rows]="5" [paginator]="true" columnResizeMode="expand" [resizableColumns]="true"
+    autoLayout="true" [responsive]="true" exportFilename="hunter-Expedidos" csvSeparator=";">
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngFor="let col of columns" [class]="col.priority === undefined ? 'ui-p-1' : ('ui-p-') + (col.priority)" [style.width]="col.width" [style.min-width]="col.min_width">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="caption">
+            <div class="ui-helper-clearfix">
+                <span style="float: left">
+                    <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="Todos"
+                        (click)="tblExpRes.exportCSV()"></button>
+                </span>
+                <span style="float: right">
+                    <button type="button" pButton icon="fa fa-file" iconPos="left" label="Apenas Seleção"
+                        (click)="tblExpRes.exportCSV({selectionOnly:true})"></button>
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+            <tr>
+                <th *ngFor="let col of columns">
+                    <input pInputText type="text" (input)="tblExpRes.filter($event.target.value, col.field, 'contains')"
+                        size="10">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+                <td *ngFor="let col of columns" class="ui-resizable-column">
+                    <span *ngIf="col.type === 'DATE'">{{(rowData[col.field] === null || rowData[col.field] === undefined || rowData[col.field] === '-') ? '' : (rowData[col.field] | date:'dd/MM/yyyy')}}</span>
+                    <span *ngIf="col.type === 'TIMESTAMP'">{{(rowData[col.field] === null || rowData[col.field] === undefined || rowData[col.field] === '-') ? '' : (rowData[col.field] | date:'dd/MM/yyyy HH:mm:ss')}}</span>
+                    <span *ngIf="col.type === 'NUMBER'">{{rowData[col.field] | number: '0.0-4'}}</span>
+                    <span *ngIf="col.type !== 'DATE' && col.type !== 'NUMBER' && col.type !== 'TIMESTAMP'">{{rowData[col.field]}}</span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-dialog>

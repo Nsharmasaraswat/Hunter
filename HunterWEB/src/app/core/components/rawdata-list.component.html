@@ -1,0 +1,41 @@
+
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <p-calendar #start showTime="true" showSeconds="true" timeFormat="24" dateFormat="@" placeholder="BEGIN" keepInvalid="true"></p-calendar>
+        <p-calendar #end showTime="true" showSeconds="true" timeFormat="24" dateFormat="@" placeholder="END" keepInvalid="true"></p-calendar>
+    </div>
+    
+    <div class="ui-toolbar-group-right">
+        <button pButton type="button" (click)="getComplexDataList(start.value.getTime(), end.value.getTime())" icon="fa fa-search"></button>
+    </div>
+</p-toolbar>
+
+<p-table #dt [value]="complexDataList" [paginator]="true" [rows]="9" selectionMode="single" [(selection)]="selectedRow" *ngIf="complexDataList.length > 0">
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width:10%" pSortableColumn="ts"><input style="width: 80%" pInputText type="text" (click)="$event.stopPropagation()" (input)="dt.filter($event.target.value, 'ts', 'contains')" placeholder="TIMESTAMP"><p-sortIcon field="ts"></p-sortIcon></th>
+            <th style="width:15%" pSortableColumn="tagId"><input style="width: 70%" pInputText type="text" (click)="$event.stopPropagation()" (input)="dt.filter($event.target.value, 'tagId', 'contains')" placeholder="TAG ID"><p-sortIcon field="tagId"></p-sortIcon></th>
+            <th style="width:10%" pSortableColumn="source"><input style="width: 70%" pInputText type="text" (click)="$event.stopPropagation()" (input)="dt.filter($event.target.value, 'source', 'contains')" placeholder="SOURCE ID"><p-sortIcon field="source"></p-sortIcon></th>
+            <th style="width:10%" pSortableColumn="device"><input style="width: 70%" pInputText type="text" (click)="$event.stopPropagation()" (input)="dt.filter($event.target.value, 'device', 'contains')" placeholder="DEVICE ID"><p-sortIcon field="device"></p-sortIcon></th>
+            <th style="width:43%" pSortableColumn="payload"><input style="width: 70%" pInputText type="text" (click)="$event.stopPropagation()" (input)="dt.filter($event.target.value, 'payload', 'contains')" placeholder="PAYLOAD"><p-sortIcon field="payload"></p-sortIcon></th>
+            <th style="width:6%" pSortableColumn="type"><input style="width: 65%" pInputText type="text" (click)="$event.stopPropagation()" (input)="dt.filter($event.target.value, 'type', 'contains')" placeholder="TYPE"><p-sortIcon field="type"></p-sortIcon></th>
+            <th style="width:6%" pSortableColumn="port"><input style="width: 65%" pInputText type="text" (click)="$event.stopPropagation()" (input)="dt.filter($event.target.value, 'port', 'contains')" placeholder="PORT"><p-sortIcon field="port"></p-sortIcon></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+        <tr [pSelectableRow]="item">
+            <td>{{item.ts}}</td>
+            <td>{{item.tagId}}</td>
+            <td>{{item.source}}</td>
+            <td>{{item.device}}</td>
+            <td>{{item.payload}}</td>
+            <td>{{item.type}}</td>
+            <td>{{item.port}}</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div style="text-align: left">
+            Rows: {{dt.totalRecords}} {{selectedRow ? ' - ' + tsToDateString(selectedRow.ts) : ''}}
+        </div>
+    </ng-template>
+</p-table>

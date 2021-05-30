@@ -1,0 +1,384 @@
+<!-- http://localhost:4444/home/custom-solar/qctest -->
+<div class="ui-fluid">
+    <p-toolbar>
+        <div class="ui-g" *ngIf="showConference || showQuality || showProduction">
+            <div class="ui-g-12 ui-md-6 ui-lg-3" *ngIf="showConference"><p-radioButton name="integrationType" label="Conferência Cega" value="CC" [(ngModel)]="integrationType"></p-radioButton></div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3" *ngIf="showQuality"><p-radioButton name="integrationType" label="Controle de Qualidade" value="CQ" [(ngModel)]="integrationType"></p-radioButton></div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3" *ngIf="showProduction"><p-radioButton name="integrationType" label="Apontamento de Produção" value="PR" [(ngModel)]="integrationType"></p-radioButton></div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3" *ngIf="showTransfer"><p-radioButton name="integrationType" label="Transferência" value="TR" [(ngModel)]="integrationType"></p-radioButton></div>
+            
+        </div>
+        <div class="ui-g" *ngIf="showProcNF || showDelConf || showCheckinout || showCheckinoutPort">
+            <div class="ui-g-12 ui-md-6 ui-lg-3" *ngIf="showProcNF"><p-radioButton name="integrationType" label="Reprocessamento de Nota Fiscal" value="RN" [(ngModel)]="integrationType"></p-radioButton></div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3" *ngIf="showDelConf"><p-radioButton name="integrationType" label="Excluir Conferência" value="DC" [(ngModel)]="integrationType"></p-radioButton></div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3" *ngIf="showCheckinout"><p-radioButton name="integrationType" label="Checkin Checkout" value="CIO" [(ngModel)]="integrationType"></p-radioButton></div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3" *ngIf="showCheckinoutPort"><p-radioButton name="integrationType" label="Checkin Checkout Portaria" value="CIOP" [(ngModel)]="integrationType"></p-radioButton></div>
+        </div>
+        <div class="ui-g" *ngIf="showVehicle || showConference || showRecusaNF || showProntaEntrega">
+            <div class="ui-g-12 ui-md-6 ui-lg-3" *ngIf="showVehicle"><p-radioButton name="integrationType" label="Veículos" value="VE" [(ngModel)]="integrationType"></p-radioButton></div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3" *ngIf="showConference"><p-radioButton name="integrationType" label="Conferência Cega Transporte" value="CT" [(ngModel)]="integrationType"></p-radioButton></div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3" *ngIf="showRecusaNF"><p-radioButton name="integrationType" label="Recusa de NFs" value="RNF" [(ngModel)]="integrationType"></p-radioButton></div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3" *ngIf="showProntaEntrega"><p-radioButton name="integrationType" label="Pronta Entrega" value="PRE" [(ngModel)]="integrationType"></p-radioButton></div>
+        </div>
+        <div class="ui-g" *ngIf="showCheckoutFaturado">
+            <div class="ui-g-12 ui-md-6 ui-lg-3" *ngIf="showCheckoutFaturado"><p-radioButton name="integrationType" label="Checkout Faturado" value="CHF" [(ngModel)]="integrationType"></p-radioButton></div>
+        </div>
+    </p-toolbar>
+    <p-panel *ngIf="showConference && integrationType === 'CC'">
+        <p-header>CONFERENCIA CEGA</p-header>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">NUMERO_NF</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCC.NUMERO_NF" placeholder="NUMERO_NF">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">SERIE_NF</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCC.SERIE_NF" placeholder="SERIE_NF">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">DATA_NF</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCC.DATA_NF" placeholder="DATA_NF">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">EBELN</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCC.EBELN" placeholder="EBELN">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">MATNR</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCC.MATNR" placeholder="MATNR">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">QTDE_CONTADA</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCC.QTDE_CONTADA" placeholder="QTDE_CONTADA">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">LGORT</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCC.LGORT" placeholder="LGORT">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">CENTRO</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCC.CENTRO" placeholder="CENTRO">
+        </div>
+    </p-panel>
+    <p-panel *ngIf="showTransfer && integrationType === 'TR'">
+        <p-header>TRANSFERÊNCIA DE DEPÓSITOS</p-header>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">MANDT</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelTR.MANDT" placeholder="MANDT">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">CODE</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelTR.CODE" placeholder="CODE">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">IDENT</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelTR.IDENT" placeholder="IDENT">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">CENTRO</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelTR.CENTRO" placeholder="CENTRO">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">MATERIAL</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelTR.MATERIAL" placeholder="MATERIAL">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">DOCUMENTO</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelTR.DOCUMENTO" placeholder="DOCUMENTO">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">ANO</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelTR.ANO" placeholder="ANO">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">TIPOMOV</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelTR.TIPOMOV" placeholder="TIPOMOV">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">DEPORIGEM</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelTR.DEPORIGEM" placeholder="DEPORIGEM">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">DEPDESTINO</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelTR.DEPDESTINO" placeholder="DEPDESTINO">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">QUANTIDADE</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelTR.QUANTIDADE" placeholder="QUANTIDADE">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">UNID_MED</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelTR.UNID_MED" placeholder="UNID_MED">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">DEBCRED</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelTR.DEBCRED" placeholder="DEBCRED">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">TIPO_NRHUNTER</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelTR.TIPO_NRHUNTER" placeholder="TIPO_NRHUNTER">
+        </div>
+    </p-panel>
+    <p-panel *ngIf="showQuality && integrationType === 'CQ'">
+        <p-header>CONTROLE DE QUALIDADE</p-header>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">MANDT</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCQ.MANDT" placeholder="MANDT">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">PLANT</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCQ.PLANT" placeholder="PLANT">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">CODE</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCQ.CODE" placeholder="CODE">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">IDENT</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCQ.IDENT" placeholder="IDENT">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">CONTROLE</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCQ.CONTROLE" placeholder="CONTROLE">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">REF_DOC_NO</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCQ.REF_DOC_NO" placeholder="REF_DOC_NO">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">MATERIAL</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCQ.MATERIAL" placeholder="MATERIAL">
+        </div>
+        O tipo de movimento para bloqueio é 344 (Estoque) ou 322 (Qualidade) e para desbloqueio é o 343 (Estoque) ou 321
+        (Qualidade) ou 311 para Transferência de Materiais.
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">MOVE_TYPE</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCQ.MOVE_TYPE" placeholder="MOVE_TYPE">
+        </div>
+        BQ = Bloqueio Qualidade, DQ = Desbloqueio Qualidade, BE = Bloqueio Estoque, DE = Desbloqueio Estoque, TM = Transferencia
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">MOVE_COD</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCQ.MOVE_COD" placeholder="MOVE_COD">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">BATCH</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCQ.BATCH" placeholder="BATCH">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">STGE_LOC</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCQ.STGE_LOC" placeholder="STGE_LOC">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">MOVE_STLOC</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCQ.MOVE_STLOC" placeholder="MOVE_STLOC">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">ENTRY_QNT</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCQ.ENTRY_QNT" placeholder="ENTRY_QNT">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">UNID_MED</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCQ.UNID_MED" placeholder="UNID_MED">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">MOVE_PLANT</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCQ.MOVE_PLANT" placeholder="MOVE_PLANT">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">MOVE_BATCH</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCQ.MOVE_BATCH" placeholder="MOVE_BATCH">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">TIPO_NRHUNTER</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCQ.TIPO_NRHUNTER" placeholder="TIPO_NRHUNTER">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">DOCUMENTO</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCQ.DOCUMENTO" placeholder="DOCUMENTO">
+        </div>
+    </p-panel>
+    <p-panel *ngIf="showProduction && integrationType === 'PR'">
+        <p-header>APONTAMENTO DE PRODUÇÃO</p-header>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">I_PLANT</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelPR.I_PLANT" placeholder="I_PLANT">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">NÚMERO DA ORDEM DE PRODUÇÃO</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelPR.I_ORDER_NUMBER" placeholder="NÚMERO DA ORDEM DE PRODUÇÃO">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">QUANTIDADE PRODUZIDA</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelPR.I_QTD_PRODUCED" placeholder="QUANTIDADE PRODUZIDA">
+        </div>
+    </p-panel>
+    <p-panel *ngIf="showProcNF && integrationType === 'RN'">
+        <p-header>REPROCESSAR NOTA</p-header>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">I_CHAVE</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelRN.I_CHAVE" placeholder="I_CHAVE">
+        </div>
+    </p-panel>
+    <p-panel *ngIf="showDelConf && integrationType === 'DC'">
+        <p-header>EXCLUIR CONFERÊNCIA</p-header>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">I_CHAVE</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelDC.I_CHAVE" placeholder="I_CHAVE">
+        </div>
+    </p-panel>
+    <p-panel *ngIf="showCheckinout && integrationType === 'CIO'">
+        <p-header>CHECKIN CHECKOUT</p-header>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">MANDT</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCIO.MANDT" placeholder="MANDT">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">TKNUM</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCIO.TKNUM" placeholder="TKNUM">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">FUNCAO</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCIO.FUNCAO" placeholder="FUNCAO">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">ID_CONF</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCIO.ID_CONF" placeholder="ID_CONF">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">MATNR</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCIO.MATNR" placeholder="MATNR">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">LFIMG</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCIO.LFIMG" placeholder="LFIMG">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">FINAL</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCIO.FINAL" placeholder="FINAL">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">I_PALLET</span>
+            <input type="text" class="form-control" pInputText OnlyNumber [(ngModel)]="modelCIO.I_PALLET" placeholder="I_PALLET">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">I_EUCATEX</span>
+            <input type="text" class="form-control" pInputText OnlyNumber [(ngModel)]="modelCIO.I_EUCATEX" placeholder="I_EUCATEX">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">I_LACRE</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCIO.I_LACRE" placeholder="I_LACRE">
+        </div>
+    </p-panel>
+    <p-panel *ngIf="showCheckinoutPort && integrationType === 'CIOP'">
+        <p-header>CHECKIN CHECKOUT PORTARIA</p-header>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">MANDT</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCIOP.MANDT" placeholder="MANDT">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">TKNUM</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCIOP.TKNUM" placeholder="TKNUM">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">SAIENT</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCIOP.SAIENT" placeholder="SAIENT">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">CARRINHOS</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCIOP.CARRINHOS" placeholder="CARRINHOS">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">CONES</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCIOP.CONES" placeholder="CONES">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">KMSAIENT</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCIOP.KMSAIENT" placeholder="KMSAIENT">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">OBSERVACAO</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCIOP.OBSERVACAO" placeholder="OBSERVACAO">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">ITENSEGUR</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCIOP.ITENSEGUR" placeholder="ITENSEGUR">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">EXTINTOR</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCIOP.EXTINTOR" placeholder="EXTINTOR">
+        </div>
+    </p-panel>
+    <p-panel *ngIf="showVehicle && integrationType === 'VE'">
+        <p-header>VEÍCULOS</p-header>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">I_TKNUM</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelVE.I_TKNUM" placeholder="I_TKNUM">
+        </div>
+    </p-panel>
+    <p-panel *ngIf="showConference && integrationType === 'CT'">
+        <p-header>CONFERENCIA CEGA</p-header>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">NUMERO_NF</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCT.NUMERO_NF" placeholder="NUMERO_NF">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">SERIE_NF</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCT.SERIE_NF" placeholder="SERIE_NF">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">DATA_NF</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCT.DATA_NF" placeholder="DATA_NF">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">EBELN</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCT.EBELN" placeholder="EBELN">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">MATNR</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCT.MATNR" placeholder="MATNR">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">QTDE_CONTADA</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCT.QTDE_CONTADA" placeholder="QTDE_CONTADA">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">LGORT</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCT.LGORT" placeholder="LGORT">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">CENTRO</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCT.CENTRO" placeholder="CENTRO">
+        </div>
+    </p-panel>
+    <p-panel *ngIf="showRecusaNF && integrationType === 'RNF'">
+        <p-header>RECUSA DE NOTAS</p-header>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">I_DATA</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelRNF.I_DATA" placeholder="I_DATA">
+        </div>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">I_WERKS</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelRNF.I_WERKS" placeholder="I_WERKS">
+        </div>
+    </p-panel>
+    <p-panel *ngIf="showProntaEntrega && integrationType === 'PRE'">
+        <p-header>PRONTA ENTREGA</p-header>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">I_TKNUM</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelPRE.I_TKNUM" placeholder="I_TKNUM">
+        </div>
+    </p-panel>
+    <p-panel *ngIf="showCheckoutFaturado && integrationType === 'CHF'">
+        <p-header>CHECKOUT FATURADO</p-header>
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon min-20">I_TKNUM</span>
+            <input type="text" class="form-control" pInputText [(ngModel)]="modelCHF.I_TKNUM" placeholder="I_TKNUM">
+        </div>
+    </p-panel>
+    <p-toolbar><button pButton type="button" label="Enviar" icon="fa fa-check" (click)="send()" [disabled]="!showQuality && !showConference && !showProduction && !showProcNF && !showDelConf && !showCheckinout && !showCheckinoutPort && !showRecusaNF && !showProntaEntrega"></button></p-toolbar>
+    <p-panel header="Resultado" *ngIf="result !== null && result !== undefined">
+        <textarea pInputTextArea class="min-50" [(ngModel)]="sent" autoResize="autoResize" [rows]="40"
+            [cols]="70"></textarea>
+        <textarea pInputTextArea class="min-50" [(ngModel)]="result" autoResize="autoResize" [rows]="40"
+            [cols]="70"></textarea>
+    </p-panel>
+</div>

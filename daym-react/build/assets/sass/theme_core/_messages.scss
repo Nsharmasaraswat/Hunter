@@ -1,0 +1,276 @@
+body {
+    .p-messages {
+        margin: $messagesMargin;
+        @include border-radius($borderRadius);
+
+        .p-messages-wrapper {
+            padding: $messagesPadding;
+        }
+
+        &.p-messages-info {
+            background-color: $infoMessageBgColor;
+            border: $infoMessageBorder;
+            color: $infoMessageTextColor;
+
+            .p-messages-icon {
+                color: $infoMessageIconColor;
+            }
+
+            .p-messages-close {
+                background-color: $infoMessageBgColor;
+                color:  $infoMessageIconColor;
+            }
+        }
+
+        &.p-messages-success {
+            background-color: $successMessageBgColor;
+            border: $successMessageBorder;
+            color: $successMessageTextColor;
+
+            .p-messages-icon {
+                color: $successMessageIconColor;
+            }
+
+            .p-messages-close {
+                background-color: $successMessageBgColor;
+                color:  $successMessageIconColor;
+            }
+        }
+
+        &.p-messages-warn {
+            background-color: $warnMessageBgColor;
+            border: $warnMessageBorder;
+            color: $warnMessageTextColor;
+
+            .p-messages-icon {
+                color: $warnMessageIconColor;
+            }
+
+            .p-messages-close {
+                background-color: $warnMessageBgColor;
+                color:  $warnMessageIconColor;
+            }
+        }
+
+        &.p-messages-error {
+            background-color: $errorMessageBgColor;
+            border: $errorMessageBorder;
+            color: $errorMessageTextColor;
+
+            .p-messages-icon {
+                color: $errorMessageIconColor;
+            }
+
+            .p-messages-close {
+                background-color: $errorMessageBgColor;
+                color:  $errorMessageIconColor;
+            }
+        }
+
+        .p-messages-close {
+            top: -1 * 1.538em / 2;
+            right: -1 * 1.538em / 2;
+            width: 1.538em;
+            height: 1.538em;
+            line-height: 1.538em;
+            text-align: center;
+            @include border-radius(50%);
+            @include transition(box-shadow $transitionDuration);
+
+            .p-messages-close-icon {
+                line-height: inherit;
+                font-size: $messageCloseIconFontSize;
+            }
+        }
+
+        .p-messages-icon {
+            font-size: $messagesIconFontSize;
+        }
+    }
+
+    .p-message {
+        padding: $messagePadding;
+        margin: $messageMargin;
+        @include border-radius($borderRadius);
+
+        &.p-message-info {
+            background-color: $infoMessageBgColor;
+            border: $infoMessageBorder;
+            color: $infoMessageTextColor;
+
+            .p-message-icon {
+                color: $infoMessageIconColor;
+            }
+        }
+
+        &.p-message-success {
+            background-color: $successMessageBgColor;
+            border: $successMessageBorder;
+            color: $successMessageTextColor;
+
+            .p-message-icon {
+                color: $successMessageIconColor;
+            }
+        }
+
+        &.p-message-warn {
+            background-color: $warnMessageBgColor;
+            border: $warnMessageBorder;
+            color: $warnMessageTextColor;
+
+            .p-message-icon {
+                color: $warnMessageIconColor;
+            }
+        }
+
+        &.p-message-error {
+            background-color: $errorMessageBgColor;
+            border: $errorMessageBorder;
+            color: $errorMessageTextColor;
+
+            .p-message-icon {
+                color: $errorMessageIconColor;
+            }
+        }
+
+        .p-message-icon {
+            vertical-align: bottom;
+            font-size: $messageIconFontSize;
+        }
+
+        .p-message-text {
+            vertical-align: bottom;
+            font-size: $messageTextFontSize;
+        }
+    }
+
+    .p-growl {
+        top: $growlTopLocation;
+        @include opacity($growlOpacity);
+
+        .p-growl-item-container {
+            margin: $growlMargin;
+            @include shadow($growlShadow);
+
+            .p-growl-item {
+                padding: $growlPadding;
+
+                .p-growl-image {
+                    font-size: $growlIconFontSize;
+                }
+            }
+
+            &.p-growl-message-info {
+                background-color: $infoMessageBgColor;
+                border: $infoMessageBorder;
+                color: $infoMessageTextColor;
+
+                .p-growl-image,
+                .p-growl-icon-close {
+                    color: $infoMessageIconColor;
+                }
+            }
+
+            &.p-growl-message-success {
+                background-color: $successMessageBgColor;
+                border: $successMessageBorder;
+                color: $successMessageTextColor;
+
+                .p-growl-image,
+                .p-growl-icon-close {
+                    color: $successMessageIconColor;
+                }
+            }
+
+            &.p-growl-message-warn {
+                background-color: $warnMessageBgColor;
+                border: $warnMessageBorder;
+                color: $warnMessageTextColor;
+
+                .p-growl-image,
+                .p-growl-icon-close {
+                    color: $warnMessageIconColor;
+                }
+            }
+
+            &.p-growl-message-error {
+                background-color: $errorMessageBgColor;
+                border: $errorMessageBorder;
+                color: $errorMessageTextColor;
+
+                .p-growl-image,
+                .p-growl-icon-close {
+                    color: $errorMessageIconColor;
+                }
+            }
+
+        }
+    }
+
+    .p-toast {
+        @include opacity($growlOpacity);
+
+        .p-toast-item-container {
+            margin: $growlMargin;
+            @include shadow($growlShadow);
+
+            .p-toast-item {
+                padding: $growlPadding;
+
+                .p-toast-message {
+                    margin: $growlMessageTextMargin;
+                }
+
+                .p-toast-image {
+                    font-size: $growlIconFontSize;
+                }
+            }
+
+            &.p-toast-message-info {
+                background-color: $infoMessageBgColor;
+                border: $infoMessageBorder;
+                color: $infoMessageTextColor;
+
+                .p-toast-image,
+                .p-toast-icon-close {
+                    color: $infoMessageIconColor;
+                }
+            }
+
+            &.p-toast-message-success {
+                background-color: $successMessageBgColor;
+                border: $successMessageBorder;
+                color: $successMessageTextColor;
+
+                .p-toast-image,
+                .p-toast-icon-close {
+                    color: $successMessageIconColor;
+                }
+            }
+
+            &.p-toast-message-warn {
+                background-color: $warnMessageBgColor;
+                border: $warnMessageBorder;
+                color: $warnMessageTextColor;
+
+                .p-toast-image,
+                .p-toast-icon-close {
+                    color: $warnMessageIconColor;
+                }
+            }
+
+            &.p-toast-message-error {
+                background-color: $errorMessageBgColor;
+                border: $errorMessageBorder;
+                color: $errorMessageTextColor;
+
+                .p-toast-image,
+                .p-toast-icon-close {
+                    color: $errorMessageIconColor;
+                }
+            }
+
+        }
+    }
+
+}

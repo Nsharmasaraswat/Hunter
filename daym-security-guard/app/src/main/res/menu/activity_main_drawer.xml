@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_todays_appointments"
+            android:icon="@drawable/today_s_appointment_unselected"
+            android:title="@string/today_s_appointments" />
+        <item
+            android:id="@+id/nav_completed_appointments"
+            android:icon="@drawable/completed_appointments_unselected"
+            android:title="@string/completed_appointments" />
+    </group>
+</menu>

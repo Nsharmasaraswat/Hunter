@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#e5e5e5"
+    android:id="@+id/parent_layout"
+    tools:context=".pages.AppointmentDetailsActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:background="@color/primary_500"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        android:layout_height="?android:attr/actionBarSize" />
+
+    <ScrollView
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/bottom_layout"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:id="@+id/status_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/appointment_status"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/tv_appointment_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Completed"
+                    android:textSize="16sp"
+                    android:textColor="#2BF408"
+                    android:layout_marginHorizontal="4dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/status_label"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/appointment_owner"
+                android:textSize="12sp"
+                android:textColor="#848484"/>
+
+            <TextView
+                android:id="@+id/tv_owner_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="4dp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:text="Himanshu Sekhar"/>
+
+            <TextView
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/supplier_name"
+                android:textSize="12sp"
+                android:textColor="#848484"/>
+
+            <TextView
+                android:id="@+id/tv_supplier_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="4dp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:text="Himanshu Sekhar"/>
+
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/driver_details_lin"
+               android:orientation="vertical">
+               <TextView
+                   android:layout_marginTop="8dp"
+                   android:textSize="12sp"
+                   android:textColor="#848484"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/driver_name"/>
+
+               <TextView
+                   android:id="@+id/tv_driver_name"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginVertical="4dp"
+                   android:textColor="#000000"
+                   android:textStyle="bold"
+                   android:text="Himanshu Sekhar"/>
+
+           </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Driver"
+                android:textAllCaps="false"
+                android:id="@+id/add_driver_btn"/>
+
+            <TextView
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="#848484"
+                android:text="@string/gate_no"/>
+
+            <TextView
+                android:id="@+id/tv_gate_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="4dp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:text="05"/>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:id="@+id/truck_details_lin"
+               android:weightSum="2">
+               <LinearLayout
+                   android:layout_width="0sp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical">
+                   <TextView
+                       android:layout_marginTop="8dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textSize="12sp"
+                       android:textColor="#848484"
+                       android:text="@string/truck_name"/>
+
+                   <TextView
+                       android:id="@+id/truck_name"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginVertical="4dp"
+                       android:textStyle="bold"
+                       android:textColor="#000000"/>
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="0sp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical">
+                   <TextView
+                       android:layout_marginTop="8dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textSize="12sp"
+                       android:textColor="#848484"
+                       android:text="@string/truck_license"/>
+
+                   <TextView
+                       android:id="@+id/truck_license"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginVertical="4dp"
+                       android:textStyle="bold"
+                       android:textColor="#000000"/>
+               </LinearLayout>
+
+           </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_truck"
+                android:textAllCaps="false"
+                android:id="@+id/add_truck_btn"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_total_items_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    android:text="@string/total_items"
+                    android:textColor="#000000"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_total_items"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    android:text="10"
+                    android:layout_marginStart="4dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_500"
+                    app:layout_constraintStart_toEndOf="@+id/tv_total_items_label"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/view_all_button"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:backgroundTint="#e5e5e5"
+                    android:textColor="@color/primary_500"
+                    android:text="@string/view_all"
+                    android:fontFamily="@font/poppins"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginVertical="8dp"
+                android:layout_width="match_parent"
+                app:cardCornerRadius="8dp"
+                android:layout_height="154dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_order_status_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:background="@color/order_completed"
+                        android:textColor="#fff"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"
+                        android:paddingHorizontal="16dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/status_pending"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:id="@+id/tv_product_name_1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textColor="#000"
+                            android:textSize="12sp"
+                            android:text="Lucid Air"/>
+
+                        <TextView
+                            android:id="@+id/tv_product_code_1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textColor="#000"
+                            android:textSize="12sp"
+                            android:text="F3000"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="2"
+                        android:layout_marginVertical="8dp"
+                        android:gravity="center"
+                        android:baselineAligned="false">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.45"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textSize="10sp"
+                            android:text="@string/warehouse"
+                            tools:ignore="SmallSp" />
+
+                        <TextView
+                            android:id="@+id/tv_warehouse_name_1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#000"
+                            android:text="Schenker India"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+                            android:text="@string/dock"/>
+
+                        <TextView
+                            android:id="@+id/tv_dock_name_1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+                            android:textColor="#000"
+                            android:text="Cochin Shipyard"/>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/order_card_2"
+                android:layout_marginVertical="8dp"
+                android:layout_width="match_parent"
+                app:cardCornerRadius="8dp"
+                android:layout_height="154dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_order_status_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:background="@color/order_completed"
+                        android:textColor="#fff"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"
+                        android:paddingHorizontal="16dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/status_completed"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:id="@+id/tv_product_name_2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textColor="#000"
+                            android:textSize="12sp"
+                            android:text="Lucid Air"/>
+
+                        <TextView
+                            android:id="@+id/tv_product_code_2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textColor="#000"
+                            android:textSize="12sp"
+                            android:text="F3000"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="2"
+                        android:layout_marginVertical="8dp"
+                        android:gravity="center"
+                        android:baselineAligned="false">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.45"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textSize="10sp"
+                            android:text="@string/warehouse"/>
+
+                        <TextView
+                            android:id="@+id/tv_warehouse_name_2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#000"
+                            android:text="Schenker India"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:textStyle="bold"
+                            android:textSize="10sp"
+                            android:text="@string/dock"
+                            tools:ignore="SmallSp" />
+
+                        <TextView
+                            android:id="@+id/tv_dock_name_2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#000"
+                            android:text="Cochin Shipyard"/>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/loader_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:id="@+id/error_layout"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/error_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/some_error_occurred"/>
+
+        <Button
+            android:id="@+id/retry_button"
+            android:layout_marginBottom="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/retry"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bottom_layout">
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/generate_qr_code_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/primary_500"
+            android:text="@string/generate_qr_code"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/order_rejected_label"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:text="@string/order_rejected"
+            android:gravity="center"
+            android:textColor="@color/order_rejected"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/order_completed_label"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:text="@string/order_completed"
+            android:gravity="center"
+            android:textColor="@color/order_completed"
+            android:textSize="16sp"
+            />
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/bottom_loader"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:baselineAligned="false">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottom_actions"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_alignParentBottom="true"
+            android:weightSum="2"
+            android:baselineAligned="false">
+
+            <TextView
+                android:id="@+id/reject_btn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="@string/reject"
+                android:background="#fff"
+                android:textSize="16sp"
+                android:textColor="#000"/>
+
+            <TextView
+                android:id="@+id/accept_btn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="@string/accept"
+                android:background="@color/primary_500"
+                android:textSize="16sp"
+                android:textColor="#fff"/>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

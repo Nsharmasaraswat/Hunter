@@ -1,0 +1,13 @@
+{
+    "name": "Development",
+    "restserver": "http://191.252.196.190:8080",
+    "coreserver": "http://191.252.196.190:8080/hunter-core/api/",
+    "processserver": "http://191.252.196.190:8080/hunter-core/api/",
+    "reportserver": "http://191.252.196.190:8080/hunter-report/",
+    "tempreportserver": "http://191.252.196.190:8080/hunter-core/api/",
+    "customserver": "http://191.252.196.190:8080/hunter-custom-solar/api/",
+    "wsserver": "ws://191.252.196.190:8080",
+    "wsprocess": "ws://191.252.196.190:8080/hunter-core/",
+    "wscore": "ws://191.252.196.190:8080/hunter-core/",
+    "color": "magenta"
+}

@@ -1,0 +1,134 @@
+<h2>{{selectedReport?.name}}</h2>
+<div class="row">
+    <div class="col">
+        <p-toolbar>
+            <div class="ui-toolbar-group-left">
+                <p-dropdown [options]="ddPrd" [(ngModel)]="selectedProduct" filter="true" filterBy="label"
+                    placeholder="SELECIONE O PRODUTO" autoDisplayFirst="false" (onChange)="formatLot()"></p-dropdown>
+                <p-calendar [(ngModel)]="selectedDate" dateFormat="dd/mm/yy" (onSelect)="formatLot()"></p-calendar>
+            </div>
+            <span *ngIf="false">{{selectedLot || ''}}</span>
+            <div class="ui-toolbar-group-right">
+                <button pButton type="button" *ngIf="dataLoaded && data.length > 0" icon="fa fa-search" label="Detalhar"
+                    (click)="displayAll()" [disabled]="!dataLoaded || data.length === 0"></button>
+                <button pButton type="submit" label="Carregar" icon="fa fa-check" class="ui-button-success"
+                    (click)="loadResult()" [disabled]="selectedLot === null || selectedLot === undefined"></button>
+            </div>
+        </p-toolbar>
+    </div>
+</div>
+<div class="row" *ngIf="dataLoaded && data.length === 0">
+    <div class="col">
+        <h1 class="text-center">LOTE NÃO ENCONTRADO</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <p-accordion [multiple]="true">
+            <p-accordionTab header="EXPEDIÇÃO" [selected]="dataLoaded && dataExpRes.length > 0"
+                *ngIf="dataLoaded && dataExpRes.length > 0">
+                <div class="row">
+                    <div class="col">
+                        <p-table #tblExpRes [columns]="colsExp" [value]="dataExpRes" dataKey="data_exp" [rows]="5"
+                            [paginator]="true" columnResizeMode="expand" autoLayout="true" [responsive]="true"
+                            exportFilename="hunter-Expedidos" csvSeparator=";">
+                            <ng-template pTemplate="caption">
+                                <div class="ui-helper-clearfix">
+                                    <span style="float: left">
+                                        <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="Todos" (click)="tblExpRes.exportCSV()"></button>
+                                    </span>
+                                    <span style="float: right">
+                                        <button type="button" pButton icon="fa fa-file" iconPos="left" label="Apenas Seleção" (click)="tblExpRes.exportCSV({selectionOnly:true})"></button>
+                                    </span>
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                        {{col.header}}
+                                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th *ngFor="let col of columns">
+                                        <input pInputText type="text"
+                                            (input)="tblExpRes.filter($event.target.value, col.field, 'contains')"
+                                            size="10">
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                <tr [pSelectableRow]="rowData">
+                                    <td *ngFor="let col of columns">
+                                        <span *ngIf="col.type === 'DATE'">{{rowData[col.field] === '-' ? '' :
+                                            (rowData[col.field] | date:'dd/MM/yyyy')}}</span>
+                                        <span *ngIf="col.type === 'TIMESTAMP'">{{rowData[col.field] === '-' ? '' :
+                                            (rowData[col.field] | date:'dd/MM/yyyy HH:mm:ss')}}</span>
+                                        <span *ngIf="col.type === 'NUMBER'">{{rowData[col.field] | number: '0.0-4'}}</span>
+                                        <span
+                                            *ngIf="col.type !== 'DATE' && col.type !== 'NUMBER' && col.type !== 'TIMESTAMP'">{{rowData[col.field]}}</span>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </p-accordionTab>
+            <p-accordionTab header="ARMAZENADOS" [selected]="dataLoaded && dataStrRes.length > 0"
+                *ngIf="dataLoaded && dataStrRes.length > 0">
+                <div class="row">
+                    <div class="col">
+                        <p-table #tblStrRes [columns]="colsStored" [value]="dataStrRes" dataKey="local" [rows]="5"
+                            [paginator]="true" columnResizeMode="expand" autoLayout="true" [responsive]="true"
+                            exportFilename="hunter-Armazenados" csvSeparator=";">
+                            <ng-template pTemplate="caption">
+                                <div class="ui-helper-clearfix">
+                                    <span style="float: left">
+                                        <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="Todos" (click)="tblStrRes.exportCSV()"></button>
+                                    </span>
+                                    <span style="float: right">
+                                        <button type="button" pButton icon="fa fa-file" iconPos="left" label="Apenas Seleção" (click)="tblStrRes.exportCSV({selectionOnly:true})"></button>
+                                    </span>
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                        {{col.header}}
+                                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th *ngFor="let col of columns">
+                                        <input pInputText type="text"
+                                            (input)="tblStrRes.filter($event.target.value, col.field, 'contains')"
+                                            size="10">
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                <tr [pSelectableRow]="rowData">
+                                    <td *ngFor="let col of columns">
+                                        <span *ngIf="col.type === 'DATE'">{{rowData[col.field] === '-' ? '' :
+                                            (rowData[col.field] | date:'dd/MM/yyyy')}}</span>
+                                        <span *ngIf="col.type === 'TIMESTAMP'">{{rowData[col.field] === '-' ? '' :
+                                            (rowData[col.field] | date:'dd/MM/yyyy HH:mm:ss')}}</span>
+                                        <span *ngIf="col.type === 'NUMBER'">{{rowData[col.field] | number: '0.0-4'}}</span>
+                                        <span
+                                            *ngIf="col.type !== 'DATE' && col.type !== 'NUMBER' && col.type !== 'TIMESTAMP'">{{rowData[col.field]}}</span>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+</div>
+<p-dialog *ngIf="dataLoaded" [(visible)]="displayDialog" [responsive]="true" [modal]="true" [dismissableMask]="true" appendTo="body" header="{{selectedProduct?.sku}} - {{selectedProduct?.name}} de {{selectedDate === undefined ? '' : selectedDate | date: 'dd/MM/yyyy'}}">
+    <dynamic-table #tbl [tableData]="data" [tableColumns]="selectedReport.columns"
+        [action-buttons]="selectedReport.actions" action-title="HIST." [rowCount]="rowCount" [showFooter]="false"
+        appendTo="body">
+    </dynamic-table>
+</p-dialog>

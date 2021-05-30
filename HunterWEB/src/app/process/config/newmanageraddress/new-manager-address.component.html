@@ -1,0 +1,67 @@
+<h2 class="first">New Manager Address</h2>
+
+<p-toolbar>
+  <div class="ui-toolbar-group-left">
+    <p-dropdown [options]="addressModels" [(ngModel)]="addressModelSelected"
+      (onChange)="getAddressAll(addressModelSelected)"></p-dropdown>
+      <button type="button" pButton icon="fa fa-plus" class="ui-button-success" (click)="showDialogToAdd()" label="Add"></button>
+  </div>
+  <!-- <div class="ui-toolbar-group-right">
+      <div class="ui-inputgroup">
+          <input [disabled]="!addressModelSelected" type="text" pInputText placeholder="Search Address">
+            <button pButton type="button" icon="fa fa-search" class="ui-button-warn"></button>
+      </div>
+    </div> -->
+</p-toolbar>
+
+<p-table *ngIf="addressModelSelected" [value]="data | sort:'name'" [paginator]="true" [rows]="10" [pageLinks]="8"
+  scrollHeight="600px" [first]="first" [resizableColumns]="true" [(selection)]="address"
+  (onRowSelect)="onRowSelect($event)" selectionMode="single">
+  <p-column field="name" header="NAME"></p-column>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>NAME</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-data>
+    <tr [pSelectableRow]="data">
+      <td>{{data.name}}</td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary" let-rowData>
+    <div style="text-align:left">
+      <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+    </div>
+  </ng-template>
+</p-table>
+
+<p-dialog header="Address" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+  [style]="{width: '300px'}">
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-4">
+        <p-dropdown [style]="{'width':'300px'}" [options]="addressModels" [(ngModel)]="addressModelSelectedDialog"></p-dropdown>
+    </div>
+     <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="name">NAME</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText id="name" [(ngModel)]="dialogAddress.name"/>
+      </div>
+    </div>
+     <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="name">WKT</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText id="name" [(ngModel)]="dialogAddress.wkt"/>
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" pButton icon="fa fa-close" (click)="deleteAddress()" class="ui-button-danger" [disabled]="!dialogAddress.id" label="Delete"></button>
+      <button type="button" pButton icon="fa fa-check" (click)="updateAddress()" [disabled]="!dialogAddress.wkt || !dialogAddress.name" label="Save"></button>
+    </div>
+  </p-footer>
+</p-dialog>

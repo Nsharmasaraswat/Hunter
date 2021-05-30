@@ -1,0 +1,7 @@
+<p-fileUpload #fubauto mode="advanced" name="uploadedFile" [url]="fileUploadREST" accept="image/*" multiple="true"
+    (onUpload)="upload($event)" (onBeforeUpload)="beforeUpload($event)" auto="true" [showUploadButton]="false" chooseLabel="Images"
+    [showCancelButton]="false">
+    <ng-template pTemplate="content">
+        <div class="drag-drop-area">DRAG IMAGES HERE AFTER FLIGHT</div>
+    </ng-template>
+</p-fileUpload>

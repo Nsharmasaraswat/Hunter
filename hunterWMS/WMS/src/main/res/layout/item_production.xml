@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/background_white_border"
+    android:clickable="true"
+    android:focusable="true">
+
+    <Spinner
+        android:id="@+id/cbxLine"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:entries="@array/production_lines"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edtQuantity"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_margin="6dp"
+        android:autofillHints="@string/label_quantity"
+        android:ems="10"
+        android:enabled="false"
+        android:hint="@string/label_quantity"
+        android:inputType="number|numberDecimal"
+        android:nextFocusDown="@+id/edtLot"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/chbIncomplete"
+        app:layout_constraintStart_toEndOf="@+id/vertApoThirdGL"
+        app:layout_constraintTop_toBottomOf="@+id/edtLot">
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/edtLot"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_margin="6dp"
+        android:autofillHints="true"
+        android:enabled="false"
+        android:hint="@string/label_lot"
+        android:inputType="number"
+        android:padding="8dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vertApoThirdGL"
+        app:layout_constraintTop_toBottomOf="@+id/edtExpiry" />
+
+    <EditText
+        android:id="@+id/edtManufacture"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_margin="6dp"
+        android:autofillHints="@string/label_manufacture"
+        android:ems="10"
+        android:enabled="false"
+        android:focusable="false"
+        android:hint="@string/label_manufacture"
+        android:inputType="none"
+        android:padding="8dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/vertApoThirdGL"
+        app:layout_constraintTop_toBottomOf="@+id/cbxProduct" />
+
+
+    <EditText
+        android:id="@+id/edtExpiry"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_margin="6dp"
+        android:autofillHints="@string/label_expiry"
+        android:ems="10"
+        android:enabled="false"
+        android:focusable="false"
+        android:hint="@string/label_expiry"
+        android:inputType="none"
+        android:padding="8dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/vertApoThirdGL"
+        app:layout_constraintTop_toBottomOf="@+id/edtManufacture" />
+
+    <TextView
+        android:id="@+id/lblApoLot"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center_vertical|start"
+        android:text="@string/label_lot"
+        android:textAlignment="gravity"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edtLot"
+        app:layout_constraintEnd_toStartOf="@id/vertApoThirdGL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edtLot" />
+
+    <TextView
+        android:id="@+id/lblApoManufacture"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center_vertical|start"
+        android:text="@string/label_manufacture"
+        android:textAlignment="gravity"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edtManufacture"
+        app:layout_constraintEnd_toStartOf="@id/vertApoThirdGL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edtManufacture" />
+
+    <TextView
+        android:id="@+id/lblApoExpiry"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center_vertical|start"
+        android:text="@string/label_expiry"
+        android:textAlignment="gravity"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edtExpiry"
+        app:layout_constraintEnd_toStartOf="@id/vertApoThirdGL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edtExpiry" />
+
+    <TextView
+        android:id="@+id/lblApoQuantity"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center_vertical|start"
+        android:text="@string/label_quantity"
+        android:textAlignment="gravity"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edtQuantity"
+        app:layout_constraintEnd_toStartOf="@id/vertApoThirdGL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edtQuantity" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertApoThirdGL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="0dp"
+        app:layout_constraintGuide_percent=".32" />
+
+    <com.gtp.hunter.structure.spinner.SearchableSpinner
+        android:id="@+id/cbxAddress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:dropDownWidth="match_parent"
+        android:padding="8dp"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPalletCount" />
+
+    <com.gtp.hunter.structure.spinner.SearchableSpinner
+        android:id="@+id/cbxProduct"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:dropDownWidth="match_parent"
+        android:enabled="false"
+        android:padding="8dp"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cbxAddress" />
+
+    <CheckBox
+        android:id="@+id/chbIncomplete"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="@string/incomplete"
+        app:layout_constraintBottom_toBottomOf="@+id/lblApoQuantity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/lblApoQuantity" />
+
+    <TextView
+        android:id="@+id/txtPalletCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPO" />
+
+    <TextView
+        android:id="@+id/txtPO"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cbxLine" />
+</androidx.constraintlayout.widget.ConstraintLayout>

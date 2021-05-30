@@ -1,0 +1,56 @@
+<div class="container-fluid p-0">
+    <div class="row">
+        <div [ngClass]="{'col-4': getRouterOutletState(o)!=='', 'col-sm-4': getRouterOutletState(o)!=='', 'col-md-3': getRouterOutletState(o)!=='', 'col-lg-2': getRouterOutletState(o)!!=''}"
+            *ngIf="getRouterOutletState(o) !=='' && visible">
+            <div class="main-menu">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="user-info">
+                            <div class="logo">
+                                <img src="assets/imgs/logo_hunter.png" alt="Hunter logo">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <user></user>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <permission></permission>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div [ngClass]="{'col': getRouterOutletState(o)==='' || !visible, 'col-8': getRouterOutletState(o)!=='' && visible, 'col-sm-8': getRouterOutletState(o)!=='' && visible, 'col-md-9': getRouterOutletState(o)!=='' && visible, 'col-lg-10': getRouterOutletState(o)!!='' && visible}"
+            style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
+            <div class="row hunter-header">
+                <div class="col-1">
+                    <div class="signout" *ngIf="!kiosk">
+                        <i class="fa fa-home fa-fw" (click)="home()"></i>
+                    </div>
+                </div>
+                <div class="col-8" style="text-align: center">
+                    <span class="lighter">hunter IoT Visibility Manager WEB</span>
+                </div>
+                <div class="col-3" *ngIf="!kiosk">
+                    <div class="signout">
+                        <span class="lighter">v{{version}}{{!env || env == '' ? '' : ' - ' + env}}</span>
+                        <i class="fa fa-power-off fa-fw right" (click)="logout()"></i>
+                    </div>
+                    <!-- <a href="" class="hbutton small lightgray supp right">
+                      <img src="assets/imgs/support.svg">contact support</a> -->
+                </div>
+            </div>
+            <div class="row hunter-content">
+                <div class="main scroller"
+                    [@fadeAnimation]="getRouterOutletState(o)" #mainScroller main-scroller>
+                    <router-outlet #o="outlet"></router-outlet>
+                    <app-dashboard *ngIf="!o.isActivated"></app-dashboard>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

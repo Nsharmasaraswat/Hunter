@@ -1,0 +1,59 @@
+// component css goes here
+span.min-20 {
+  min-width: 20%;
+}
+
+span.min-40 {
+  min-width: 40%;
+}
+
+input.min-50, span.min-50 {
+  min-width: 50%;
+}
+
+:host ::ng-deep h4 {
+  text-align: center;
+}
+
+:host ::ng-deep .summary-left {
+  text-align: left;
+  width: 45%;
+}
+
+:host ::ng-deep .summary-right {
+  text-align: right;
+  width: 45%;
+}
+
+//table ui
+::ng-deep .ui-table table, .ui-table table {
+  table-layout: auto !important;
+}
+::ng-deep .ui-table-tablewrapper {
+  width: auto !important;
+}
+
+::ng-deep .ui-table-resizable {
+  padding-bottom: 1px;
+  /* overflow: auto; */
+  width: auto !important;
+}
+
+.ui-table .ui-table-tbody > tr,
+.ui-table .ui-table-thead > tr > th,
+.ui-table .ui-table-tfoot > tr > td {
+  max-width: 300px !important;
+  font-size: 12px;
+  padding: 0px !important;
+  padding-left: 4px !important;
+  color: black;
+  text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis !important;
+  border-width: 1px;
+}
+
+.ui-cell-text-center {
+  text-align: center;
+}

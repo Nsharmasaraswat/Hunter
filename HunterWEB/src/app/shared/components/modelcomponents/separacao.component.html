@@ -1,0 +1,45 @@
+<p-table #tbl [value]="(osgStubs | sort:'seq')" *ngIf="osgStubs !== undefined">
+    <ng-template pTemplate="colgroup">
+        <colgroup>
+            <col [style.width]="'6ch'">
+            <col [style.width]="'9ch'">
+            <col [style.width]="'10ch'">
+            <col [style.width]="'99%'">
+            <col [style.width]="'9ch'">
+            <col [style.width]="'5ch'">
+        </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th colspan="6">{{picking.name}} - {{picking.status}} - <small>{{picking.updatedAt | date:'dd/MM/yyyy HH:mm:ss'}}</small></th>
+        </tr>
+        <tr *ngIf="!fullPallet">
+            <th>SEQ.</th>
+            <th>CAMADA</th>
+            <th>CODIGO</th>
+            <th>PRODUTO</th>
+            <th>QTD</th>
+            <th>U.M.</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+        <tr [ngClass]="picking.status === 'CANCELADO' ? 'canceled-document' : null" *ngIf="!fullPallet">
+            <td>{{rowData.seq}}</td>
+            <td>{{rowData.layer}}</td>
+            <td>{{rowData.sku}}</td>
+            <td>{{rowData.product}}</td>
+            <td class="text-right">{{rowData.qty}}</td>
+            <td class="text-right">{{rowData.measure}}</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td [attr.colspan]="6" class="text-center">
+                <h6>ROMANEIO VAZIO</h6>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary" *ngIf="userComp !== null && userComp !== undefined">
+        Executada por {{userComp?.name}}
+    </ng-template>
+</p-table>

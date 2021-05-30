@@ -1,0 +1,46 @@
+<h2 class="first">{{getHeader()}}</h2>
+
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" (click)="onBack()" icon="fa-arrow-left" class="ui-button-warning"></button>
+        <button pButton type="button" (click)="onSave()" icon="fa-check" class="ui-button-success"></button>
+        <button pButton type="button" (click)="onDiscard()" icon="fa-close" class="ui-button-danger"></button>
+    </div>
+    <div class="ui-toolbar-group-right">
+    </div>
+</p-toolbar>
+
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-4">
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon">
+                <i class="fa fa-user"></i>
+            </span>
+            <input type="text" pInputText [(ngModel)]="data.metaname" placeholder="metaname">
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon">
+                <i class="fa fa-user"></i>
+            </span>
+            <input type="text" pInputText [(ngModel)]="data.name" placeholder="name">
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon">
+                <i class="fa fa-user"></i>
+            </span>
+            <input type="text" pInputText [(ngModel)]="data.statusFinal" placeholder="final status">
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+        <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon">
+                <i class="fa fa-user"></i>
+            </span>
+            <input type="text" pInputText [(ngModel)]="data.status" placeholder="status">
+        </div>
+    </div>
+</div>

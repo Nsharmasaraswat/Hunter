@@ -1,0 +1,19 @@
+<h2 class="first">Document Model Fields</h2>
+
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" (click)="onBack()" icon="fa-arrow-left" class="ui-button-warning"></button>
+        <button pButton type="button" (click)="onNew()" icon="fa-plus" class="ui-button-secundary"></button>
+    </div>
+    <div *ngIf="data.length > 0" class="ui-toolbar-group-right">
+        <button pButton type="button" (click)="onEdit()" icon="fa-pencil" class="ui-button-warning"></button>
+        <button pButton type="button" (click)="onDelete()" icon="fa-trash" class="ui-button-danger"></button>
+    </div>
+</p-toolbar>
+<p-dataTable [value]="data | sort:'name'" selectionMode="single" [(selection)]="selectedItem">
+    <p-column field="creation" header="Create Date"></p-column>
+    <p-column field="metaname" header="Metaname"></p-column>
+    <p-column field="name" header="Name"></p-column>
+    <p-column field="status" header="Status"></p-column>
+    <p-column field="type" header="Type"></p-column>
+</p-dataTable>

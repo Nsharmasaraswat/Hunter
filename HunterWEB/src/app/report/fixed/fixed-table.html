@@ -1,0 +1,68 @@
+<!--component html goes here -->
+<div class="row">
+    <div class="col">
+        <h1 *ngIf="selectedReport != null">{{selectedReport.name}}</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <p-accordion #accFilter *ngIf="selectedReport != null && selectedReport.variables.length > 0" (onOpen)="updateTable()" (onClose)="updateTable()">
+            <p-accordionTab header="Opções" [(selected)]="expanded">
+                <div class="ui-fluid">
+                    <div class="ui-g">
+                        <div class="ui-g-4" *ngFor="let col of selectedReport.variables | filterProp :'type':'string'">
+                            <span class="ui-float-label" *ngIf="col.type === 'string'">
+                                <input #txtVar id="{{col.var}}" type="text" pInputText>
+                                <label for="float-input" style="padding-left: 0.5em;">{{col.field}}</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-3" *ngFor="let col of selectedReport.variables | filterProp :'type':'date'">
+                            <span class="ui-float-label" *ngIf="col.type === 'date'">
+                                <p-calendar #txtVar id="{{col.var}}" dateFormat="dd/mm/yy"></p-calendar>
+                                <label for="float-input" style="padding-left: 0.5em;">{{col.field}}</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-4" *ngFor="let col of selectedReport.variables | filterProp :'type':'combo'">
+                            <span class="ui-float-label" *ngIf="col.type === 'combo'">
+                                <p-dropdown #txtVar id="{{col.var}}" [options]="col.options" placeholder="Selecione" [lazy]="true"></p-dropdown>
+                                <label for="float-input" *ngIf="txtVar.selectedOption !== null && txtVar.selectedOption !== undefined" style="padding-left: 0.5em;">{{col.field}}</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12">
+                            <p-button label="Carregar" (onClick)="loadReport()"></p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+            <p-accordionTab style="display: none"></p-accordionTab><!-- TODO: expanded not working with only one tab -->
+            <!--Salvar configurações de relatorio no storage do usuario ou cookie pra manter as preferencias por browser-->
+            <!-- <p-accordionTab header="Configurações" *ngIf="dataLoaded">
+                    <div class="ui-g ui-fluid">
+                            <div class="ui-g-12 ui-md-1">
+                                <span class="ui-float-label">
+                                    <p-spinner size="30" [(ngModel)]="rowCount" [step]="5"></p-spinner>
+                                    <label for="float-input">Row Count</label>
+                                </span>
+                            </div>
+                            <div class="ui-g-12 ui-md-5">
+                            </div>
+                            <div class="ui-g-12 ui-md-3">
+                            </div>
+                            <div class="ui-g-12 ui-md-3">
+                            </div>
+                        </div>
+            </p-accordionTab> -->
+        </p-accordion>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <dynamic-table #tbl *ngIf="dataLoaded" [tableData]="data" [tableColumns]="selectedReport.columns" [action-buttons]="selectedReport.actions" action-title="AÇÕES" [rowCount]="rowCount" [showFooter]="false"></dynamic-table>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+:host ::ng-deep .tag-ok .ui-panel-content {
+    background-color: green;
+    color: white;
+}
+
+:host ::ng-deep .tag-nok .ui-panel-content {
+    background-color: red;
+    color: white;
+}
+
+:host ::ng-deep .portal-state .ui-panel-content {
+    background-color: yellow;
+}
+
+.float {
+    position: fixed;
+    width: 120px;
+    right: 20px;
+}

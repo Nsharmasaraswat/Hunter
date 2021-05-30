@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Primary -->
+    <color name="primary_50">#e5eef6</color>
+    <color name="primary_100">#bdd5e9</color>
+    <color name="primary_200">#92b9da</color>
+    <color name="primary_300">#669ccb</color>
+    <color name="primary_400">#4587bf</color>
+    <color name="primary_500">#2472b4</color>
+    <color name="primary_600">#206aad</color>
+    <color name="primary_700">#1b5fa4</color>
+    <color name="primary_800">#16559c</color>
+    <color name="primary_900">#0d428c</color>
+
+    <!-- Accent -->
+<!--    <color name="blue_A100">#bdd5ff</color>-->
+<!--    <color name="blue_A200">#8ab5ff</color>-->
+<!--    <color name="blue_A400">#5795ff</color>-->
+<!--    <color name="blue_A700">#3d85ff</color>-->
+
+    <!-- Secondary -->
+    <color name="secondary_50">#e7f2f9</color>
+    <color name="secondary_100">#c4dfef</color>
+    <color name="secondary_200">#9dcae5</color>
+    <color name="secondary_300">#75b4db</color>
+    <color name="secondary_400">#58a4d3</color>
+    <color name="secondary_500">#3a94cb</color>
+    <color name="secondary_600">#348cc6</color>
+    <color name="secondary_700">#2c81be</color>
+    <color name="secondary_800">#2577b8</color>
+    <color name="secondary_900">#1865ac</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="order_pending">#E2844F</color>
+    <color name="order_completed">#24B489</color>
+    <color name="order_rejected">#B42424</color>
+</resources>

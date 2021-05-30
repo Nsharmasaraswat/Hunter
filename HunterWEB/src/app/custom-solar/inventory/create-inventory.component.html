@@ -1,0 +1,83 @@
+<h3>{{permission?.name}}</h3>
+<div class="table-isolation">
+    <p-toolbar>
+        <div class="ui-toolbar-group-left">
+            <p-radioButton name="type" label="Produto Acabado" value="INVPA" [(ngModel)]="invtype"></p-radioButton>
+            <p-radioButton name="type" label="Matéria Prima" value="INVMP" [(ngModel)]="invtype" (click)="loadMPProducts()"></p-radioButton>
+            <p-radioButton name="type" label="Drone Manual" value="DRONE MANUAL" [(ngModel)]="invtype" (click)="loadAddresses()"></p-radioButton>
+            <p-radioButton name="type" label="Drone Automático" value="DRONE AUTOMATICO" [(ngModel)]="invtype"  (click)="loadAddresses()" [disabled]="true"></p-radioButton>
+        </div>
+    </p-toolbar>
+    <p-panel header="Escolher Ruas" *ngIf="invtype === 'DRONE MANUAL'">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <p-pickList sourceHeader='Disponíveis' [source]="source | sort:'metaname'" targetHeader='Selecionados' [target]="target" filterBy="metaname" [responsive]="true">
+                        <ng-template let-addr pTemplate="item">
+                            <div class="ui-helper-clearfix">
+                                {{addr.metaname}}
+                            </div>
+                        </ng-template>
+                    </p-pickList>
+                </div>
+            </div>
+        </div>
+    </p-panel>
+    <p-panel header="Produto Acabado" *ngIf="invtype === 'INVPA'">
+        <p-toolbar>
+            <div class="ui-toolbar-group-left">
+                <p-radioButton name="seltype" label="Armazém" value="WAREHOUSE" [(ngModel)]="seltype" (click)="loadWarehouses()"></p-radioButton>
+                <p-radioButton name="seltype" label="Produto" value="PRODUCT" [(ngModel)]="seltype" (click)="loadPAProducts()"></p-radioButton>
+            </div>
+        </p-toolbar>
+        <div class="container-fluid" *ngIf="seltype === 'WAREHOUSE'">
+            <div class="row">
+                <div class="col">
+                    <p-pickList sourceHeader='Disponíveis' [source]="sourceWH | sort:'metaname'" targetHeader='Selecionados' [target]="targetWH" filterBy="metaname" [responsive]="true">
+                        <ng-template let-addr pTemplate="item">
+                            <div class="ui-helper-clearfix">
+                                {{addr.metaname}}
+                            </div>
+                        </ng-template>
+                    </p-pickList>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid" *ngIf="seltype === 'PRODUCT'">
+            <div class="row">
+                <div class="col">
+                    <p-pickList sourceHeader='Disponíveis' [source]="sourcePrdPA | sort:'name'" targetHeader='Selecionados' [target]="targetPrdPA" filterBy="name" [responsive]="true">
+                        <ng-template let-prd pTemplate="item">
+                            <div class="ui-helper-clearfix">
+                                {{prd.name}}
+                            </div>
+                        </ng-template>
+                    </p-pickList>
+                </div>
+            </div>
+        </div>
+    </p-panel>
+    <p-panel header="Escolher Produtos" *ngIf="invtype === 'INVMP'">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <p-pickList sourceHeader='Disponíveis' [source]="sourcePrdMP | sort:'name'" targetHeader='Selecionados' [target]="targetPrdMP" filterBy="name" [responsive]="true">
+                        <ng-template let-prd pTemplate="item">
+                            <div class="ui-helper-clearfix">
+                                {{prd.name}}
+                            </div>
+                        </ng-template>
+                    </p-pickList>
+                </div>
+            </div>
+        </div>
+    </p-panel>
+    <p-toolbar *ngIf="invtype !== null && invtype !== undefined">
+        <div class="ui-toolbar-group-left">
+            <div class="ui-inputgroup">
+                <button pButton type='button' icon="fa fa-save" (click)='addInventory()' label="Gerar"></button>
+                <input pInputText type="number" [ngModel]="invCount" placeholder="Contagens">
+            </div>
+        </div>
+    </p-toolbar>
+</div>

@@ -1,0 +1,55 @@
+@import "../../../assets/styles/sb-admin-2.css";
+
+.mydiv {
+  position: absolute;
+}
+
+
+.example-form-field {
+  width: 200px;
+}
+
+.flex-div-list {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  align-items: center ;
+ 
+  // justify-content: space-around;
+  // align-items: baseline;
+}
+
+.resize {
+  resize: both;
+  overflow: auto;
+}
+
+.options {
+  width: 100%;
+  margin: 10px;
+}
+
+.flex-div-list .flexbox {
+  /* float: left; */
+  /* overridden by flexbox */
+  flex: 33.3% 0 0;
+  align-self: auto;
+  // padding: 20px;
+  // margin: 10px;
+}
+
+.canvasPaddding {
+  padding: 20px;
+  margin: 10px;
+}
+
+.headingPaddding {
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.myPadding {
+  margin: 10px;
+ 
+}

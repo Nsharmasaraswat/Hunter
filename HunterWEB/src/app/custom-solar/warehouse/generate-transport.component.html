@@ -1,0 +1,110 @@
+<h3>Movimentações</h3>
+<div class="ui-g" *ngIf="addressList != null && addressList.length > 0">
+    <div class="ui-g-12">
+        <p-toolbar>
+            <div class="ui-toolbar-group-left">
+            </div>
+            <div class="ui-toolbar-group-right">
+                <label for="spnQty">Quantidade</label>
+                <p-spinner name="spnQty" size="3" [(ngModel)]="mvQty" [min]="0" [max]="100"></p-spinner>
+                <button pButton type="button" label="Salvar" icon="fa-check" class="ui-button-warning" (click)=transf() [disabled]="selAddressSrc === undefined || selAddressDest === undefined"></button>
+            </div>
+        </p-toolbar>        
+    </div>
+    <div class="ui-g-6">
+        <p-toolbar><h3>ORIGEM</h3></p-toolbar>
+        <p-table #tblSrc [value]="addressList | sort:'name'" [columns]="colsAddress" [resizableColumns]="true" 
+            columnResizeMode="expand" autoLayout="true" selectionMode="single" dataKey="address_id"
+            [responsive]="true" [paginator]="addressList.length > 10" [rows]="10" [(selection)]="selAddressSrc">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th *ngFor="let col of colsAddress" pResizableColumn>
+                        {{col.header}}
+                    </th>
+                    <th style="width: 2.25em">DETALHAR</th>
+                </tr>
+                <tr>
+                    <th *ngFor="let col of colsAddress">
+                        <input pInputText type="text" (input)="tblSrc.filter($event.target.value, col.field, 'contains')" [size]="col.header.length + 3">
+                    </th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-addr>
+                <tr [pSelectableRow]="addr">
+                    <td class="ui-resizable-column" *ngFor="let col of colsAddress">
+                        <span *ngIf="col.type === 'DATE'">{{addr[col.field] | date:'dd/MM/yyyy'}}</span>
+                        <span *ngIf="col.type === 'NUMBER'">{{addr[col.field] | number: '0.0-3'}}</span>
+                        <span *ngIf="col.type !== 'DATE' && col.type !== 'NUMBER'">{{addr[col.field]}}</span>
+                    </td>
+                    <td>
+                        <button pButton icon="fa-search" class="ui-button-info" (click)="detail(addr)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="ui-g-6">
+        <p-toolbar><h3>DESTINO</h3></p-toolbar>
+        <p-table #tblDst [value]="addressList | sort:'name'" [columns]="colsAddress" [resizableColumns]="true" 
+            columnResizeMode="expand" autoLayout="true" selectionMode="single" dataKey="address_id"
+            [responsive]="true" [paginator]="addressList.length > 10" [rows]="10" [(selection)]="selAddressDest">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th *ngFor="let col of colsAddress" pResizableColumn>
+                        {{col.header}}
+                    </th>
+                    <th style="width: 2.25em">DETALHAR</th>
+                </tr>
+                <tr>
+                    <th *ngFor="let col of colsAddress">
+                        <input pInputText type="text" (input)="tblDst.filter($event.target.value, col.field, 'contains')" [size]="col.header.length + 3">
+                    </th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-addr>
+                <tr [pSelectableRow]="addr">
+                    <td class="ui-resizable-column" *ngFor="let col of colsAddress">
+                        <span *ngIf="col.type === 'DATE'">{{addr[col.field] | date:'dd/MM/yyyy'}}</span>
+                        <span *ngIf="col.type === 'NUMBER'">{{addr[col.field] | number: '0.0-3'}}</span>
+                        <span *ngIf="col.type !== 'DATE' && col.type !== 'NUMBER'">{{addr[col.field]}}</span>
+                    </td>
+                    <td>
+                        <button pButton icon="fa-search" class="ui-button-info" (click)="detail(addr)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<p-dialog [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [draggable]="false" [contentStyle]="{'min-height':'418px'}" appendTo="body" *ngIf="detAddress !== undefined">
+    <p-header>
+        {{detAddress.name}}
+    </p-header>
+    <p-table #tblThings *ngIf="thingList != null && thingList.length > 0" [value]="thingList | sort:'addr_name':-1" [columns]="colsThing" [resizableColumns]="true" columnResizeMode="expand" autoLayout="true"
+        [responsive]="true" [paginator]="thingList.length > 10" [rows]="10" [rowsPerPageOptions]="rowOptionsThing">
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of colsThing" pResizableColumn>
+                    {{col.header}}
+                </th>
+            </tr>
+            <tr>
+                <th *ngFor="let col of colsThing">
+                    <input pInputText type="text" (input)="tblThings.filter($event.target.value, col.field, 'contains')" [size]="col.header.length + 3">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-thing>
+            <tr [ngClass]="thing.allocation === 3 ? null : (thing.allocation === 2 ? 'disabled-row' : 'warning-row')">
+                <td class="ui-resizable-column" *ngFor="let col of colsThing">
+                    <span *ngIf="col.type === 'DATE'">{{thing[col.field] | date:'dd/MM/yyyy'}}</span>
+                    <span *ngIf="col.type === 'NUMBER'">{{thing[col.field] | number: '0.0-3'}}</span>
+                    <span *ngIf="col.type !== 'DATE' && col.type !== 'NUMBER'">{{thing[col.field]}}</span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-dialog>

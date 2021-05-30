@@ -1,0 +1,17 @@
+@import "../../../../assets/styles/sb-admin-2.css";
+
+$mygray: #dddfeb !default;
+
+.myborder {
+  border-bottom: solid 1px $mygray;
+  border-left: solid 1px $mygray;
+  border-right: solid 1px $mygray;
+}
+
+.mypadding {
+  padding-top: 8px;
+}
+
+#reportData th { font-size: 14px; }
+#reportData td { font-size: 13px; }
+

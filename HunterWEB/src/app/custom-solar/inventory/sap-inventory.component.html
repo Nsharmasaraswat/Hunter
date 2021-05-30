@@ -1,0 +1,146 @@
+<h3>{{inventory?.name}}</h3>
+<div class="table-isolation">
+    <p-table #tbl *ngIf="sapinventory != null" [value]="sapinventory | sort:'date'" [columns]="columns" [paginator]="sapinventory.length > 5" [rows]="5" selectionMode="multiple" [resizableColumns]="true" immutable="false"
+        [rowsPerPageOptions]="[1, 5, 10, 15, 20]" [(selection)]="selInventories" dataKey="code">
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col [class]="col.priority === undefined ? '' : ('ui-p-') + (col.priority)" *ngFor="let col of columns">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pResizableColumn [class]="col.priority === undefined ? '' : ('ui-p-') + (col.priority)" *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+            <tr>
+                <th pResizableColumn [class]="col.priority === undefined ? '' : ('ui-p-') + (col.priority)" *ngFor="let col of columns">
+                    <input *ngIf="col.type !== 'NUMBER'" pInputText type="text" (input)="tbl.filter($event.target.value, col.field, 'contains')">
+                    <input *ngIf="col.type === 'NUMBER'" pInputText type="text" (input)="tbl.filter($event.target.value, col.field, 'equals')">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-doc>
+            <tr [pSelectableRow]="doc">
+                <td [class]="('ui-resizable-column') + (col.priority === undefined ? '' : (' ui-p-') + (col.priority))" *ngFor="let col of columns">
+                    <!-- <span class="ui-column-title">{{col.header}}</span> -->
+                    <span *ngIf="col.type === 'DATE'">{{doc[col.field] | date:'dd/MM/yyyy'}}</span>
+                    <span *ngIf="col.type === 'TIMESTAMP'">{{doc[col.field] | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+                    <span *ngIf="col.type === 'NUMBER'">{{doc[col.field] | number: '0.0-0': 'pt-BR'}}</span>
+                    <span *ngIf="col.type === 'DECIMAL'">{{doc[col.field] | number: '0.4-4': 'pt-BR'}}</span>
+                    <span *ngIf="col.type !== 'TIMESTAMP' && col.type !== 'DECIMAL' && col.type !== 'DATE' && col.type !== 'NUMBER'">{{doc[col.field]}}</span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p-table #tblItm *ngIf="inventoryItems != null" [value]="inventoryItems | sort:'sku'" [columns]="columnsItem" exportFilename="Inventario_hunter" csvSeparator=";" [paginator]="inventoryItems.length > 5" [rows]="5"
+        [resizableColumns]="true" immutable="false" [rowsPerPageOptions]="[1, 5, 10, 15, 20]">
+        <ng-template pTemplate="caption">
+            <div class="ui-helper-clearfix">
+                <span style="float: left">
+                    <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="Exportar (.csv)" (click)="tblItm.exportCSV()"></button>
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col [class]="col.priority === undefined ? '' : ('ui-p-') + (col.priority)" [style.width]="col.width" *ngFor="let col of columnsItem">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pResizableColumn [class]="col.priority === undefined ? '' : ('ui-p-') + (col.priority)" *ngFor="let col of columnsItem">
+                    {{col.header}}
+                </th>
+            </tr>
+            <tr>
+                <th pResizableColumn [class]="col.priority === undefined ? '' : ('ui-p-') + (col.priority)" *ngFor="let col of columnsItem">
+                    <input *ngIf="col.type !== 'NUMBER'" pInputText type="text" (input)="tblItm.filter($event.target.value, col.field, 'contains')">
+                    <input *ngIf="col.type === 'NUMBER'" pInputText type="text" (input)="tblItm.filter($event.target.value, col.field, 'equals')">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td [class]="('ui-resizable-column ') + (col.styleClass) + (col.priority === undefined ? '' : (' ui-p-') + (col.priority))" [ngClass]="getClass(col, item)" *ngFor="let col of columnsItem">
+                    <!-- <span class="ui-column-title">{{col.header}}</span> -->
+                    <span *ngIf="col.type === 'DATE'">{{item[col.field] | date:'dd/MM/yyyy'}}</span>
+                    <span *ngIf="col.type === 'TIMESTAMP'">{{item[col.field] | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+                    <span *ngIf="col.type === 'NUMBER'">{{preventMinusBug(item[col.field]) | number: '0.0-0': 'pt-BR'}}</span>
+                    <span *ngIf="col.type === 'DECIMAL'">{{item[col.field] | number: '0.4-4': 'pt-BR'}}</span>
+                    <span *ngIf="col.type !== 'TIMESTAMP' && col.type !== 'DECIMAL' && col.type !== 'DATE' && col.type !== 'NUMBER'">{{item[col.field]}}</span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-panel header="Ajustes Transportes" [toggleable]="true" [collapsed]="true">
+        <textarea #txtAdj *ngIf="areaText === undefined || areaText.length == 0" [rows]="7" pInputTextarea style="width: 100%" (paste)="onPaste($event)" [(ngModel)]="areaText"></textarea>
+        <p-table #tblItmAdj *ngIf="areaText !== undefined && areaText.length > 0" [value]="inventoryItems | sort:'sku'" [paginator]="inventoryItems.length > 5" [rows]="5" [resizableColumns]="true" immutable="false"
+            [rowsPerPageOptions]="[1, 5, 10, 15, 20]">
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col [style.width]="'10ch'">
+                    <col [style.width]="'99%'">
+                    <col [style.width]="'15ch'">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pResizableColumn>CÓDIGO</th>
+                    <th pResizableColumn>PRODUTO</th>
+                    <th pResizableColumn>QUANTIDADE</th>
+                </tr>
+                <tr>
+                    <th pResizableColumn>
+                        <input pInputText type="text" (input)="tblItmAdj.filter($event.target.value, 'sku', 'contains')">
+                    </th>
+                    <th pResizableColumn>
+                        <input pInputText type="text" (input)="tblItmAdj.filter($event.target.value, 'name', 'contains')">
+                    </th>
+                    <th pResizableColumn>
+                        <input pInputText type="text" (input)="tblItmAdj.filter($event.target.value, 'adjustment', 'equals')">
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td [class]="'ui-resizable-column'">
+                        <span>{{item['sku']}}</span>
+                    </td>
+                    <td [class]="'ui-resizable-column'">
+                        <span>{{item['name']}}</span>
+                    </td>
+                    <td pEditableColumn [class]="'ui-resizable-column'">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input type="text" OnlyNumber [(ngModel)]="item.adjustment" (keyup)="recalculateAdjustments()">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                <span class="text-right">{{preventMinusBug(item['adjustment']) | number: '0.4-4': 'pt-BR'}}</span>
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-toolbar>
+            <div class="ui-toolbar-group-left">
+                <button pButton type="button" label="Apagar" icon="fa fa-eraser" class="ui-button-warning" (click)="clearAdjustments()" [disabled]="areaText === undefined || areaText.length === 0"></button>
+            </div>
+            <div class="ui-toolbar-group-right">
+                <button pButton type="button" label="Salvar" icon="fa fa-save" class="ui-button-success" (click)="saveAdjustments()" [disabled]="areaText === undefined || areaText.length === 0"></button>
+            </div>
+        </p-toolbar>
+    </p-panel>
+    <p-toolbar>
+        <div class="ui-toolbar-group-left">
+            <button pButton type="button" label="Concluir" icon="fa fa-upload" class="ui-button-success" (click)="sendInventory()" [disabled]="sapinventory === null 
+                || sapinventory === undefined 
+                || sapinventory.length === 0 
+                || selInventories === null 
+                || selInventories === undefined 
+                || selInventories.length === 0"></button>
+        </div>
+    </p-toolbar>
+</div>

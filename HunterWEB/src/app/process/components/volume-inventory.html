@@ -1,0 +1,155 @@
+<!--component html goes here -->
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <label>LC</label>
+        <p-dropdown [options]="items" [(ngModel)]="product" [filter]="true" optionLabel="sku" filterBy="value.sku"
+            autoDisplayFirst="false" placeholder="Select LC" (onChange)="fillData($event)">
+            <ng-template let-item pTemplate="selectedItem">
+                <span>{{item.value.sku}}</span>
+            </ng-template>
+            <ng-template let-prd pTemplate="item">
+                <div class="ui-helper-clearfix">
+                    <span>{{prd.label}}</span>
+                </div>
+            </ng-template>
+        </p-dropdown>
+    <div class="ui-toolbar-group-left"></div>
+        <span>
+            <label for="txt-volume">Volume</label>
+            <input #txtVolume id="txt-volume" type="text" pInputText [(ngModel)]="volume">
+        </span>
+        <button pButton type="button" label="Calculate" class="ui-button-raised" (click)=calculate($event)></button>
+    </div>
+    <div class="ui-toolbar-group-right">
+        <button pButton type="button" label="Clear" class="ui-button-raised ui-button-danger" (click)=clearInventory($event)></button>
+    </div>
+</p-toolbar>
+<div *ngIf="product !== 'undefined'">
+    <h3 class="first">Properties</h3>
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-md-3">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fas fa-pallet"></i></span>
+                <span class="ui-float-label">
+                    <input id="txt-t5number" type="text" pInputText disabled [(ngModel)]="t5Number">
+                    <label for="txt-t5number">T5 Number</label>
+                </span>
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-3">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fas fa-pallet"></i></span>
+                <span class="ui-float-label">
+                    <input id="txt-code" type="text" pInputText disabled [(ngModel)]="code">
+                    <label for="txt-code">Code</label>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-md-3">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fas fa-arrows-alt-h"></i></span>
+                <span class="ui-float-label">
+                    <input id="txt-width" type="text" pInputText disabled [(ngModel)]="width">
+                    <label for="txt-width">Width</label>
+                </span>
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-3">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fas fa-arrows-alt-h"></i></span>
+                <span class="ui-float-label">
+                    <input id="txt-length" type="text" pInputText disabled [(ngModel)]="length">
+                    <label for="txt-length">Length</label>
+                </span>
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-3">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fas fa-arrows-alt-v"></i></span>
+                <span class="ui-float-label">
+                    <input id="txt-fheight" type="text" pInputText disabled [(ngModel)]="fheight">
+                    <label for="txt-fheight">Height (folded)</label>
+                </span>
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-3">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fas fa-arrows-alt-v"></i></span>
+                <span class="ui-float-label">
+                    <input id="txt-uheight" type="text" pInputText disabled [(ngModel)]="uheight">
+                    <label for="txt-uheight">Height (unfolded)</label>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-md-3">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fas fa-car"></i></span>
+                <span class="ui-float-label">
+                    <input id="txt-color-code" type="text" pInputText disabled [(ngModel)]="colorCode">
+                    <label for="txt-color-code">Color Code</label>
+                </span>
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-3">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fas fa-car"></i></span>
+                <span class="ui-float-label">
+                    <input id="txt-paint" type="text" pInputText disabled [(ngModel)]="paint">
+                    <label for="txt-paint">Paint</label>
+                </span>
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-3">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fas fa-car"></i></span>
+                <span class="ui-float-label">
+                    <input id="txt-motor-type" type="text" pInputText disabled [(ngModel)]="motorType">
+                    <label for="txt-motor-type">Engine Type</label>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<p-table #tbl [value]="inventory" [columns]="columns" [paginator]="rowCount > 0" [rows]="rowCount" *ngIf="inventory?.length > 0" [resizableColumns]="true" columnResizeMode="expand"
+        [responsive]="true">
+        <ng-template pTemplate="caption">
+            <div class="ui-helper-clearfix">
+                <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="All Data" (click)="tbl.exportCSV()"
+                    style="float:left"></button>
+                <button type="button" pButton icon="fa fa-file" iconPos="left" label="Selection Only" (click)="tbl.exportCSV({selectionOnly:true})"
+                    style="float:right"></button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>#</th>
+                <th *ngFor="let col of columns" pResizableColumn>
+                    {{col.header}}
+                </th>
+            </tr>
+            <tr>
+                <th></th>
+                <th *ngFor="let col of columns">
+                    <input pInputText type="text" (input)="tbl.filter($event.target.value, col.field, 'contains')">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-i="rowIndex">
+            <tr>
+                <td class="ui-resizable-column">{{i + 1}}</td>
+                <td class="ui-resizable-column" *ngFor="let col of columns">{{data[col.field]}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr>
+                <td>#</td>
+                <td *ngFor="let col of columns" pResizableColumn>
+                    {{col.header}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>

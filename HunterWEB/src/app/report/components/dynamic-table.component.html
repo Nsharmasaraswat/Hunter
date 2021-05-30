@@ -1,0 +1,84 @@
+<div class="dynamic-table">
+    <!--component html goes here -->
+    <p-table #tbl *ngIf="columns != null" [style]="{'overflow':'auto!important'}"
+        [value]="data" [columns]="columns" emptymessage="SEM DADOS PARA EXIBIÇÃO"
+        [scrollable]="true" [scrollHeight]="(scHeight) + ('%')"
+        [resizableColumns]="true" columnResizeMode="expand" immutable="false"
+        [paginator]="data.length > 0" [rows]="rowCount" [rowsPerPageOptions]="rowOptions"
+        exportFilename="Report-hunter.csv" csvSeparator=";"
+        [autoLayout]="true"  [responsive]="true" [rowHover]="true"
+        (sortFunction)="customSort($event)" [customSort]="true">
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngIf="rowNumberVisible" class="ui-p-6" [style.width]="'1%'">
+                <col *ngFor="let col of columns" [class]="col.priority === undefined ? 'ui-p-1' : ('ui-p-') + (col.priority)" [style.width]="col.width" [style.min-width]="col.min_width">
+                <col *ngIf="hasActions" class="ui-p-1" [style.min-width]="(action_buttons.length * 3) + ('rem')" [style.width]="'auto'">
+                <!-- <col *ngIf="hasActions" class="ui-p-1" [style.width]="'auto'"> -->
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="caption">
+            <div class="ui-helper-clearfix">
+                <span style="float: left">
+                    <button *ngIf="showCSV" type="button" pButton icon="fa fa-file-o" iconPos="left" label="Todos" (click)="tbl.exportCSV()"></button>
+                </span>
+                <span style="float: right">
+                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="40" placeholder="Filtro Global" (input)="tbl.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    <button *ngIf="showCSV" type="button" pButton icon="fa fa-file" iconPos="left" label="Apenas Seleção" (click)="tbl.exportCSV({selectionOnly:true})"></button>
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngIf="rowNumberVisible" pResizableColumn class="ui-p-6">#</th>
+                <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field" [class]="col.priority === undefined ? 'ui-p-1' : ('ui-p-') + (col.priority)" >
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+                <th *ngIf="hasActions" pResizableColumn class="ui-p-1">{{action_title}}</th>
+            </tr>
+            <tr *ngIf="showFilters">
+                <th *ngIf="rowNumberVisible" pResizableColumn class="ui-p-6"></th>
+                <th *ngFor="let col of columns" pResizableColumn [class]="col.priority === undefined ? 'ui-p-1' : ('ui-p-') + (col.priority)">
+                    <input pInputText type="text" (input)="tbl.filter($event.target.value, col.field, 'contains')" [ngClass]="'report-filter'">
+                </th>
+                <th *ngIf="hasActions" pResizableColumn class="ui-p-1"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-i="rowIndex">
+            <tr>
+                <td class="ui-resizable-column ui-p-6" *ngIf="rowNumberVisible"><span class="ui-column-title">#</span>{{i + 1}}</td>
+                <td [class]="('ui-resizable-column ') + (col.priority === undefined ? 'ui-p-1' : ('ui-p-') + (col.priority))" *ngFor="let col of columns">
+                    <span class="ui-column-title">{{col.header}}</span>
+                    <span *ngIf="col.type === 'DATE'">{{data[col.field] | date:'dd/MM/yyyy'}}</span>
+                    <span *ngIf="col.type === 'TIMESTAMP'">{{data[col.field] | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+                    <span *ngIf="col.type === 'NUMBER'">{{data[col.field] | number: '0.0-0'}}</span>
+                    <span *ngIf="col.type !== 'DATE' && col.type !== 'NUMBER' && col.type !== 'TIMESTAMP'">{{data[col.field]}}</span>
+                </td>
+                <td class="ui-resizable-column ui-p-1" *ngIf="hasActions">
+                    <span class="ui-column-title">{{action_title}}</span>
+                    <button pButton *ngFor="let action of action_buttons" [icon]="'fa-' + action.icon" class="ui-button-info" (click)="runAction(data['action_'+action.field]);"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="(columns.length) + (hasActions ? 1 : 0) + (rowNumberVisible ? 1 : 0)" [ngClass]="'ui-cell-text-center'">
+                    NENHUM REGISTRO ENCONTRADO
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer" *ngIf="showFooter">
+            <tr>
+                <td *ngIf="rowNumberVisible" class="ui-resizable-column ui-p-6">#</td>
+                <td *ngFor="let col of columns" [class]="('ui-resizable-column ') + (col.priority === undefined ? 'ui-p-1' : ('ui-p-') + (col.priority))">
+                    {{col.header}}
+                </td>
+                <td *ngIf="hasActions" class="ui-resizable-column ui-p-1"></td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorright" let-state>
+            Registros: {{tbl.totalRecords}}/{{state.totalRecords}}
+        </ng-template>
+    </p-table>
+</div>

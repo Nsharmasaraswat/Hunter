@@ -1,0 +1,12 @@
+{
+    "name": "Cloud",
+    "restserver": "http:///54.232.81.227:8085",
+    "coreserver": "http:///54.232.81.227:8085/hunter-core/api/",
+    "processserver": "http:///54.232.81.227:8085/hunter-core/api/",
+    "reportserver": "http:///54.232.81.227:8085/hunter-report/",
+    "tempreportserver": "http:///54.232.81.227:8085/hunter-core/api/",
+    "customserver": "http:///54.232.81.227:8085/hunter-custom-solar/api/",
+    "wsserver": "ws:///54.232.81.227:8085",
+    "wsprocess": "ws:///54.232.81.227:8085/hunter-core/",
+    "wscore": "ws:///54.232.81.227:8085/hunter-core/"
+}

@@ -1,0 +1,178 @@
+<h3>{{document?.name}}</h3>
+<div class="table-isolation">
+    <p-table [value]="docsCount | sort:'createdAt'" *ngIf="docsCount !== undefined" selectionMode="single" [(selection)]="selSib" dataKey="id" (onRowSelect)="selectSibling(selSib.id)" [paginator]="docsCount.length > 2"
+        [rows]="2">
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngFor="let col of columnsSiblings" [style.width]="col.width">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="ui-resizable-column" *ngFor="let col of columnsSiblings" pResizableColumn [pSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr [ngClass]="rowData.classe" [pSelectableRow]="rowData">
+                <td class="ui-resizable-column" *ngFor="let column of columnsSiblings">
+                    <span *ngIf="column['type'] === 'DATE'">{{rowData[column.field] | date:'dd/MM/yyyy'}}</span>
+                    <span *ngIf="column['type'] === 'TIMESTAMP'">{{rowData[column.field] | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+                    <span *ngIf="column['type'] === 'NUMBER'">{{rowData[column.field] | number: '0.0-0'}}</span>
+                    <span *ngIf="column['type'] === 'PERCENT'">{{rowData[column.field] | percent: '0.2-2'}}</span>
+                    <span *ngIf="column['type'] !== 'TIMESTAMP' && column['type'] !== 'DATE' && column['type'] !== 'NUMBER' && column['type'] !== 'PERCENT'">{{rowData[column.field]}}</span>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="columnsSiblings.length" [ngClass]="'ui-cell-text-center'">
+                    NÃO EXISTEM CONTAGENS PARA ESSE DOCUMENTO
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-table #tblSnap [value]="diff | sort:'address'" *ngIf="type === 'ADDRESS' && diff !== undefined">
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngFor="let col of columns" [style.width]="col.width">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="ui-resizable-column" *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+            <tr>
+                <th class="ui-resizable-column" *ngFor="let col of columns">
+                    <input pInputText type="text" (input)="tblSnap.filter($event.target.value, col.field, 'contains')" [size]="col.header.length + 3">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr [ngClass]="rowData.classe">
+                <td class="ui-resizable-column" *ngFor="let column of columns">
+                    <span *ngIf="column['type'] === 'DATE'">{{rowData[column.field] | date:'dd/MM/yyyy'}}</span>
+                    <span *ngIf="column['type'] === 'TIMESTAMP'">{{rowData[column.field] | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+                    <span *ngIf="column['type'] === 'NUMBER'">{{rowData[column.field] | number: '0.0-0'}}</span>
+                    <span *ngIf="column['type'] === 'PERCENT'">{{rowData[column.field] | percent: '0.2-2'}}</span>
+                    <span *ngIf="column['type'] !== 'TIMESTAMP' && column['type'] !== 'DATE' && column['type'] !== 'NUMBER' && column['type'] !== 'PERCENT'">{{rowData[column.field]}}</span>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-2">
+                        Total Inventário:
+                    </div>
+                    <div class="col-4">
+                        {{total?.totalInv | number:'2.0-0'}}
+                    </div>
+                    <div class="col-2">
+                        Total Estoque:
+                    </div>
+                    <div class="col-4">
+                        {{total?.totalSnap | number:'2.0-0'}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <hr />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        Diferença Estoque x Inventário:
+                    </div>
+                    <div class="col-8">
+                        {{total?.totalDiff | number:'2.0-0'}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        Diferença Relativa:
+                    </div>
+                    <div class="col-8">
+                        {{total?.totalDiffPercent | percent:'2.2-2'}}
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-table>
+
+    <p-table #tblSnap [value]="diffPrd | sort:'sku'" [columns]="columnsPrd" *ngIf="type === 'PRODUCT' && diffPrd !== undefined">
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngFor="let col of columnsPrd" [style.width]="col.width">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="ui-resizable-column" *ngFor="let col of columnsPrd" pResizableColumn [pSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+            <tr>
+                <th class="ui-resizable-column" *ngFor="let col of columnsPrd">
+                    <input pInputText type="text" (input)="tblSnap.filter($event.target.value, col.field, 'contains')" [size]="col.header.length + 3">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr [ngClass]="rowData.classe">
+                <td class="ui-resizable-column" *ngFor="let column of columnsPrd">
+                    <span *ngIf="column.type === 'DATE'">{{rowData[column.field] | date:'dd/MM/yyyy'}}</span>
+                    <span *ngIf="column.type === 'TIMESTAMP'">{{rowData[column.field] | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+                    <span *ngIf="column.type === 'NUMBER'">{{rowData[column.field] | number: '0.0-0'}}</span>
+                    <span *ngIf="column.type === 'PERCENT'">{{rowData[column.field] | percent: '0.2-2'}}</span>
+                    <span *ngIf="column.type !== 'TIMESTAMP' && column.type !== 'DATE' && column.type !== 'NUMBER' && column.type !== 'PERCENT'">{{rowData[column.field]}}</span>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-2">
+                        Total Inventário:
+                    </div>
+                    <div class="col-4">
+                        {{total?.totalInv | number:'2.0-0'}}
+                    </div>
+                    <div class="col-2">
+                        Total Estoque:
+                    </div>
+                    <div class="col-4">
+                        {{total?.totalSnap | number:'2.0-0'}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <hr />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        Diferença Estoque x Inventário:
+                    </div>
+                    <div class="col-8">
+                        {{total?.totalDiff | number:'2.0-0'}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        Diferença Relativa:
+                    </div>
+                    <div class="col-8">
+                        {{total?.totalDiffPercent | percent:'2.2-2'}}
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-table>
+</div>

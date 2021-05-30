@@ -1,0 +1,118 @@
+<div class="ui-fluid">
+  <div class="ui-g-12">
+    <div class="ui-g-9" #map leaflet [leafletOptions]="options" leafletDraw [leafletDrawOptions]="drawOptions"
+      (leafletDrawReady)="onDrawReady()" (leafletMapReady)="onMapReady($event)">
+      <p-dialog header="Editar Referência de Área" [(visible)]="display" [responsive]="true" showEffect="fade"
+        [modal]="true">
+        <!-- <form>
+          <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon">Ref:</span>
+              <input type="text" pInputText value={{currentLayer.ref}} #newRef/>
+              <button pButton (click)="saveNewRef(newRef.value, currentLayer._leaflet_id)"
+                type="submit" icon="fa fa-check" iconPos="left">
+              </button>
+          </div>
+      </form> -->
+      </p-dialog>
+    </div>
+    <div class="ui-g-3">
+      <p-panel *ngIf="battery != undefined">
+        <p-header>Battery</p-header>
+        <p [ngClass]="{'no-flight-reason': battery === undefined || battery < 60}">Battery:
+          {{battery ? battery?.toFixed(0) : 'NOT CONNECTED'}} {{battUnit}}</p>
+      </p-panel>
+      <p-panel
+        *ngIf="droneLatitude != undefined || droneLongitude != undefined || droneAltitude != undefined || droneHeight != undefined">
+        <p-header>Positioning</p-header>
+        <p>Latitude - {{droneLatitude?.toFixed(7)}} (Speed X: - {{droneSpeedX?.toFixed(2)}})</p>
+        <p>Longitude - {{droneLongitude?.toFixed(7)}} (Speed Y - {{droneSpeedY?.toFixed(2)}})</p>
+        <p>Altitude - {{droneAltitude?.toFixed(7)}} (Speed Z - {{droneSpeedZ?.toFixed(2)}})</p>
+        <p>Height - {{droneHeight?.toFixed(2)}}</p>
+      </p-panel>
+      <p-panel *ngIf="droneRoll != undefined || dronePitch != undefined || droneYaw != undefined">
+        <p-header>Drone</p-header>
+        <p>Roll - {{droneRoll}} (Speed - {{droneRollSpeed}})</p>
+        <p>Pitch - {{dronePitch}} (Speed - {{dronePitchSpeed}})</p>
+        <p>Yaw - {{droneYaw}} (Speed - {{droneYawSpeed}})</p>
+      </p-panel>
+      <p-panel
+        *ngIf="temperature != undefined || pressure != undefined || humidity != undefined || windSpeed != undefined || windDir != undefined || precipitation != undefined">
+        <p-header>Wetterstation (Weather Station)</p-header>
+        <p [ngClass]="{'no-flight-reason': temperature === undefined || temperature < -5}">Temperatur (Temperature) -
+          {{temperature | number: '1.2-2'}} {{temperatureUnit}}</p>
+        <p>Luftdruck (Pressure) - {{pressure | number: '1.2-2'}} {{pressureUnit}}</p>
+        <p>Luftfeuchtigkeit (Humidity) - {{humidity | number: '1.2-2'}} {{humidityUnit}}</p>
+        <p [ngClass]="{'no-flight-reason': windSpeed === undefined || windSpeed > 21.6}">Windgeschwindigkeit (Wind
+          Speed) - {{windSpeed | number: '1.2-2'}} {{windSpeedUnit}}</p>
+        <p>Windrichtung (Wind Direction) - {{windDir}} {{winddirUnit}}</p>
+        <p [ngClass]="{'no-flight-reason': precipitation === undefined || precipitation > 0.1}">Niederschlag
+          (Precipitation) - {{precipitation | number: '1.2-2'}} {{precipitationUnit}}</p>
+      </p-panel>
+      <p-panel>
+        <p-header>Wetterschicht (Weather Layer)</p-header>
+        <div class="ui-g">
+          <div class="ui-g-12">
+            <p-radioButton name="weather" value="precipitation_new" label="Niederschlag (Precipitation)"
+              [(ngModel)]="currentWeatherLayer" (click)="weatherLayerChanged($event)"></p-radioButton>
+          </div>
+          <div class="ui-g-12">
+            <p-radioButton name="weather" value="wind_new" label="Windgeschwindigkeit (Wind Speed)" [(ngModel)]="currentWeatherLayer"
+              (click)="weatherLayerChanged($event)"></p-radioButton>
+          </div>
+          <div class="ui-g-12">
+            <p-radioButton name="weather" value="clouds_new" label="Bewölkung (Clouds)" [(ngModel)]="currentWeatherLayer"
+              (click)="weatherLayerChanged($event)"></p-radioButton>
+          </div>
+        </div>
+      </p-panel>
+      <p-panel>
+        <p-header>Actions</p-header>
+        <button pButton type="button" label="NOTAMs" icon="fa fa-plane" class="ui-button-info"
+          (click)="checkNOTAMs()"></button>
+        <button pButton type="button" label="Checklist (LAUNCH)" icon="fa fa-upload" class="ui-button-success" [disabled]="windSpeed == undefined || windSpeed > 21.6 || precipitation == undefined || precipitation > 0.1" (click)="checkList()"></button>
+        <file-upload></file-upload>
+      </p-panel>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <span *ngIf="statusText">{{statusText}}</span>
+  </div>
+  <!-- <rawdata [lstRawData]="msgs"></rawdata> -->
+  <p-dialog header="NOTAMs" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [draggable]="true"
+    [contentStyle]="{'min-height':'70vh', 'min-width':'70vw'}" appendTo="body">
+    <p-table #tblNotam [value]="notams | sort:'id'" [columns]="notamColumns" [paginator]="true" [rows]="20">
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of notamColumns">
+                    {{col.header}}
+                </th>
+            </tr>
+            <tr>
+                <th *ngFor="let col of notamColumns">
+                    <input pInputText type="text" (input)="tblNotam.filter($event.target.value, col.field, 'contains')" size="10">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data>
+            <tr>
+                <td *ngFor="let col of notamColumns">
+                    {{data[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+  </p-dialog>
+  <p-dialog header="Pre-Flight Checklist" [(visible)]="dialogChecklist" [responsive]="true" showEffect="fade" [modal]="true" [draggable]="true" appendTo="body">
+      <div><p-checkbox name="plchecklist" value="clbattery" [(ngModel)]="clbattery" label="Ich habe die Akkus überprüft (Ladestand und Aussehen)" pTooltip="I checked the batteries" tooltipPosition="top" binary="true"></p-checkbox></div>
+      <div><p-checkbox name="plchecklist" value="clblades" [(ngModel)]="clblades" label="Ich habe die Rotorblätter auf einwandfreien Zustand überprüft" pTooltip="I chekced the rotor blades to faultlessly conditions" tooltipPosition="top" binary="true"></p-checkbox></div>
+      <div><p-checkbox name="plchecklist" value="clmotors" [(ngModel)]="clmotors" label="Ich habe die Motoren auf freie Beweglichkeit überprüft" pTooltip="I checked the motors on felxibility" tooltipPosition="top" binary="true"></p-checkbox></div>
+      <div><p-checkbox name="plchecklist" value="cllanding" [(ngModel)]="cllanding" label="Ich habe das Landegestell auf Stabilität überprüft" pTooltip="I checked the landing stage on stability" tooltipPosition="top" binary="true"></p-checkbox></div>
+      <div><p-checkbox name="plchecklist" value="clhomepos" [(ngModel)]="clhomepos" label="Ich habe den Start- und Landeplatz so abgesichert, dass er für andere Personen klar erkennbar und unzugänglich ist" pTooltip="I checked the Home Position for the drone and marked it and will care for it to be not obstructed by other people" tooltipPosition="top" binary="true"></p-checkbox></div>
+      <div><p-checkbox name="plchecklist" value="clsurroundings" [(ngModel)]="clsurroundings" label="Ich habe mein Umfeld auf äußere Einflüsse überprüft und kann nach persönlichem Ermessen die Startfreigabe geben" pTooltip="I checked the surrounding on outer influences and on individual discretion I can give the clearance to start" tooltipPosition="top" binary="true"></p-checkbox></div>
+      <div><p-checkbox name="plchecklist" value="clLegal" [(ngModel)]="clLegal" label="Ich kenne die gesetzlichen Anforderungen zum Steuern einer Drohne und bestätige hiermit, dass ich diese erfülle." pTooltip="I know the legal requirements to pilot a drone and confirm to follow them" tooltipPosition="top" binary="true"></p-checkbox></div>
+      <p-footer>
+          <h1 *ngIf="clbattery && clblades && clmotors && cllanding && clhomepos && clsurroundings && clLegal" class="ready-to-launch">READY TO LAUNCH</h1>
+          <button pButton type="button" label="LAUNCH" icon="fa fa-plane" class="ui-button-success" [disabled]="!clbattery || !clblades || !clmotors || !cllanding || !clhomepos || !clsurroundings || !clLegal" (click)="checkList()"></button>
+      </p-footer>
+  </p-dialog>
+</div>

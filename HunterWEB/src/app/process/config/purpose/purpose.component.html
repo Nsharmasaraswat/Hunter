@@ -1,0 +1,119 @@
+<h2 class="first">{{getHeader()}}</h2>
+
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" (click)="onBack()" icon="fa-arrow-left" class="ui-button-warning"></button>
+        <button pButton type="button" (click)="onSave()" icon="fa-check" class="ui-button-success"></button>
+        <button pButton type="button" (click)="onDiscard()" icon="fa-close" class="ui-button-danger"></button>
+    </div>
+    <div class="ui-toolbar-group-right">
+    </div>
+</p-toolbar>
+
+<div *ngIf="id === '0'" class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-6">
+        <div class="ui-inputgroup">
+            <input type="text" pInputText [(ngModel)]="data.name" placeholder="name">
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-6">
+        <div class="ui-inputgroup">
+            <input type="text" pInputText [(ngModel)]="data.metaname" placeholder="metaname">
+        </div>
+    </div>
+</div>
+
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-6">
+        <h4 class="first">Origins</h4>
+        <p-table [value]="origins | sort:'name'" selectionMode="single" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"
+            [(selection)]="selectedOriginTable">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Metaname</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData>
+                <tr [pSelectableRow]="rowData">
+                    <td>{{rowData.metaname}}</td>
+                    <td>{{rowData.name}}</td>
+                    <td>{{rowData.status}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="ui-g-12 ui-md-6">
+        <h4 class="first">Add New Origin</h4>
+        <div class="ui-inputgroup">
+            <p-dropdown [options]="allOrigins | sort: 'name'" [(ngModel)]="selectedOrigin" optionLabel="metaname" placeholder="Select a Origin"></p-dropdown>
+            <button pButton type="button" (click)="onAddOrigin()" icon="fa-plus" class="ui-button-primary"></button>
+            <button pButton type="button" (click)="onRemoveOrigin()" icon="fa-trash" class="ui-button-danger"></button>
+        </div>
+    </div>
+</div>
+
+
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-6">
+        <h4 class="first">Tasks</h4>
+        <p-table [value]="tasks | sort:'name'" selectionMode="single" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"
+            [(selection)]="selectedTaskTable">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Metaname</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData>
+                <tr [pSelectableRow]="rowData">
+                    <td>{{rowData.metaname}}</td>
+                    <td>{{rowData.name}}</td>
+                    <td>{{rowData.status}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="ui-g-12 ui-md-6">
+        <h4 class="first">Add New Task</h4>
+        <div class="ui-inputgroup">
+            <p-dropdown [options]="allTasks | sort: 'name'" [(ngModel)]="selectedTask" optionLabel="name" placeholder="Select a Task"></p-dropdown>
+            <button pButton type="button" (click)="onAddTask()" icon="fa-plus" class="ui-button-primary"></button>
+            <button pButton type="button" (click)="onRemoveTask()" icon="fa-trash" class="ui-button-danger"></button>
+        </div>
+    </div>
+</div>
+
+
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-6">
+        <h4 class="first">Processes</h4>
+        <p-table [value]="processes | sort:'name'" selectionMode="single" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"
+            [(selection)]="selectedProcessTable">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Metaname</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData>
+                <tr [pSelectableRow]="rowData">
+                    <td>{{rowData.metaname}}</td>
+                    <td>{{rowData.name}}</td>
+                    <td>{{rowData.status}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="ui-g-12 ui-md-6">
+        <h4 class="first">Add New Process</h4>
+        <div class="ui-inputgroup">
+            <p-dropdown [options]="allProcesses | sort: 'name'" [(ngModel)]="selectedProcess" optionLabel="name" placeholder="Select a Process"></p-dropdown>
+            <button pButton type="button" (click)="onAddProcess()" icon="fa-plus" class="ui-button-primary"></button>
+            <button pButton type="button" (click)="onRemoveProcess()" icon="fa-trash" class="ui-button-danger"></button>
+        </div>
+    </div>
+</div>
